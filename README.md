@@ -1,3 +1,8 @@
+# How it works
+Follow this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
+Use this for virtenv setup: https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
+The changes in the files settings.py and url.py have already been done.
+
 # 50.003_ESC_Project
 
 # client folder
