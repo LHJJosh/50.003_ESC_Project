@@ -1,7 +1,8 @@
 # How it works
-Follow this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
-Use this for virtenv setup: https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
-The changes in the files settings.py and url.py have already been done.
+1) Follow this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
+2) Use this for virtenv setup: https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
+3) The changes in the files settings.py and url.py have already been done.
+4) Ignore ascenda-react
 
 # 50.003_ESC_Project
 
