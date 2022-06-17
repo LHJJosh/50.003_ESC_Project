@@ -3,6 +3,13 @@
 2) Use this for virtenv setup: https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
 3) The changes in the files settings.py and url.py have already been done.
 4) Ignore ascenda-react
+5) For Windows:
+
+> python -m pip install -U --force-reinstall -r requirements.txt
+For MacOS/Linux: (For Linux, you might need to type pip3 instead)
+
+$ python -m pip install -U --force-reinstall -r requirements.txt
+
 
 # 50.003_ESC_Project
 
