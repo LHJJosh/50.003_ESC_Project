@@ -24,12 +24,37 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link rel="stylesheet" href="booking.css">
     <title>React App</title>
   </head>
   <body>
-    <h1>React App</h1>
-    <p>This is just the beginning</p>
+    <h1>Bookings</h1>
+    <h2>Guest</h2>
+    <div id="booking_form"></div>
+    <form action="/action_page.php">
+        <input id="titles" name="titles" type="text" placeholder="Title"/>
+        <input id="fname" name="fname" type="text" placeholder="First name"/>
+        <input id="lname" name="lname" type="text" placeholder="Last name"/>
+        <br>
+        <input id="country_code" name="country_code" type="text" placeholder="Country Code"/>
+        <input id="phone_number" name="phone_number" type="text" placeholder="Phone Number"/>
+        <input id="special_request" name="special_request" type="text" placeholder="Special Request"/>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <br>
     
+    <h2>Your Details</h2>
+    <div id="booking_form"></div>
+    <form action="/action_page.php">
+        <input id="fname" name="fname" type="text" placeholder="First name"/>
+        <input id="email_address" name="email_address" type="text" placeholder="Email Address"/>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form> 
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -42,5 +67,12 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <!-- <script src="booking.js"></script> -->
   </body>
 </html>
