@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from django.views.generic import TemplateView
+from ascendaApp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     # path('api/', include('mynewapp.urls')),
-    re_path('.*', TemplateView.as_view(template_name='index.html')),
+    path('', views.index, name='main-view'),
+    path('index/', views.index, name='main-view'),
+    path('booking/', views.booking, name='booking-view'),
+    #re_path('.*', TemplateView.as_view(template_name='index.html')),
+    path('admin/', admin.site.urls),
 ]
