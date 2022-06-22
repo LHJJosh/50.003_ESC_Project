@@ -28,7 +28,14 @@ npm install
 ```
 cd ascendaApp/
 python manage.py runserver # django
-npm start
+npm start                  # react
+```
+
+## Deploy locally
+```
+cd ascendaApp/
+npm run build
+python manage.py runserver
 ```
 
 ## Project structure
@@ -37,7 +44,11 @@ npm start
     ├───ascendaApp      django project
     ├───hotelSearch     django app
     ├───public          public assets
-    ├───src             
+        ├───index.html  page template
+        └───...
+    ├───src             js and css here
+        ├───index.js    entry point
+        └───...
     ├───manage.py       
     └───...
 ```
