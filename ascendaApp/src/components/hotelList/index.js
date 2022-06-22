@@ -10,7 +10,7 @@ import "./styles.css";
 
 class HotelListInternal extends React.Component {
   render() {
-    return <div className='HotelList' width='60%'>
+    return <div className='hotelList'>
       <div className='selectionOption'>
         <HotelDropdown/>
       </div>
