@@ -2,7 +2,7 @@
   width: 80%
 }
 
-.selectionOption {
+.dropdownDiv {
   text-align: right;
   padding-bottom: 10px;
 }
@@ -15,4 +15,23 @@
   z-index: 9999;
   /* border-color: grey;
   border: outset; */
+}
+
+.cardInfoBox {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: -webkit-fill-available; 
+}
+
+.cardBookBox {
+  align-self: center;
+  margin-left: auto;
+  margin-right: 0;
+  width: 280px;
+}
+
+.cardDivider {
+  margin-left: auto;
+  margin-right: 0;
 }

@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import Divider from '@mui/material/Divider';
 
 
 class HotelListCardInternal extends React.Component {
@@ -26,10 +27,7 @@ class HotelListCardInternal extends React.Component {
       alt={this.props.hotelName}
     />
 
-    <Box sx={{ display: 'flex', 
-      flexDirection: 'column', 
-      textAlign: 'left'}}
-    >
+    <Box className='cardInfoBox'>
 
       <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography component='div' variant='h5'>
@@ -51,11 +49,9 @@ class HotelListCardInternal extends React.Component {
 
     </Box>
 
-    <Box sx={{ 
-      alignSelf: 'center',
-      marginLeft: 'auto',
-      marginRight: 0}}
-    >
+    <Divider className='cardDivider' orientation="vertical" flexItem />
+
+    <Box className='cardBookBox'>
       <CardContent>
         <Typography component='div' variant='body1'>
           SGD {this.props.hotelPrice}

@@ -11,7 +11,7 @@ import "./styles.css";
 class HotelListInternal extends React.Component {
   render() {
     return <div className='hotelList'>
-      <div className='selectionOption'>
+      <div className='dropdownDiv'>
         <HotelDropdown/>
       </div>
 
