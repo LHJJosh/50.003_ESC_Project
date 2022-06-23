@@ -1,34 +1,54 @@
-# How it works
-1) Follow this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
-2) Use this for virtenv setup: https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
-3) The changes in the files settings.py and url.py have already been done.
-4) Ignore ascenda-react
-5) For Windows:
-
-> python -m pip install -U --force-reinstall -r requirements.txt
-For MacOS/Linux: (For Linux, you might need to type pip3 instead)
-
-$ python -m pip install -U --force-reinstall -r requirements.txt
-
-
 # 50.003_ESC_Project
 
-# client folder
+## Project creation
+Refer to this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
+```
+# Django setup
+pip install django
+django-admin startproject ascendaDjango
+django-admin startapp ascendaApp
+# add ascendaApp to INSTALLED_APPS in ascendaApp/ascendaApp/settings.py
+# add react directory to urlpatterns in ascendaApp/ascendaApp/url.py
 
-# - This folder contains the frontend code, the code that interacts with the user.
+# React setup
+npm install -g create-react-app
+create-react-app ascenda-app
+mv ascenda-app/*
+```
 
-# server folder
+## Environment setup
+Create your conda environment or python venv and run the following in it. 
+If unsure, refer to https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/.
+```
+python -m pip install -U --force-reinstall -r requirements.txt  # use pip3 for Linux
+npm install
+```
 
-# - This folder contains the backend code.
+## Run app
+```
+cd ascendaApp/
+python manage.py runserver # django
+npm start                  # react
+```
 
-# Both folders also contain two other folders, src and dist.
+## Deploy locally
+```
+cd ascendaApp/
+npm run build
+python manage.py runserver
+```
 
-# - src folder
-
-# This folder contains all of the source code (to write and modify)
-
-# - dist folder
-
-# dist (short for distribution) contains the compiled code. This code is automatically generated from
-
-# your source code, and it is the code you ship to your server – and users.
+## Project structure
+```
+└───ascendaApp:         main app
+    ├───ascendaApp      django project
+    ├───hotelSearch     django app
+    ├───public          public assets
+        ├───index.html  page template
+        └───...
+    ├───src             js and css here
+        ├───index.js    entry point
+        └───...
+    ├───manage.py       
+    └───...
+```
