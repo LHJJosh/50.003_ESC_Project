@@ -15,4 +15,10 @@ def index(request):
 def booking(request):
     return render(request, BASE_DIR / 'build/booking.html')
 
+def front(request):
+    context = { }
+    return render(request, "index.html", context)
 
+def loadPage(request):
+    context = { }
+    return render(request, "booking.html", context)

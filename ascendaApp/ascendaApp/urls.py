@@ -20,9 +20,10 @@ from ascendaApp import views
 
 urlpatterns = [
     # path('api/', include('mynewapp.urls')),
-    path('', views.index, name='main-view'),
-    path('index/', views.index, name='main-view'),
+    #path('', views.index, name='main-view'),
+    #path('index/', views.index, name='main-view'),
     path('booking/', views.booking, name='booking-view'),
     #re_path('.*', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
+    path("", views.front, name="front"),
 ]

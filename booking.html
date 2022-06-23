@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+  </head>
+  <body>
+    <h1>Bookings</h1>
+    <h2>Guest</h2>
+    <div id="booking_form"></div>
+    <form action="/action_page.php">
+        <input id="titles" name="titles" type="text" placeholder="Title"/>
+        <input id="fname" name="fname" type="text" placeholder="First name"/>
+        <input id="lname" name="lname" type="text" placeholder="Last name"/>
+        <br>
+        <input id="country_code" name="country_code" type="text" placeholder="Country Code"/>
+        <input id="phone_number" name="phone_number" type="text" placeholder="Phone Number"/>
+        <input id="special_request" name="special_request" type="text" placeholder="Special Request"/>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <br>
+    
+    <h2>Your Details</h2>
+    <div id="booking_form"></div>
+    <form action="/action_page.php">
+        <input id="fname" name="fname" type="text" placeholder="First name"/>
+        <input id="email_address" name="email_address" type="text" placeholder="Email Address"/>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form> 
+
+    <button type="button" onclick="App()">Try it</button>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!-- ... existing HTML ... -->
+
+    <div id="like_button_container"></div>
+
+    <!-- ... existing HTML ... -->
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <!-- <script src="booking.js"></script> -->
+    <script src="booking.jsx"></script>
+  </body>
+</html>
