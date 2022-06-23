@@ -17,6 +17,9 @@ function Navbar() {
         <li>
           <Link to="/bookings">Bookings</Link>
         </li>
+        <li>
+          <Link to="/app">App</Link>
+        </li>
       </ul>
     </nav>
   );
