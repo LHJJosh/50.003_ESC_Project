@@ -1,6 +1,7 @@
 import React from 'react';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import axios from "axios";
 
 import { HotelListItem } from './hotelListItem.js'
 import { HotelListCard } from './hotelListCard.js'
@@ -9,7 +10,37 @@ import { HotelDropdown } from './hotelDropdown.js'
 import "./styles.css";
 
 class HotelListInternal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hotelList: []
+    }
+  }
+
+  refreshList = () => {
+    axios
+      .get('/api/getHotelView/')
+      .then((res) => this.setState({ hotelList: res.data }))
+      .catch((err) => console.log(err));
+  }
+
+  componentDidMount() {
+    this.refreshList();
+    console.log(this.state.hotelList);
+  }
+
   render() {
+    const renderHotelList = this.state.hotelList.map((hotel) => 
+      <div>
+        <HotelListCard hotelName={hotel.name}
+                      hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
+                      hotelAddress={hotel.address}
+                      hotelPrice={hotel.price}
+                      hotelDeal='1 for 1 ??!?'/>    
+        <Divider variant='inset' component='li' />
+      </div>
+    );
+
     return <div className='hotelList'>
       <div className='dropdownDiv'>
         <HotelDropdown/>
@@ -20,25 +51,7 @@ class HotelListInternal extends React.Component {
                       primaryText='Oui Oui'
                       secondary='Sandra Adams'
                       secondaryText=" — Do you have Paris recommendations? Have you ever…"/> */}
-        <HotelListCard hotelName='Studio M Hotel'
-                      hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
-                      hotelAddress='3 Nanson Road'
-                      hotelPrice='450'
-                      hotelDeal='1 for 1 ??!?'/>
-        
-        <Divider variant='inset' component='li' />
-        <HotelListCard hotelName='Park Hotel Clarke Quay'
-                      hotelImage={require('../../assets/cardmedia_hotel2.jpg')}
-                      hotelAddress='1 Unity Street'
-                      hotelPrice='302'
-                      hotelDeal='2 for 1 LOL'/>
-        
-        <Divider variant='inset' component='li' />
-        <HotelListCard hotelName='Aqueen Hotel Paya Lebar'
-                      hotelImage={require('../../assets/cardmedia_hotel3.jpg')}
-                      hotelAddress='33 Jalan Afifi'
-                      hotelPrice='192'
-                      hotelDeal='3 for 1 :O'/>
+        { renderHotelList }
       </List>
     </div>
   }
