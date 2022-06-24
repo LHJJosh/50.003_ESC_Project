@@ -1,7 +1,7 @@
 import * as React from 'react';
 import "./styles.css";
 
-export default function homePage() {
+export default function HomePage() {
     return(
         <><head>
             <link rel="stylesheet" href='styles.css'/>

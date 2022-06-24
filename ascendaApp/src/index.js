@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
-import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 import Bookings from "./pages/Bookings";
-import homePage from "./components/indexPage/indexPage";
+import HomePage from "./components/indexPage/indexPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from "./App";
 
 export default function Index() {
@@ -14,12 +14,12 @@ export default function Index() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<homePage />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="app" element={<App />} />
-          <Route path="*" element={<NoPage />} />
+        <Route index element={<HomePage />} />
+        <Route path="blogs" element={<Blogs />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="bookings" element={<Bookings />} />
+        <Route path="app" element={<App />} />
+        <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
