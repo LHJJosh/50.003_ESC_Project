@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+from .serializers import Serializer
+from .models import Hotel
 
 import os
 from pathlib import Path
@@ -11,7 +14,6 @@ def index(request):
     print(BASE_DIR)
     return render(request, BASE_DIR / 'build/index.html')
 
-
 def booking(request):
     return render(request, BASE_DIR / 'build/booking.html')
 
@@ -22,3 +24,7 @@ def front(request):
 def loadPage(request):
     context = { }
     return render(request, "booking.html", context)
+
+class GetHotelView(viewsets.ModelViewSet):
+    serializer_class = Serializer
+    queryset = Hotel.objects.all()
