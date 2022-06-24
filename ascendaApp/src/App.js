@@ -19,6 +19,7 @@ class AppInternal extends React.Component {
           {/* <Route path="/" element={<Layout />}> */}
           {/* <Route index element={<HomePage />} /> */}
           <Route path="/" element={<HomePage />} />
+          <Route path="listings" element={<HotelList />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="*" element={<NoPage />} />
           {/* </Route> */}

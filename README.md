@@ -24,11 +24,15 @@ python -m pip install -U --force-reinstall -r requirements.txt  # use pip3 for L
 npm install
 ```
 
-## Run app
+## Run app locally
 ```
 cd ascendaApp/
 python manage.py runserver # django
 npm start                  # react
+
+# Visit localhost:8000/admin/
+# Visit localhost:8000/api/getHotelView/
+# Visit localhost:8000/api/getHotelView/7/ # to update / delete for id 7
 ```
 
 ## Deploy locally
@@ -39,15 +43,12 @@ python manage.py runserver  # start django server
 ```
 
 ## Change database models
+Refer to this guide for Django-REST: https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
 ```
 python manage.py makemigrations ascendaApp  # update migrations from Django models
 python manage.py sqlmigrate ascendaApp 0001 # returns SQL from migrations
 python manage.py migrate                    # apply migrations
-
 python manage.py createsuperuser            # create admin
-# Visit http://127.0.0.1:8000/admin/
-# Visit http://127.0.0.1:8000/api/
-# Visit http://127.0.0.1:8000/api/getHotelView/7/ to update / delete for id 7
 ```
 
 ## Experiment with django shell
