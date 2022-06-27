@@ -6,6 +6,7 @@ import Bookings from "./pages/Bookings";
 import HomePage from "./components/homePage";
 import { HotelList } from './components/hotelList';
 import { HotelSearch } from './components/hotelSearch';
+import { DetailsPage } from "./components/hotelDetails";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
