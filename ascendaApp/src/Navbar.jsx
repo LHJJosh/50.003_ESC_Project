@@ -10,7 +10,17 @@ const Navbar = (props) => {
             <Nav className="ml-auto">
               <NavItem>
                 <NavLink to="/" className="nav-link">
-                  Index Page
+                  Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/hotelsearch" className="nav-link">
+                  Hotel Search
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/hoteldetails" className="nav-link">
+                  Hotel Details
                 </NavLink>
               </NavItem>
               <NavItem>

@@ -3,11 +3,9 @@ import logo from './logo.svg';
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import Bookings from "./pages/Bookings";
-import HomePage from "./components/homePage";
-import { HotelList } from './components/hotelList';
-import { HotelSearch } from './components/hotelSearch';
-import { DetailsPage } from "./components/hotelDetails";
-
+import HotelDetails from "./pages/HotelDetails";
+import Home from "./pages/Home";
+import HotelSearches from "./pages/HotelSearch";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 
@@ -18,7 +16,9 @@ class AppInternal extends React.Component {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
+        <Route index element={<Home />} />
+        <Route path="hotelsearch" element={<HotelSearches />} />
+        <Route path="hoteldetails" element={<HotelDetails />} />
         <Route path="bookings" element={<Bookings />} />
         <Route path="*" element={<NoPage />} />
         </Route>
