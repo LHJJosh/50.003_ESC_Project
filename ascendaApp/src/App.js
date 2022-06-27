@@ -6,6 +6,7 @@ import Bookings from "./pages/Bookings";
 import HomePage from "./components/homePage";
 import { HotelList } from './components/hotelList';
 import { HotelSearch } from './components/hotelSearch';
+import { DetailsPage } from "./components/hotelDetails";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
@@ -21,6 +22,7 @@ class AppInternal extends React.Component {
           <Route path="/" element={<HomePage />} />
           <Route path="listings" element={<HotelList />} />
           <Route path="bookings" element={<Bookings />} />
+          <Route path="details" element={<DetailsPage />} />
           <Route path="*" element={<NoPage />} />
           {/* </Route> */}
         </Routes>

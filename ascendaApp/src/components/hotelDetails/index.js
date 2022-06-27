@@ -1,6 +1,4 @@
 import React from 'react';
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
-//import ReactDOM from 'react-dom';
 import './styles.css';
 import { HeaderCard } from './header';
 import { DetailsCard } from './extraDetails';
@@ -22,6 +20,7 @@ export function DetailsPage() {
                     roomImg2 = "https://d2ey9sqrvkqdfs.cloudfront.net/diH7/4.jpg" 
                     roomRate2 = "$Test2"/>
         <MapsCard></MapsCard>
+        <br/>
       </div>
     );
   }
