@@ -1,0 +1,98 @@
+*{
+    box-sizing: border-box;
+    font-family: san system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.detailsPage{
+    background-color: white;
+    color: black;
+}
+
+
+.headerCard{
+    padding: 5% 10%;
+    padding-bottom: 100px;
+}
+.headerText{
+    display: inline-block;
+    font-size: 120%;
+    padding-inline-end: 2%;
+    width: 50%;
+}
+.headerGallery{
+    padding-inline-start: 2%;
+    width: 50%;
+    float: right;
+}
+.headerGallery img {
+    display: block;
+    height: 300px;
+    object-fit: cover;
+}
+.roomOptionsButton{
+    font-size: 18px;
+    padding: 10px 24px;
+    border-radius: 8px;
+}
+
+.detailsCard{
+    margin: 10%;
+    padding: 2% 3%;
+    border: solid;
+    border-width: thin;
+}
+/* .detailsText{
+    padding-inline-end: 2%;
+} */
+
+.roomsCard{
+    margin: 10px 10%;
+    margin-bottom: 10%;
+}
+.roomCard{
+    display: block;
+    height: 220px;
+    overflow: hidden;
+    border-bottom: solid;
+    border-width: thin;
+    margin-bottom: 20px;
+}
+.roomsImg {
+    float: left;
+    margin-left: 10px;
+}
+.roomsImg img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+.roomsText {
+    float:right;
+    text-align: right;
+    margin-right: 30px;
+}
+.bookNowButton {
+    font-size: 18px;
+    padding: 10px 24px;
+    border-radius: 8px;
+}
+
+.mapsCard{
+    margin: 10px 10%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-width: thin;
+}
+.map{
+    display: block;
+    height: 500px;
+    width: 500px;
+}
+
+.mapsText{
+    display: inline-block;
+    width: 40%;
+}
