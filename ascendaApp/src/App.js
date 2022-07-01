@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import HotelSearches from "./pages/HotelSearch";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
-
+import "./Navbarstyle.css"
 
 class AppInternal extends React.Component {
   render() {

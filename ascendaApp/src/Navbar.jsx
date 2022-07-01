@@ -1,13 +1,14 @@
 import React from "react";
 import { Nav, NavItem} from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Router } from 'react-router-dom';
+import "./Navbarstyle.css"
 
 const Navbar = (props) => {
 	return (
-      <nav className="navbar navbar-expand-md navbar-light sticky-top" 	role="navigation">
-        <div className="container-fluid">
-            <a className="navbar-brand" href="/home">Brand</a>
-            <Nav className="ml-auto">
+      <nav className="navbar navbar-expand-md sticky-top" 	role="navigation">
+        <div className="header"> {/*container-fluid*/}
+            <a className="navbar-brand" href="#">ASCENDA</a>
+            <Nav className="mr-auto">
               <NavItem>
                 <NavLink to="/" className="nav-link">
                   Home

@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  overflow: hidden;
+  background-color: midnightblue;
+  padding: 20px 10px;
+}
+
+.header Routes {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 20px;
+  border-radius: 4px;
+}
+
+.header Routes.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header Routes:hover {
+  background-color: #3433fa;
+  color: white;
+}
+
+.header Routes.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header Routes {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
+}
