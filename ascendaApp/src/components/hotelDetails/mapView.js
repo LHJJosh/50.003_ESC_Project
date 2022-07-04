@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMemo } from 'react';
 import './styles.css';
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
@@ -18,13 +19,14 @@ export function MapsCard(){
     );
 }
 
-function Map(){
-    const center = {lat: 1.28624, lng: 103.852889}
+function Map(){  
+    const center = {lat: 1.28624, lng: 103.852889};
     return (
         <div>
             <GoogleMap zoom = {18} center = {center} mapContainerClassName="map">
-                <Marker position = {center} />
+                <Marker position = {center}/>
             </GoogleMap>
         </div>
     )
 }
+
