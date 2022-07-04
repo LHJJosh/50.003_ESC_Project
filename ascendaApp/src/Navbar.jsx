@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = (props) => {
 	return (
-      <nav className="navbar navbar-expand-md navbar-light sticky-top" 	role="navigation">
+      <nav className="nav" 	role="navigation">
         <div className="container-fluid">
-            <a className="navbar-brand" href="/home">Brand</a>
+            <a className="navbar-brand" href="/">Ascenda</a>
             <Nav className="ml-auto">
               <NavItem>
                 <NavLink to="/" className="nav-link">

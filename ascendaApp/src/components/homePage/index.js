@@ -4,13 +4,6 @@ import "./styles.css";
 export default function HomePage() {
   return(
     <body>
-      <div class="header">
-        <a href="#default" class="logo">Ascenda</a>
-        <div class="header-right">
-            <a class="active" href="#home">Home</a>
-            <a href="#login">Login/Sign up</a>
-        </div>
-      </div>
       
       <div class="search">
           Destination
