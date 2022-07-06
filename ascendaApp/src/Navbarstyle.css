@@ -25,7 +25,7 @@
 }
 
 .header Routes:hover {
-  background-color: #3433fa;
+  background-color: royalBlue;
   color: white;
 }
 
@@ -48,4 +48,8 @@
   .header-right {
     float: none;
   }
+}
+
+svg {
+  padding: 0px;
 }
