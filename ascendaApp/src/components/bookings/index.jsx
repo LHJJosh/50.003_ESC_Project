@@ -126,6 +126,17 @@ export default function SignUp() {
                     autoComplete="Phone Number"
                   />
                 </Grid>
+                <Grid item xs={120} sm={"true"} >
+                    <TextField
+                      required
+                      fullWidth
+                      id="emailAddress"
+                      label="Email Address"
+                      name="emailAddress"
+                      autoComplete="email-address"
+                      autoFocus
+                    />
+                </Grid>
                 <Grid item xs={60}>
                   <TextField
                     required
@@ -140,62 +151,7 @@ export default function SignUp() {
               </Grid>
             </Box>
           </Box>
-          <br>
-          </br>
-          <Box
-            sx={{
-              marginLeft: 2,
-              marginRight: 2,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography component="h1" variant="h5">
-                Your Details
-            </Typography>
-
-            <Box>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2} columns={60}>
-                  <Grid item xs={60} sm={30}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      autoFocus
-                    />
-                  </Grid>
-                <Grid item xs={60} sm={30}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                  />
-                </Grid>
-                  <Grid item xs={60}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="emailAddress"
-                      label="Email Address"
-                      name="emailAddress"
-                      autoComplete="email-address"
-                      autoFocus
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-          </Box>
-
-            
+          
           <br>
           </br>
           <Box
@@ -258,58 +214,6 @@ export default function SignUp() {
               </Box>
             </Box>
           </Box>
-
-          <br>
-          </br>
-          <Box
-            sx={{
-              marginLeft: 2,
-              marginRight: 2,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography component="h1" variant="h5" align = "left">
-                Membership Details
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2} columns={60}>
-                  <Grid item xs={60}>
-                    <TextField
-                      autoComplete="membership-number"
-                      name="membershipNumber"
-                      required
-                      fullWidth
-                      id="membershipNumber"
-                      label="Membership Number"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={60}>
-                    <TextField
-                      autoComplete="membership-name"
-                      name="membershipName"
-                      required
-                      fullWidth
-                      id="membershipName"
-                      label="Membership Name"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={60}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="membershipLastName"
-                      label="Membership Last Name"
-                      name="membershipLastName"
-                      autoComplete="membership-last-name"
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
 
           <br>
           </br>

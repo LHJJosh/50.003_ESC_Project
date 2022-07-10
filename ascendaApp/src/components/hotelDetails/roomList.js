@@ -1,9 +1,11 @@
 import React from 'react';
 import './styles.css';
-import { Link } from "react-router-dom";
 
 export function RoomsCard(props) {
 
+    function onClickHandler(){
+      alert('Implement redirect to Booking Page')
+    }
 
     function RoomCard(props){
         return(
@@ -16,9 +18,7 @@ export function RoomsCard(props) {
                         <h3>{props.roomName}</h3>
                         <p>{props.roomRate}</p>
                     </div>
-                    <button component={Link} to="/bookings" className="bookNowButton">
-                      Book Now!
-                    </button>
+                    <button className="bookNowButton" onClick={onClickHandler}>Book Now!</button>
                 </div>
             </div>
         )
