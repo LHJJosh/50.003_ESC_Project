@@ -15,7 +15,7 @@ def index(request):
     return render(request, BASE_DIR / 'build/index.html')
 
 def booking(request):
-    return render(request, BASE_DIR / 'build/booking.html')
+    return render(request, BASE_DIR / 'src/bookings/index.html')
 
 def front(request):
     context = { }

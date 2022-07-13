@@ -8,6 +8,7 @@ import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import Divider from '@mui/material/Divider';
+import { Link } from "react-router-dom";
 
 
 class HotelListCardInternal extends React.Component {
@@ -61,7 +62,7 @@ class HotelListCardInternal extends React.Component {
           {this.props.hotelDeal}
         </Typography>
 
-        <Button variant='outlined' startIcon={<LocalOfferIcon />} aria-label='book'>
+        <Button variant='outlined' startIcon={<LocalOfferIcon />} aria-label='book' component={Link} to="/hoteldetails">
           Book Deal
         </Button>
 
