@@ -35,6 +35,11 @@ npm start                  # react
 # Visit localhost:8000/api/getHotelView/7/ # to update / delete for id 7
 ```
 
+## Test locally
+```
+npx mocha src/selenium/test.js --no-timeouts
+```
+
 ## Deploy locally
 ```
 cd ascendaApp/
