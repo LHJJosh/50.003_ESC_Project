@@ -9,7 +9,7 @@ export function RoomsCard(props) {
         return(
             <div className="roomCard">
                 <div className="roomsImg">
-                    <img src={props.roomImg}/>
+                    <img src={props.roomImg} alt="roomImg"/>
                 </div>
                 <div className="roomsText">
                     <div className="roomsInfo">

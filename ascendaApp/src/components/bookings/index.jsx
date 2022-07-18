@@ -35,7 +35,6 @@ const theme = createTheme({
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const [value, setValue] = React.useState<Date | null>(null);
     const data = new FormData(event.currentTarget);
     console.log({
       firstName: data.get('firstName'),

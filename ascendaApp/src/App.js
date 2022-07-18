@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import logo from './logo.svg';
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import Bookings from "./pages/Bookings";

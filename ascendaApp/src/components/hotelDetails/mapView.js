@@ -1,5 +1,4 @@
 import React from 'react';
-import { useMemo } from 'react';
 import './styles.css';
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 

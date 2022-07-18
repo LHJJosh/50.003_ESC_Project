@@ -16,7 +16,7 @@ export function HeaderCard(props) {
           <button className="roomOptionsButton" onClick={onClickHandler}>Room Options</button>
         </div>
         <div className="headerGallery">
-          <img src={props.hotelImg}/>
+          <img src={props.hotelImg} alt="hotelImage"/>
           <p> to implement slider gallery </p>
         </div>
       </div>
