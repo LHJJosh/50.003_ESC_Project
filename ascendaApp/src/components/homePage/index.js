@@ -41,7 +41,7 @@ export default function HomePage() {
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
-                      id="Destination"
+                      id="destination"
                       label="Destination"
                       inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text
                     />
@@ -66,7 +66,7 @@ export default function HomePage() {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
-                      <InputLabel id="rooms">Rooms</InputLabel>
+                      <InputLabel>Rooms</InputLabel>
                       <Select
                         labelId="rooms"
                         id="rooms"
@@ -74,13 +74,13 @@ export default function HomePage() {
                         label="Rooms"
                         onChange={handleChange}
                       >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem className='menuItem' value={1}>1</MenuItem>
+                        <MenuItem className='menuItem' value={2}>2</MenuItem>
+                        <MenuItem className='menuItem' value={3}>3</MenuItem>
+                        <MenuItem className='menuItem' value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
-                  </Grid>
+                  </Grid> 
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
                       <InputLabel id="adults">Adults</InputLabel>
@@ -91,16 +91,16 @@ export default function HomePage() {
                         label="Adults"
                         onChange={handleChange}
                       >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem className='menuItem' value={1}>1</MenuItem>
+                        <MenuItem className='menuItem' value={2}>2</MenuItem>
+                        <MenuItem className='menuItem' value={3}>3</MenuItem>
+                        <MenuItem className='menuItem' value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
-                      <InputLabel id="rooms">Children</InputLabel>
+                      <InputLabel id="children">Children</InputLabel>
                       <Select
                         labelId="children"
                         id="children"
@@ -108,11 +108,11 @@ export default function HomePage() {
                         label="Children"
                         onChange={handleChange}
                       >
-                        <MenuItem value={0}>0</MenuItem>
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem className='menuItem' value={0}>0</MenuItem>
+                        <MenuItem className='menuItem' value={1}>1</MenuItem>
+                        <MenuItem className='menuItem' value={2}>2</MenuItem>
+                        <MenuItem className='menuItem' value={3}>3</MenuItem>
+                        <MenuItem className='menuItem' value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
