@@ -37,7 +37,8 @@ npm start                  # react
 
 ## Test locally
 ```
-npx mocha src/selenium/test.js --no-timeouts
+npx mocha src/selenium/test.js --no-timeouts      # run individual test file
+npx mocha src/selenium --no-timeouts --recursive  # run all tests
 ```
 
 ## Deploy locally
