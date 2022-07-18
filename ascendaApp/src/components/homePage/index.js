@@ -15,9 +15,19 @@ import "./styles.css";
 
 
 export default function HomePage() {
-  const [num, setNum] = React.useState('');
-  const handleChange = (event) => {
-    setNum(event.target.value);
+  const [rooms, setRooms] = React.useState('');
+  const [adults, setAdults] = React.useState('');
+  const [children, setChildren] = React.useState('');
+  const updateRooms = (event) => {
+    setRooms(event.target.value);
+  };
+
+  const updateAdults = (event) => {
+    setAdults(event.target.value);
+  };
+
+  const updateChildren = (event) => {
+    setChildren(event.target.value);
   };
 
   return(
@@ -70,9 +80,9 @@ export default function HomePage() {
                       <Select
                         labelId="rooms"
                         id="rooms"
-                        value={num}
+                        value={rooms}
                         label="Rooms"
-                        onChange={handleChange}
+                        onChange={updateRooms}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -83,13 +93,13 @@ export default function HomePage() {
                   </Grid> 
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
-                      <InputLabel id="adults">Adults</InputLabel>
+                      <InputLabel>Adults</InputLabel>
                       <Select
                         labelId="adults"
                         id="adults"
-                        value={num}
+                        value={adults}
                         label="Adults"
-                        onChange={handleChange}
+                        onChange={updateAdults}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -100,13 +110,13 @@ export default function HomePage() {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <FormControl fullWidth>
-                      <InputLabel id="children">Children</InputLabel>
+                      <InputLabel>Children</InputLabel>
                       <Select
                         labelId="children"
                         id="children"
-                        value={num}
+                        value={children}
                         label="Children"
-                        onChange={handleChange}
+                        onChange={updateChildren}
                       >
                         <MenuItem className='menuItem' value={0}>0</MenuItem>
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
