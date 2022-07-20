@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from rest_framework.urlpatterns import format_suffix_patterns
 from ascendaApp import views
 
 from rest_framework import routers
@@ -29,5 +30,9 @@ urlpatterns = [
     #re_path('.*', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
     path("", views.front, name="front"),
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
+    path('api2/', views.list_hotels),
+    path('api3/<int:pk>/', views.detail_hotels),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
