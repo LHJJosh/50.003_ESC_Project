@@ -1,14 +1,17 @@
 import React from 'react';
-import { HotelSearch } from '../components/hotelSearch';
 import { HotelList } from '../components/hotelList';
 import DisplayTop from "./pageComponents/displayTop";
+import HotelQuery from '../components/hotelQueryCard';
+
+import './styles.css'
+
 
 function HotelSearches() {
     return (
         
     <DisplayTop>
-        <HotelSearch />
-        <HotelList />
+        <HotelQuery className='hotelQuery'/>
+        <HotelList className='hotelList'/>
     </DisplayTop>
 
     );

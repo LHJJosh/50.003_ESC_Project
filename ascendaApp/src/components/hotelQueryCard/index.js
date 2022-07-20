@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 
 
-export default function HomePage() {
+export default function HotelQuery() {
   const [rooms, setRooms] = React.useState('');
   const [adults, setAdults] = React.useState('');
   const [children, setChildren] = React.useState('');

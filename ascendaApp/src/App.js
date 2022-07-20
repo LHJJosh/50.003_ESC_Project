@@ -3,7 +3,6 @@ import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import Bookings from "./pages/Bookings";
 import HotelDetails from "./pages/HotelDetails";
-import Home from "./pages/Home";
 import HotelSearches from "./pages/HotelSearch";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
@@ -15,8 +14,7 @@ class AppInternal extends React.Component {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="hotelsearch" element={<HotelSearches />} />
+        <Route index element={<HotelSearches />} />
         <Route path="hoteldetails" element={<HotelDetails />} />
         <Route path="bookings" element={<Bookings />} />
         <Route path="*" element={<NoPage />} />

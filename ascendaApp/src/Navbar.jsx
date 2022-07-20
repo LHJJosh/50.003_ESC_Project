@@ -14,11 +14,6 @@ const Navbar = (props) => {
             <Nav className="mr-auto">
               <NavItem>
                 <NavLink to="/" className="nav-link">
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to="/hotelsearch" className="nav-link">
                   Hotel Search
                 </NavLink>
               </NavItem>
