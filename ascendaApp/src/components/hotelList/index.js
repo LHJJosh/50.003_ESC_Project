@@ -17,16 +17,29 @@ class HotelListInternal extends React.Component {
     }
   }
 
-  refreshList = () => {
+  refreshList = (queryUrl) => {
     axios
-      .get('/api/listHotels/')
-      .then((res) => this.setState({ hotelList: res.data }))
+      .get(queryUrl)
+      .then((res) => this.setState({ hotelList: res.data }, () => console.log(queryUrl)))
       .catch((err) => console.log(err));
   }
 
   componentDidMount() {
     this.refreshList();
-    console.log(this.state.hotelList);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.query !== this.props.query) {
+      console.log(this.props.query);
+      this.refreshList(this.buildQuery());
+    }
+  }
+
+  buildQuery() {
+    let queryUrl = '/api/listHotels/';
+    if (this.props.query.destination !== "")
+      queryUrl += `?name=${this.props.query.destination}`
+    return queryUrl
   }
 
   render() {

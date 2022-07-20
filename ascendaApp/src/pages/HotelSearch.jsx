@@ -20,9 +20,7 @@ class HotelSearches extends React.Component {
   }
 
   updateQuery = (updateDict) => {
-    this.setState(updateDict, () =>
-      console.log(this.state)
-    );
+    this.setState(updateDict);
   }
 
   render() {

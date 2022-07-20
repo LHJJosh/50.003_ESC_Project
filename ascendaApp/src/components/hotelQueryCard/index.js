@@ -69,7 +69,7 @@ class HotelQuery extends React.Component {
                         size='small'
                         id="checkInDay"
                         onChange={this.handleChange}
-                        name="Check In Day"
+                        label="Check In Day"
                     />      
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -79,7 +79,7 @@ class HotelQuery extends React.Component {
                         size='small'
                         id="checkOutDay"
                         onChange={this.handleChange}
-                        name="Check Out Day"
+                        label="Check Out Day"
                     />      
                   </Grid>
                   <Grid item xs={12} sm={4}>
