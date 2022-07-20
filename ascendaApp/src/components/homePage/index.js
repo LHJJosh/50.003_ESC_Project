@@ -18,6 +18,26 @@ export default function HomePage() {
   const [rooms, setRooms] = React.useState('');
   const [adults, setAdults] = React.useState('');
   const [children, setChildren] = React.useState('');
+
+  const [state, setState] = React.useState({
+    destination: "",
+    checkInDay: "",
+    checkOutDay: "",
+    rooms: "",
+    adults: "",
+    children: ""
+  });
+  
+  function handleChange(evt) {
+    const value = evt.target.value;
+    setState({
+      ...state,
+      [evt.target.id]: value
+    });
+    
+    console.log(value);
+  }
+  
   const updateRooms = (event) => {
     setRooms(event.target.value);
   };
