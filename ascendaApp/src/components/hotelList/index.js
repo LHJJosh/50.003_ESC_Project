@@ -19,7 +19,7 @@ class HotelListInternal extends React.Component {
 
   refreshList = () => {
     axios
-      .get('/api/getHotelView/')
+      .get('/api/listHotels/')
       .then((res) => this.setState({ hotelList: res.data }))
       .catch((err) => console.log(err));
   }

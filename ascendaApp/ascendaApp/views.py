@@ -28,10 +28,6 @@ def loadPage(request):
     context = { }
     return render(request, "booking.html", context)
 
-class HotelViewSet(viewsets.ModelViewSet):
-    serializer_class = HotelSerializer
-    queryset = Hotel.objects.all()
-
 def getLatitudeBounds(lat, metres):
   # conversion using haversine
   return (lat - metres / 111320, lat + metres + 111320)
@@ -45,7 +41,6 @@ def getLongitudeBounds(lat, lng, metres):
 def list_hotels(request, format=None):
   """
   List all code snippets, or create a new Hotel.
-  csrf exempt for clients that do not have CSRF token
   """
   if request.method == 'GET':
     name = request.query_params.get('name')

@@ -14,25 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from ascendaApp import views
 
-from rest_framework import routers
-router = routers.DefaultRouter()
-router.register(r'getHotelView', views.HotelViewSet, basename='getHotelView')
-
 urlpatterns = [
-    # path('api/', include('mynewapp.urls')),
-    #path('', views.index, name='main-view'),
-    #path('index/', views.index, name='main-view'),
     path('booking/', views.booking, name='booking-view'),
-    #re_path('.*', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
     path("", views.front, name="front"),
-    # path('api/', include(router.urls)),
-    path('api2/', views.list_hotels),
-    path('api3/<int:pk>/', views.detail_hotel),
+    path('api/listHotels/', views.list_hotels),
+    path('api/getHotel/<int:pk>', views.detail_hotel),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
