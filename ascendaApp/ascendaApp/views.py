@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser
@@ -30,6 +32,15 @@ class HotelViewSet(viewsets.ModelViewSet):
     serializer_class = HotelSerializer
     queryset = Hotel.objects.all()
 
+def getLatitudeBounds(lat, metres):
+  # conversion using haversine
+  return (lat - metres / 111320, lat + metres + 111320)
+
+def getLongitudeBounds(lat, lng, metres):
+  # conversion using haversine
+  degLength = 40075000 * math.cos(lat) / 360
+  return (lng - metres / degLength, lng + metres / degLength)
+
 @api_view(['GET', 'POST'])
 def list_hotels(request, format=None):
   """
@@ -37,7 +48,30 @@ def list_hotels(request, format=None):
   csrf exempt for clients that do not have CSRF token
   """
   if request.method == 'GET':
-    hotels = Hotel.objects.all()
+    name = request.query_params.get('name')
+    reviewScore = request.query_params.get('reviewScore')
+    price = request.query_params.get('price')
+    lat = request.query_params.get('lat')
+    lng = request.query_params.get('lng')
+    distance = request.query_params.get('distance')
+    customerType = request.query_params.get('customerType')
+    
+    hotels = Hotel.objects
+    if name is not None:
+      hotels = hotels.filter(name__contains=name)
+    if reviewScore is not None:
+      hotels = hotels.filter(reviewScore__gte=reviewScore)
+    if price is not None:
+      hotels = hotels.filter(price__lte=price)
+    if customerType is not None:
+      hotels = hotels.filter(customerType=customerType)
+    if lat is not None and lng is not None and distance is not None:
+      latMin, latMax = getLatitudeBounds(lat, distance)
+      lngMin, lngMax = getLongitudeBounds(lat, lng, distance)
+      hotels = hotels.filter(
+        lat__gte=latMin, lat__lng=latMax,
+        lng__gte=lngMin, lng__lte=lngMax)
+    
     serializer = HotelSerializer(hotels, many=True)
     return Response(serializer.data)
 
