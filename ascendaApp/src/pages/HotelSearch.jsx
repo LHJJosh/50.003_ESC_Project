@@ -6,15 +6,31 @@ import HotelQuery from '../components/hotelQueryCard';
 import './styles.css'
 
 
-function HotelSearches() {
-    return (
-        
-    <DisplayTop>
-        <HotelQuery className='hotelQuery'/>
-        <HotelList className='hotelList'/>
-    </DisplayTop>
+class HotelSearches extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      destination: '',
+      checkInDay: '',
+      checkOutDay: '',
+      rooms: '',
+      adults: '',
+      children: ''
+    }
+  }
 
+  updateQuery = (updateDict) => {
+    this.setState(updateDict, () =>
+      console.log(this.state)
     );
+  }
+
+  render() {
+    return <DisplayTop>
+      <HotelQuery className='hotelQuery' updateQuery={this.updateQuery}/>
+      <HotelList className='hotelList' query={this.state}/>
+    </DisplayTop>;
+  }
 }
 
 export default HotelSearches;

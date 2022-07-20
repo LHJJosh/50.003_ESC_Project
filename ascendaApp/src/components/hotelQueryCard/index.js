@@ -14,45 +14,30 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 
 
-export default function HotelQuery() {
-  const [rooms, setRooms] = React.useState('');
-  const [adults, setAdults] = React.useState('');
-  const [children, setChildren] = React.useState('');
-
-  const [state, setState] = React.useState({
-    destination: "",
-    checkInDay: "",
-    checkOutDay: "",
-    rooms: "",
-    adults: "",
-    children: ""
-  });
-  
-  function handleChange(evt) {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.id]: value
-    });
-    
-    console.log(value);
+class HotelQuery extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      rooms: "",
+      adults: "",
+      children: ""
+    }
   }
   
-  const updateRooms = (event) => {
-    setRooms(event.target.value);
-  };
+  handleChange = (evt, key) => {
+    if (typeof key !== 'undefined') {
+      evt.target.id = key;
+      this.setState({[key]: evt.target.value});
+    }
+    this.props.updateQuery({
+      ...this.state,
+      [evt.target.id]: evt.target.value
+    });
+  }
 
-  const updateAdults = (event) => {
-    setAdults(event.target.value);
-  };
-
-  const updateChildren = (event) => {
-    setChildren(event.target.value);
-  };
-
-  return(
-    <Card className='search'>
-       <CssBaseline />
+  render() {
+    return <Card className='search'>
+        <CssBaseline />
           <Box
             sx={{
               marginLeft: 2,
@@ -73,7 +58,7 @@ export default function HotelQuery() {
                       fullWidth
                       id="destination"
                       label="Destination"
-                      onChange={handleChange}
+                      onChange={this.handleChange}
                       inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text
                     />
                   </Grid>
@@ -83,7 +68,7 @@ export default function HotelQuery() {
                         required
                         size='small'
                         id="checkInDay"
-                        onChange={handleChange}
+                        onChange={this.handleChange}
                         name="Check In Day"
                     />      
                   </Grid>
@@ -93,7 +78,7 @@ export default function HotelQuery() {
                         required
                         size='small'
                         id="checkOutDay"
-                        onChange={handleChange}
+                        onChange={this.handleChange}
                         name="Check Out Day"
                     />      
                   </Grid>
@@ -103,9 +88,9 @@ export default function HotelQuery() {
                       <Select
                         labelId="rooms"
                         id="rooms"
-                        value={rooms}
+                        value={this.state.rooms}
                         label="Rooms"
-                        onChange={updateRooms}
+                        onChange={v => this.handleChange(v, 'rooms')}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -120,9 +105,9 @@ export default function HotelQuery() {
                       <Select
                         labelId="adults"
                         id="adults"
-                        value={adults}
+                        value={this.state.adults}
                         label="Adults"
-                        onChange={updateAdults}
+                        onChange={v => this.handleChange(v, 'adults')}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -137,9 +122,9 @@ export default function HotelQuery() {
                       <Select
                         labelId="children"
                         id="children"
-                        value={children}
+                        value={this.state.children}
                         label="Children"
-                        onChange={updateChildren}
+                        onChange={v => this.handleChange(v, 'children')}
                       >
                         <MenuItem className='menuItem' value={0}>0</MenuItem>
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
@@ -151,10 +136,10 @@ export default function HotelQuery() {
                   </Grid>
                   <Grid item xs={12}>
                     <Button
-                    component={Link} to="/hotelsearch"
-                    fullWidth
-                    variant="contained"
-                     >
+                      component={Link} to="/hotelsearch"
+                      fullWidth
+                      variant="contained"
+                    >
                       Search Destination
                     </Button>
                   </Grid>
@@ -162,6 +147,7 @@ export default function HotelQuery() {
               </Box>
             </Box>
       </Card>
+  };  
       // <div class="search">
       //     Destination
       //     <br></br><input type="text" placeholder="Search Destination"/>
@@ -170,8 +156,9 @@ export default function HotelQuery() {
       //     <br></br> Check out day
       //     <br></br><input type="date" id="check out" name="Check out day"/>
       // </div>
-  );
 }
+
+export default HotelQuery;
 
 /*export default class CreateRoomPage extends Component {
   constructor(props) {
