@@ -25,14 +25,34 @@ def loadPage(request):
     return render(request, "booking.html", context)
 
 
-class Serializer(serializers.ModelSerializer):
-  class Meta:
-    model = Hotel
-    fields = (
-      'name', 'reviewScore', 'price', 'address', 'lat', 
-      'lng', 'customerType')
+class HotelSerializer(serializers.Serializer):
+  id = serializers.IntegerField(read_only=True)
+  name = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  reviewScore = serializers.DecimalField(decimal_places=5, max_digits=6, required=False)
+  price = serializers.DecimalField(decimal_places=2, max_digits=8, required=False)
+  customerType = serializers.CharField(required=False, allow_blank=True, max_length=2)
+
+  address = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  lat = serializers.DecimalField(decimal_places=5, max_digits=8, required=False)
+  lng = serializers.DecimalField(decimal_places=5, max_digits=8, required=False)
+
+  reviewCount = serializers.JSONField()
+
+  def create(self, validated_data):
+    return Hotel.objects.create(**validated_data)
+  
+  def update(self, instance, validated_data):
+    instance.name = validated_data.get('name', instance.name)
+    instance.reviewScore = validated_data.get('reviewScore', instance.reviewScore)
+    instance.price = validated_data.get('price', instance.price)
+    instance.customerType = validated_data.get('customerType', instance.customerType)
+    instance.address = validated_data.get('address', instance.name)
+    instance.lat = validated_data.get('lat', instance.lat)
+    instance.lng = validated_data.get('lng', instance.lng)
+    instance.save()
+    return instance
 
 
 class HotelViewSet(viewsets.ModelViewSet):
-    serializer_class = Serializer
+    serializer_class = HotelSerializer
     queryset = Hotel.objects.all()
