@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import Serializer
+from rest_framework import serializers
 from .models import Hotel
 
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +24,15 @@ def loadPage(request):
     context = { }
     return render(request, "booking.html", context)
 
-class GetHotelView(viewsets.ModelViewSet):
+
+class Serializer(serializers.ModelSerializer):
+  class Meta:
+    model = Hotel
+    fields = (
+      'name', 'reviewScore', 'price', 'address', 'lat', 
+      'lng', 'customerType')
+
+
+class HotelViewSet(viewsets.ModelViewSet):
     serializer_class = Serializer
     queryset = Hotel.objects.all()

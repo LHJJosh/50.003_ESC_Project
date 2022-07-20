@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
-from django.views.generic import TemplateView
 from ascendaApp import views
 
 from rest_framework import routers
 router = routers.DefaultRouter()
-router.register(r'getHotelView', views.GetHotelView, 'getHotelView')
+router.register(r'getHotelView', views.HotelViewSet, basename='getHotelView')
 
 urlpatterns = [
     # path('api/', include('mynewapp.urls')),
