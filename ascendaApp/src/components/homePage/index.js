@@ -53,6 +53,7 @@ export default function HomePage() {
                       fullWidth
                       id="destination"
                       label="Destination"
+                      onChange={handleChange}
                       inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text
                     />
                   </Grid>
@@ -62,6 +63,7 @@ export default function HomePage() {
                         required
                         size='small'
                         id="checkInDay"
+                        onChange={handleChange}
                         name="Check In Day"
                     />      
                   </Grid>
@@ -71,6 +73,7 @@ export default function HomePage() {
                         required
                         size='small'
                         id="checkOutDay"
+                        onChange={handleChange}
                         name="Check Out Day"
                     />      
                   </Grid>
@@ -149,3 +152,53 @@ export default function HomePage() {
       // </div>
   );
 }
+
+/*export default class CreateRoomPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      guestCanPause: this.props.guestCanPause,
+      votesToSkip: this.props.votesToSkip,
+      errorMsg: "",
+      successMsg: "",
+    };
+    this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this);
+    this.handleVotesChange = this.handleVotesChange.bind(this);
+  }
+
+  handleGuestCanPauseChange(e) {
+    this.setState({
+      guestCanPause: e.target.value === "true" ? true : false,
+    });
+  }
+
+handleRoomButtonPressed() {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      votes_to_skip: this.state.votesToSkip,
+      guest_can_pause: this.state.guestCanPause,
+    }),
+  };
+  fetch("/api/create-room", requestOptions)
+    .then((response) => response.json())
+    .then((data) => this.props.history.push("/room/" + data.code));
+}
+
+renderCreateButtons() {
+  return (
+    <Grid container spacing={1}>
+      <Grid item xs={12} align="center">
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={this.handleRoomButtonPressed}
+        >
+          Create A Room
+        </Button>
+      </Grid>
+    </Grid>
+  );
+}
+}*/
