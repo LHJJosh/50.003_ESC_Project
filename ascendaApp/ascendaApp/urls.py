@@ -32,7 +32,7 @@ urlpatterns = [
     path("", views.front, name="front"),
     # path('api/', include(router.urls)),
     path('api2/', views.list_hotels),
-    path('api3/<int:pk>/', views.detail_hotels),
+    path('api3/<int:pk>/', views.detail_hotel),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

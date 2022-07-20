@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from rest_framework import viewsets, serializers, status
+from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Hotel
+from .models import Hotel, HotelSerializer
 
 from pathlib import Path
 
