@@ -8,7 +8,7 @@ describe('Home Actions', function() {
   beforeEach(function(){
     driver = new Builder().withCapabilities(
       Capabilities.chrome()).build();
-    driver.get('http://127.0.0.1:8000/');
+    driver.get('http://127.0.0.1:3000/');
   });
 
   describe('fill all form fields', function() {
@@ -37,7 +37,6 @@ describe('Home Actions', function() {
       await childrenSelectBox.click();
       let childrenOptions = await driver.findElements(By.className('menuItem'));
       childrenOptions[0].click();
-
       
       let cardSelectBox = await driver.findElement(By.className('MuiButtonBase-root'));
       await cardSelectBox.click();

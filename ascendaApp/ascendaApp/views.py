@@ -5,7 +5,7 @@ from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Hotel, HotelSerializer
+from .models import Hotel, HotelSerializer, BookingInfo, BookingsSerializer
 
 from pathlib import Path
 
@@ -110,3 +110,17 @@ def detail_hotel(request, pk, format=None):
   elif request.method == 'DELETE':
       hotel.delete()
       return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def bookings(request, format=None):
+  """
+  create a new booking.
+  """
+  if request.method == 'POST':
+    data = JSONParser().parse(request)
+    serializer = BookingsSerializer(data=data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

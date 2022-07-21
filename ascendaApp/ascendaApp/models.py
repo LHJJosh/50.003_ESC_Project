@@ -63,3 +63,63 @@ class HotelSerializer(serializers.Serializer):
     instance.lng = validated_data.get('lng', instance.lng)
     instance.save()
     return instance
+
+
+class BookingInfo(models.Model):
+  title = models.CharField(max_length=256, blank=True, default='')
+  firstName = models.CharField(max_length=256, blank=True, default='')
+  lastName = models.CharField(max_length=256, blank=True, default='')
+  countryCode = models.CharField(max_length=256, blank=True, default='')
+  phoneNumber = models.CharField(max_length=256, blank=True, default='')
+  emailAddress = models.CharField(max_length=256, blank=True, default='')
+  specialRequest = models.CharField(max_length=256, blank=True, default='')
+  cardNumber = models.CharField(max_length=256, blank=True, default='')
+  nameOnCard = models.CharField(max_length=256, blank=True, default='')
+  expiryDate = models.DateField()
+  cvvCvc = models.CharField(max_length=256, blank=True, default='')
+  address = models.CharField(max_length=256, blank=True, default='')
+  city = models.CharField(max_length=256, blank=True, default='')
+  zipCode = models.CharField(max_length=256, blank=True, default='')
+  country = models.CharField(max_length=256, blank=True, default='')
+
+  def _str_(self):
+        return self.title
+
+class BookingsSerializer(serializers.Serializer):
+  title = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  firstName = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  lastName = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  countryCode = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  phoneNumber = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  emailAddress = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  specialRequest = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  cardNumber = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  nameOnCard = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  expiryDate = serializers.DateField(required=False)
+  cvvCvc = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  address = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  city = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  zipCode = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  country = serializers.CharField(required=False, allow_blank=True, max_length=256) 
+
+  def create(self, validated_data):
+    return BookingInfo.objects.create(**validated_data)
+  
+  def update(self, instance, validated_data):
+    instance.title = validated_data.get('title', instance.title)
+    instance.firstName = validated_data.get('firstName', instance.firstName)
+    instance.lastName = validated_data.get('lastName', instance.lastName)
+    instance.countryCode = validated_data.get('countryCode', instance.countryCode)
+    instance.phoneNumber = validated_data.get('phoneNumber', instance.phoneNumber)
+    instance.emailAddress = validated_data.get('emailAddress', instance.emailAddress)
+    instance.specialRequest = validated_data.get('specialRequest', instance.specialRequest)
+    instance.cardNumber = validated_data.get('cardNumber', instance.cardNumber)
+    instance.nameOnCard = validated_data.get('nameOnCard', instance.nameOnCard)
+    instance.expiryDate = validated_data.get('expiryDate', instance.expiryDate)
+    instance.cvvCvc = validated_data.get('cvvCvc', instance.cvvCvc)
+    instance.address = validated_data.get('address', instance.address)
+    instance.city = validated_data.get('city', instance.city)
+    instance.zipCode = validated_data.get('zipCode', instance.zipCode)
+    instance.country = validated_data.get('country', instance.country)
+    instance.save()
+    return instance

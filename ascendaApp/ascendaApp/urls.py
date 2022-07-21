@@ -24,6 +24,7 @@ urlpatterns = [
     path("", views.front, name="front"),
     path('api/listHotels/', views.list_hotels),
     path('api/getHotel/<int:pk>', views.detail_hotel),
+    path('api/bookings', views.bookings)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
