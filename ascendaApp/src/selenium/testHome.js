@@ -37,7 +37,7 @@ describe('Home Actions', function() {
       await childrenSelectBox.click();
       let childrenOptions = await driver.findElements(By.className('menuItem'));
       childrenOptions[0].click();
-
+      
     });
   });
 

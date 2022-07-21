@@ -14,7 +14,9 @@ class Hotel(models.Model):
     return {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
 
   name = models.CharField(max_length=256, blank=True, default='')
+  destination = models.CharField(max_length=256, blank=True, default='')
   reviewScore = models.DecimalField(decimal_places=5, max_digits=6, blank=True)
+  rooms = models.IntegerField(default=0)
   price = models.DecimalField(decimal_places=2, max_digits=8, blank=True)
   customerType = models.CharField(choices=CustomerType.choices, default=CustomerType.SINGLES, max_length=2, blank=True)
 
@@ -34,6 +36,8 @@ class Hotel(models.Model):
 class HotelSerializer(serializers.Serializer):
   id = serializers.IntegerField(read_only=True)
   name = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  destination = serializers.CharField(required=False, allow_blank=True, max_length=256)
+  rooms = serializers.IntegerField(default=0)
   reviewScore = serializers.DecimalField(decimal_places=5, max_digits=6, required=False)
   price = serializers.DecimalField(decimal_places=2, max_digits=8, required=False)
   customerType = serializers.CharField(required=False, allow_blank=True, max_length=2)
@@ -49,6 +53,8 @@ class HotelSerializer(serializers.Serializer):
   
   def update(self, instance, validated_data):
     instance.name = validated_data.get('name', instance.name)
+    instance.destination = validated_data.get('destination', instance.destination)
+    instance.rooms = validated_data.get('rooms', instance.destination)
     instance.reviewScore = validated_data.get('reviewScore', instance.reviewScore)
     instance.price = validated_data.get('price', instance.price)
     instance.customerType = validated_data.get('customerType', instance.customerType)

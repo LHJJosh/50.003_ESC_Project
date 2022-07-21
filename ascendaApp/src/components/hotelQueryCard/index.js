@@ -40,9 +40,9 @@ class HotelQuery extends React.Component {
         <CssBaseline />
           <Box
             sx={{
-              marginLeft: 2,
-              marginRight: 2,
-              marginTop: 2,
+              marginLeft: 1,
+              marginRight: 1,
+              marginTop: 1,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',

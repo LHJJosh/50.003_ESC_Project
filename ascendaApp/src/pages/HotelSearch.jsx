@@ -3,7 +3,6 @@ import { HotelList } from '../components/hotelList';
 import DisplayTop from "./pageComponents/displayTop";
 import HotelQuery from '../components/hotelQueryCard';
 
-import './styles.css'
 
 
 class HotelSearches extends React.Component {
