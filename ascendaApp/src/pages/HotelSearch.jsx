@@ -12,7 +12,7 @@ class HotelSearches extends React.Component {
       destination: '',
       checkInDay: '',
       checkOutDay: '',
-      rooms: '',
+      rooms: 0,
       adults: '',
       children: ''
     }
@@ -24,8 +24,15 @@ class HotelSearches extends React.Component {
 
   render() {
     return <DisplayTop>
-      <HotelQuery className='hotelQuery' updateQuery={this.updateQuery}/>
-      <HotelList className='hotelList' query={this.state}/>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        }}>
+          <HotelQuery className='hotelQuery' updateQuery={this.updateQuery}/>
+      
+          <HotelList className='hotelList' query={this.state}/>
+      </div>
     </DisplayTop>;
   }
 }

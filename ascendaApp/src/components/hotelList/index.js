@@ -38,33 +38,43 @@ class HotelListInternal extends React.Component {
     let queryUrl = '/api/listHotels/';
     if (this.props.query.destination !== "")
       queryUrl += `?destination=${this.props.query.destination}`
+      
+    if (this.props.query.rooms !== "")
+    queryUrl += `&rooms=${this.props.query.rooms}`
     return queryUrl
   }
 
+  renderItems = () => {
+    /*const newHotels = this.state.hotelList.filter(
+      hotel => hotel.destination === this.destination
+    );*/
+    return this.state.hotelList.map((hotel) => 
+    //return this.state.hotelList.map((hotel) =>
+    <div>
+      <HotelListCard 
+                    hotelName={hotel.name}
+                    hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
+                    hotelAddress={hotel.address}
+                    hotelPrice={hotel.price}
+                    hotelDeal='1 for 1 ??!?'/>    
+      <Divider variant='inset' component='li' />
+    </div>
+  );
+  };
+
   render() {
-    const renderHotelList = this.state.hotelList.map((hotel) => 
-      <div>
-        <HotelListCard hotelName={hotel.name}
-                       hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
-                       hotelAddress={hotel.address}
-                       hotelPrice={hotel.price}
-                       hotelDeal='1 for 1 ??!?'
-                       hotelId={hotel.id}/>    
-        <Divider variant='inset' component='li' />
-      </div>
-    );
+    
 
     return <div className='hotelList'>
       <div className='dropdownDiv'>
         <HotelDropdown/>
       </div>
-
       <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
         {/* <HotelListItem name='Cindy Baker'
                       primaryText='Oui Oui'
                       secondary='Sandra Adams'
                       secondaryText=" — Do you have Paris recommendations? Have you ever…"/> */}
-        { renderHotelList }
+        {this.renderItems()}
       </List>
     </div>
   }
