@@ -38,6 +38,8 @@ describe('Home Actions', function() {
       let childrenOptions = await driver.findElements(By.className('menuItem'));
       childrenOptions[0].click();
       
+      let cardSelectBox = await driver.findElement(By.className('MuiButtonBase-root'));
+      await cardSelectBox.click();
     });
   });
 

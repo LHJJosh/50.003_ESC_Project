@@ -15,6 +15,10 @@ import Container from '@mui/material/Container';
 import "./booking.css"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Axios from 'axios'
+import { send } from 'emailjs-com';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 //import PickDate from "./pageComponents/datePicker";
 
 function Copyright(props) {
@@ -31,6 +35,10 @@ function Copyright(props) {
 }
 
 const theme = createTheme({
+});
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function SignUp() {
@@ -53,10 +61,21 @@ export default function SignUp() {
     country: ""
   })
 
-  function handle(e){
+  const [toSend, setToSend] = useState({
+    emailAddress:'',
+    title:'',
+    firstName:'',
+    lastName:'',
+    countryCode:'',
+    phoneNumber:'',
+    specialRequest:'',
+  });
+
+  function handleChange(e){
     const newdata={...data}
     newdata[e.target.id] = e.target.value
     setData(newdata)
+    setToSend({ ...toSend, [e.target.name]: e.target.value });
     console.log(newdata)
   }
 
@@ -84,10 +103,31 @@ export default function SignUp() {
         "Content-type": "application/json; charset=UTF-8",
       }
     })
+    send(
+      //'SERVICE ID','TEMPLATE ID',toSend,'User ID/public key'
+      'service_jojfdl8','template_047mlnm', toSend, 'TCvmrc841BXV5uJ2X'
+    )
     .then(res=>{
       console.log(res.data)
-    })
+      console.log('SUCCESS!', res.status, res.text);
+      })
+      .catch((err) =>{
+        console.log('FAILED...', err);
+      });
+
+  const [open, setOpen] = useState(false);
+  
+  const handleClick = () => {
+    setOpen(true);
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+};
 
   return (
     <ThemeProvider theme={theme}>
@@ -121,7 +161,8 @@ export default function SignUp() {
               <Grid container spacing={2} columns={60}>
                 <Grid item xs={60} sm={12}>
                   <TextField
-                    onChange = {(e) => handle(e)}
+                    onChange = {(e) => handleChange(e)}
+                    value={toSend.title}
                     autoComplete="title"
                     name="title"
                     required
@@ -133,7 +174,8 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={24}>
                   <TextField
-                    onChange = {(e) => handle(e)}
+                    onChange = {(e) => handleChange(e)}
+                    value={toSend.firstName}
                     autoComplete="given-name"
                     name="firstName"
                     required
@@ -145,7 +187,8 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={24}>
                   <TextField
-                    onChange = {(e) => handle(e)}
+                    onChange = {(e) => handleChange(e)}
+                    value={toSend.lastName}
                     required
                     fullWidth
                     id="lastName"
@@ -156,7 +199,8 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={30}>
                   <TextField
-                    onChange = {(e) => handle(e)}
+                    onChange = {(e) => handleChange(e)}
+                    value={toSend.countryCode}
                     required
                     fullWidth
                     id="countryCode"
@@ -167,7 +211,8 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={30}>
                   <TextField
-                    onChange = {(e) => handle(e)}
+                    onChange = {(e) => handleChange(e)}
+                    value={toSend.phoneNumber}
                     required
                     fullWidth
                     name="phoneNumber"
@@ -179,7 +224,8 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={120} sm={"true"} >
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
+                      value={toSend.emailAddress}
                       required
                       fullWidth
                       id="emailAddress"
@@ -191,7 +237,8 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60}>
                   <TextField
-                    onChange = {(e) => handle(e)}
+                    onChange = {(e) => handleChange(e)}
+                    value={toSend.specialRequest}
                     required
                     fullWidth
                     name="specialRequest"
@@ -225,7 +272,7 @@ export default function SignUp() {
                 <Grid container spacing={2} columns={60}>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
                       autoComplete="card-number"
                       name="cardNumber"
                       required
@@ -237,7 +284,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
                       required
                       fullWidth
                       id="nameOnCard"
@@ -248,7 +295,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField 
-                        onChange = {(e) => handle(e)}
+                        onChange = {(e) => handleChange(e)}
                         type="date"
                         required
                         fullWidth
@@ -258,7 +305,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
                       required
                       fullWidth
                       id="cvvCvc"
@@ -293,7 +340,8 @@ export default function SignUp() {
                 <Grid container spacing={2} columns={60}>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
+                      value={toSend.address}
                       autoComplete="address"
                       name="address"
                       required
@@ -305,7 +353,8 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
+                      value={toSend.city}
                       required
                       fullWidth
                       id="city"
@@ -316,7 +365,8 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
+                      value={toSend.zipCode}
                       required
                       fullWidth
                       id="zipCode"
@@ -327,7 +377,8 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
-                      onChange = {(e) => handle(e)}
+                      onChange = {(e) => handleChange(e)}
+                      value={toSend.country}
                       required
                       fullWidth
                       id="country"
@@ -343,14 +394,24 @@ export default function SignUp() {
                     />
                   </Grid>
                 </Grid>
-                <Button
+                <Stack spacing={2} sx={{ width: '100%' }}>
+                  <Button type="submit" variant="outlined" onClick={handleClick}>
+                  Confirm Booking
+                  </Button>
+                  <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                      Booking Confirmation successful! - Confirmation email sent
+                    </Alert>
+                  </Snackbar>
+                </Stack>
+                {/* <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
                   Confirm Booking
-                </Button>
+                </Button> */}
                 <Grid container justifyContent="flex-end">
                   <Grid item>
                     <Link href="#" variant="body2">
