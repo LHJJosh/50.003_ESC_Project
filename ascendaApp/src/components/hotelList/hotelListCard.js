@@ -62,7 +62,12 @@ class HotelListCardInternal extends React.Component {
           {this.props.hotelDeal}
         </Typography>
 
-        <Button variant='outlined' startIcon={<LocalOfferIcon />} aria-label='book' component={Link} to="/hoteldetails">
+        <Button variant='outlined' 
+          startIcon={<LocalOfferIcon />} 
+          aria-label='book' 
+          component={Link} to="/hoteldetails"
+          state={{hotelId: this.props.hotelId}}
+        >
           Book Deal
         </Button>
 
