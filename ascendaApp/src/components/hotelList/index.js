@@ -30,7 +30,6 @@ class HotelListInternal extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.query !== this.props.query) {
-      console.log(this.props.query);
       this.refreshList(this.buildQuery());
     }
   }
@@ -46,10 +45,11 @@ class HotelListInternal extends React.Component {
     const renderHotelList = this.state.hotelList.map((hotel) => 
       <div>
         <HotelListCard hotelName={hotel.name}
-                      hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
-                      hotelAddress={hotel.address}
-                      hotelPrice={hotel.price}
-                      hotelDeal='1 for 1 ??!?'/>    
+                       hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
+                       hotelAddress={hotel.address}
+                       hotelPrice={hotel.price}
+                       hotelDeal='1 for 1 ??!?'
+                       hotelId={hotel.id}/>    
         <Divider variant='inset' component='li' />
       </div>
     );
