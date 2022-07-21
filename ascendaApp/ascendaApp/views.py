@@ -112,12 +112,17 @@ def detail_hotel(request, pk, format=None):
       return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 def bookings(request, format=None):
   """
-  create a new booking.
+  List all code snippets, or create a new booking.
   """
-  if request.method == 'POST':
+  if request.method == 'GET':  
+    bookings = BookingInfo.objects
+    serializer = BookingsSerializer(bookings, many=True)
+    return Response(serializer.data)
+
+  elif request.method == 'POST':
     data = JSONParser().parse(request)
     serializer = BookingsSerializer(data=data)
     if serializer.is_valid():

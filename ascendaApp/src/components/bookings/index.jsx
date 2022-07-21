@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import "./booking.css"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Axios from 'axios'
 //import PickDate from "./pageComponents/datePicker";
 
 function Copyright(props) {
@@ -33,13 +34,59 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+
+  const [data, setData] = useState({
+    title: "",
+    firstName: "",
+    lastName: "",
+    countryCode: "",
+    phoneNumber: "",
+    emailAddress: "",
+    specialRequest: "",
+    cardNumber: "",
+    nameOnCard: "",
+    expiryDate: "",
+    cvvCvc: "",
+    address: "",
+    city: "",
+    zipCode: "",
+    country: ""
+  })
+
+  function handle(e){
+    const newdata={...data}
+    newdata[e.target.id] = e.target.value
+    setData(newdata)
+    console.log(newdata)
+  }
+
+  function handleSubmit(event){
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-    });
+    let url = "http://localhost:8000/api/bookings"
+    Axios.post(url, {
+      title: data.title,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      countryCode: data.countryCode,
+      phoneNumber: data.phoneNumber,
+      emailAddress: data.emailAddress,
+      specialRequest: data.specialRequest,
+      cardNumber: data.cardNumber,
+      nameOnCard: data.nameOnCard,
+      expiryDate: data.expiryDate,
+      cvvCvc: data.cvvCvc,
+      address: data.address,
+      city: data.city,
+      zipCode: data.zipCode,
+      country: data.country
+    },{
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      }
+    })
+    .then(res=>{
+      console.log(res.data)
+    })
   };
 
   return (
@@ -74,6 +121,7 @@ export default function SignUp() {
               <Grid container spacing={2} columns={60}>
                 <Grid item xs={60} sm={12}>
                   <TextField
+                    onChange = {(e) => handle(e)}
                     autoComplete="title"
                     name="title"
                     required
@@ -85,6 +133,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={24}>
                   <TextField
+                    onChange = {(e) => handle(e)}
                     autoComplete="given-name"
                     name="firstName"
                     required
@@ -96,6 +145,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={24}>
                   <TextField
+                    onChange = {(e) => handle(e)}
                     required
                     fullWidth
                     id="lastName"
@@ -106,6 +156,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={30}>
                   <TextField
+                    onChange = {(e) => handle(e)}
                     required
                     fullWidth
                     id="countryCode"
@@ -116,6 +167,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60} sm={30}>
                   <TextField
+                    onChange = {(e) => handle(e)}
                     required
                     fullWidth
                     name="phoneNumber"
@@ -127,6 +179,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={120} sm={"true"} >
                     <TextField
+                      onChange = {(e) => handle(e)}
                       required
                       fullWidth
                       id="emailAddress"
@@ -138,6 +191,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={60}>
                   <TextField
+                    onChange = {(e) => handle(e)}
                     required
                     fullWidth
                     name="specialRequest"
@@ -171,6 +225,7 @@ export default function SignUp() {
                 <Grid container spacing={2} columns={60}>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       autoComplete="card-number"
                       name="cardNumber"
                       required
@@ -182,6 +237,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       required
                       fullWidth
                       id="nameOnCard"
@@ -192,6 +248,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField 
+                        onChange = {(e) => handle(e)}
                         type="date"
                         required
                         fullWidth
@@ -201,6 +258,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       required
                       fullWidth
                       id="cvvCvc"
@@ -235,6 +293,7 @@ export default function SignUp() {
                 <Grid container spacing={2} columns={60}>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       autoComplete="address"
                       name="address"
                       required
@@ -246,6 +305,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       required
                       fullWidth
                       id="city"
@@ -256,6 +316,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       required
                       fullWidth
                       id="zipCode"
@@ -266,6 +327,7 @@ export default function SignUp() {
                   </Grid>
                   <Grid item xs={60} sm={30}>
                     <TextField
+                      onChange = {(e) => handle(e)}
                       required
                       fullWidth
                       id="country"

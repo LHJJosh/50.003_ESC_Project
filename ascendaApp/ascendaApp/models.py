@@ -1,3 +1,4 @@
+import django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
@@ -75,7 +76,7 @@ class BookingInfo(models.Model):
   specialRequest = models.CharField(max_length=256, blank=True, default='')
   cardNumber = models.CharField(max_length=256, blank=True, default='')
   nameOnCard = models.CharField(max_length=256, blank=True, default='')
-  expiryDate = models.DateField()
+  expiryDate = models.DateField(default=django.utils.timezone.now)
   cvvCvc = models.CharField(max_length=256, blank=True, default='')
   address = models.CharField(max_length=256, blank=True, default='')
   city = models.CharField(max_length=256, blank=True, default='')
