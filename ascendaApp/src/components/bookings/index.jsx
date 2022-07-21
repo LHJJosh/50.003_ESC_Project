@@ -114,7 +114,7 @@ export default function SignUp() {
       .catch((err) =>{
         console.log('FAILED...', err);
       });
-
+  };
   const [open, setOpen] = useState(false);
   
   const handleClick = () => {
@@ -127,7 +127,6 @@ export default function SignUp() {
     }
     setOpen(false);
   };
-};
 
   return (
     <ThemeProvider theme={theme}>
@@ -399,7 +398,7 @@ export default function SignUp() {
                   Confirm Booking
                   </Button>
                   <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    <Alert onClose={handleClose(e,r)} severity="success" sx={{ width: '100%' }}>
                       Booking Confirmation successful! - Confirmation email sent
                     </Alert>
                   </Snackbar>
