@@ -8,7 +8,7 @@ describe('Home Actions', function() {
   beforeEach(function(){
     driver = new Builder().withCapabilities(
       Capabilities.chrome()).build();
-    driver.get('http://127.0.0.1:3000/');
+    driver.get('http://127.0.0.1:8000/');
   });
 
   describe('fill all form fields', function() {
@@ -38,6 +38,7 @@ describe('Home Actions', function() {
       let childrenOptions = await driver.findElements(By.className('menuItem'));
       childrenOptions[0].click();
 
+      
     });
   });
 

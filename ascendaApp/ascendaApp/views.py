@@ -44,16 +44,23 @@ def list_hotels(request, format=None):
   """
   if request.method == 'GET':
     name = request.query_params.get('name')
+    destination = request.query_params.get('destination')
+    rooms = request.query_params.get('rooms')
     reviewScore = request.query_params.get('reviewScore')
     price = request.query_params.get('price')
     lat = request.query_params.get('lat')
     lng = request.query_params.get('lng')
     distance = request.query_params.get('distance')
     customerType = request.query_params.get('customerType')
+    destination = request.query_params.get('destination')
     
     hotels = Hotel.objects
     if name is not None:
       hotels = hotels.filter(name__contains=name)
+    if destination is not None:
+      hotels = hotels.filter(destination=destination)
+    if rooms is not None:
+      hotels = hotels.filter(rooms=rooms)
     if reviewScore is not None:
       hotels = hotels.filter(reviewScore__gte=reviewScore)
     if price is not None:
