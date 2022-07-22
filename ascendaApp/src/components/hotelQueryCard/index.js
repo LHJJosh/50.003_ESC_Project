@@ -64,6 +64,7 @@ class HotelQuery extends React.Component {
                     renderInput={(params) => <TextField {...params}
                     label="Destination"
                     id="destination"
+                    autocomplete ={true}
                     onChange={this.handleChange}
                   />}
                   />
