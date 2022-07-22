@@ -37,8 +37,10 @@ npm start                  # react
 
 ## Test locally
 ```
-npx mocha src/selenium/test.js --no-timeouts      # run individual test file
-npx mocha src/selenium --no-timeouts --recursive  # run all tests
+python manage.py runserver                        # run server for selenium
+npx mocha src/selenium/test.js --no-timeouts      # run individual selenium test file
+npx mocha src/selenium --no-timeouts --recursive  # run all selenium tests
+python manage.py test ascendaApp                  # run all django tests
 ```
 
 ## Deploy locally
@@ -62,12 +64,14 @@ python manage.py createsuperuser            # create admin
 python manage.py shell # run cli with django project environment
 
 from ascendaApp.models import Hotel
+from ascendaApp.views import HotelSerializer
 from django.utils import timezone
 
 Hotel.objects.all().count()
-Hotel.objects.filter(id=1).get()
 Hotel.objects.filter(name__startswith='Park').get() # __ to chain relationships, question__dat__year
 Hotel.objects.get(pk=1).delete()
+h7 = Hotel.objects.filter(id=7).get()
+HotelSerializer(h7).data
 
 h1 = Hotel(name='Studio M Hotel', reviewScore=3.69, price=450.0, address='3 Nanson Road', lat=1.29088, lng=103.83904)
 h1.save()

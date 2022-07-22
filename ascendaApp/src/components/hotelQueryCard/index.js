@@ -66,7 +66,7 @@ class HotelQuery extends React.Component {
                     renderInput={(params) => <TextField {...params}
                     label="Destination"
                     id="destination"
-                    autocomplete ={true}
+                    autoComplete
                     onChange={this.handleChange}
                   />}
                   />
@@ -155,7 +155,6 @@ class HotelQuery extends React.Component {
                       min={0}
                       max={5}
                       onChange={v => this.handleChange(v, 'reviewScore')}
-                      valueLabelDisplay='auto'
                     />
                   </Grid>
                   <Grid item sm={12}>
@@ -170,7 +169,6 @@ class HotelQuery extends React.Component {
                       min={0}
                       max={1000}
                       onChange={v => this.handleChange(v, 'price')}
-                      valueLabelDisplay='auto'
                     />
                   </Grid>
                 </Grid>
