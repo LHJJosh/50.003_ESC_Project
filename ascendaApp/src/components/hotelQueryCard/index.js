@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import Slider from '@mui/material/Slider';
+import axios from 'axios';
 
 import "./styles.css";
 import { allCountries } from './searchCache.js'
@@ -23,7 +24,8 @@ class HotelQuery extends React.Component {
       adults: "",
       children: "",
       reviewScore: 0,
-      price: 1000
+      price: 1000,
+      searchCache: []
     }
   }
   
@@ -36,6 +38,23 @@ class HotelQuery extends React.Component {
       ...this.state,
       [evt.target.id]: evt.target.value
     });
+  }
+
+  autoComplete = (evt, key) => {
+    if (evt.target.value.length >= 2) {
+      let url = `/api/destinations/?term=${evt.target.value}`
+      console.log(url);
+      axios
+        .get(url)
+        .then((res) => {
+          let newCache = []
+          res.data.forEach((data) => {
+            newCache.push({label: data['term'], uid: data['uid']})
+          });
+          this.setState({searchCache: newCache})
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   render() {
@@ -58,16 +77,16 @@ class HotelQuery extends React.Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                   <Autocomplete
-                    options={allCountries}
+                    options={this.state.searchCache}
                     fullWidth
                     id="destination"
-                    onChange={this.handleChange}
                     inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text/>}
                     renderInput={(params) => <TextField {...params}
                     label="Destination"
                     id="destination"
-                    autoComplete
-                    onChange={this.handleChange}
+                    onChange={this.autoComplete}
+                    // autoComplete='off'
+                    // limitTags={10}
                   />}
                   />
                   </Grid>
