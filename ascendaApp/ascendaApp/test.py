@@ -1,8 +1,10 @@
+import django
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from .models import Hotel
-from .views import list_hotels, detail_hotel
+from rest_framework.test import RequestsClient
+from .models import Hotel, BookingInfo
+from .views import list_hotels, detail_hotel, bookings
 
 class HotelTests(APITestCase):
   def setUp(self):
@@ -100,3 +102,44 @@ class HotelTests(APITestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(response.data['id'], 4)
     self.assertEqual(response.data['name'], 'name4')
+
+# class BookingTests(APITestCase):
+#   def setUp(self):
+#     BookingInfo.objects.create(title = 'Mr.', 
+#                               firstName = 'Bruce',
+#                               lastName = 'Wayne',
+#                               countryCode = '20',
+#                               phoneNumber = '90714829',
+#                               emailAddress = 'batman@yahoo.com',
+#                               specialRequest = 'batmobile',
+#                               cardNumber = '234567899',
+#                               nameOnCard = 'Bruce Wayne',
+#                               expiryDate = django.utils.timezone.now,
+#                               cvvCvc = '234',
+#                               address = 'Wayne Manor',
+#                               city = 'Gotham City',
+#                               zipCode = '123456',
+#                               country = 'U.S.')
+
+#   def test_post_req(self):
+#     client = RequestsClient()
+#     url = reverse(bookings)
+#     data = {'title': "Mr.",
+#             'firstName': "Bruce",
+#             'lastName': "Wayne",
+#             'countryCode': "20",
+#             'phoneNumber': "90714829",
+#             'emailAddress': "batman@yahoo.com",
+#             'specialRequest': "batmobile",
+#             'cardNumber': "234567899",
+#             'nameOnCard': "Bruce Wayne",
+#             'expiryDate': now.strftime("%m/%d/%Y"),
+#             'cvvCvc': "234",
+#             'address': "Wayne Manor",
+#             'city': "Gotham City",
+#             'zipCode': "123456",
+#             'country': "U.S."
+#     }
+#     response = self.client.post(url, data, format='json')
+#     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+#     self.assertEqual(response.json, data)
