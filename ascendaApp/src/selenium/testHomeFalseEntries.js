@@ -15,7 +15,7 @@ describe('Home Actions', function() {
     it('function should terminate without error', async function() {
 
       let destBox = await driver.findElement(By.xpath('//*[@id="destination"]'));
-      destBox.sendKeys('Singapore');
+      destBox.sendKeys('BasketBall');
       
       let checkInDayBox = await driver.findElement(By.xpath('//*[@id="checkInDay"]'));
       checkInDayBox.sendKeys('01012022');

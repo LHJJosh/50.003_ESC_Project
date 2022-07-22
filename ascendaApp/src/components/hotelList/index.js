@@ -38,29 +38,28 @@ class HotelListInternal extends React.Component {
     let queryUrl = '/api/listHotels/';
     if (this.props.query.destination !== "")
       queryUrl += `?destination=${this.props.query.destination}`
-      
     if (this.props.query.rooms !== "")
-    queryUrl += `&rooms=${this.props.query.rooms}`
+      queryUrl += `&rooms=${this.props.query.rooms}`
+    if (this.props.query.reviewScore !== "")
+      queryUrl += `&reviewScore=${this.props.query.reviewScore}`
+    if (this.props.query.price !== "")
+      queryUrl += `&price=${this.props.query.price}`
     return queryUrl
   }
 
   renderItems = () => {
-    /*const newHotels = this.state.hotelList.filter(
-      hotel => hotel.destination === this.destination
-    );*/
     return this.state.hotelList.map((hotel) => 
-    //return this.state.hotelList.map((hotel) =>
-    <div>
-      <HotelListCard 
-                    hotelName={hotel.name}
-                    hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
-                    hotelAddress={hotel.address}
-                    hotelPrice={hotel.price}
-                    hotelDeal='1 for 1 ??!?'
-                    hotelId={hotel.id}/>    
-      <Divider variant='inset' component='li' />
-    </div>
-  );
+      <div>
+        <HotelListCard className='HotelListCard'
+                      hotelName={hotel.name}
+                      hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
+                      hotelAddress={hotel.address}
+                      hotelPrice={hotel.price}
+                      hotelDeal='1 for 1 ??!?'
+                      hotelId={hotel.id}/>    
+        <Divider variant='inset' component='li' />
+      </div>
+    );
   };
 
   render() {
