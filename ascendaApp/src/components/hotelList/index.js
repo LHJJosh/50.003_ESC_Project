@@ -54,7 +54,7 @@ class HotelListInternal extends React.Component {
     return this.state.hotelList.map((hotel) => 
     //return this.state.hotelList.map((hotel) =>
     <div>
-      <HotelListCard 
+      <HotelListCard className='HotelListCard'
                     hotelName={hotel.name}
                     hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
                     hotelAddress={hotel.address}
