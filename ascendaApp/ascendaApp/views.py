@@ -58,9 +58,9 @@ def list_hotels(request, format=None):
     if name is not None:
       hotels = hotels.filter(name__contains=name)
     if destination is not None:
-      hotels = hotels.filter(destination=destination)
+      hotels = hotels.filter(destination__contains=destination)
     if rooms is not None:
-      hotels = hotels.filter(rooms=rooms)
+      hotels = hotels.filter(rooms__gte=rooms)
     if reviewScore is not None:
       hotels = hotels.filter(reviewScore__gte=reviewScore)
     if price is not None:

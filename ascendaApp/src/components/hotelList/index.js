@@ -56,7 +56,8 @@ class HotelListInternal extends React.Component {
                     hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
                     hotelAddress={hotel.address}
                     hotelPrice={hotel.price}
-                    hotelDeal='1 for 1 ??!?'/>    
+                    hotelDeal='1 for 1 ??!?'
+                    hotelId={hotel.id}/>    
       <Divider variant='inset' component='li' />
     </div>
   );
