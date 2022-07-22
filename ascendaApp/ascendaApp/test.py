@@ -86,3 +86,17 @@ class HotelTests(APITestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     for i in response.data:
       self.assertEqual(float(i['reviewScore']) >= 3.0, True)
+  
+  def test_getdetails1(self):
+    url = reverse(detail_hotel, args=(1,))
+    response = self.client.get(url, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(response.data['id'], 1)
+    self.assertEqual(response.data['name'], 'name1')
+
+  def test_getdetails2(self):
+    url = reverse(detail_hotel, args=(4,))
+    response = self.client.get(url, format='json')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(response.data['id'], 4)
+    self.assertEqual(response.data['name'], 'name4')
