@@ -38,12 +38,12 @@ class HotelListInternal extends React.Component {
     let queryUrl = '/api/listHotels/';
     if (this.props.query.destination !== "")
       queryUrl += `?destination=${this.props.query.destination}`
-    
-    else
-      queryUrl = '/api/listHotels/'
-      
     if (this.props.query.rooms !== "")
-    queryUrl += `&rooms=${this.props.query.rooms}`
+      queryUrl += `&rooms=${this.props.query.rooms}`
+    if (this.props.query.reviewScore !== "")
+      queryUrl += `&reviewScore=${this.props.query.reviewScore}`
+    if (this.props.query.price !== "")
+      queryUrl += `&price=${this.props.query.price}`
     return queryUrl
   }
 

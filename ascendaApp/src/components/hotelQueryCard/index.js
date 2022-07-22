@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
 import Autocomplete from '@mui/material/Autocomplete';
+import Slider from '@mui/material/Slider';
 import "./styles.css";
 
 
@@ -19,9 +20,11 @@ class HotelQuery extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      rooms: 0,
+      rooms: "",
       adults: "",
-      children: ""
+      children: "",
+      reviewScore: 0,
+      price: 1000
     }
   }
   
@@ -140,6 +143,36 @@ class HotelQuery extends React.Component {
                         <MenuItem className='menuItem' value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
+                  </Grid>
+                  <Grid item sm={12}>
+                    <Typography id="input-slider" gutterBottom>
+                      Review Score
+                    </Typography>
+                    <Slider
+                      defaultValue={0}
+                      valueLabelDisplay="auto"
+                      step={1}
+                      marks={true}
+                      min={0}
+                      max={5}
+                      onChange={v => this.handleChange(v, 'reviewScore')}
+                      valueLabelDisplay='auto'
+                    />
+                  </Grid>
+                  <Grid item sm={12}>
+                    <Typography id="input-slider" gutterBottom>
+                      Price
+                    </Typography>
+                    <Slider
+                      defaultValue={1000}
+                      step={50}
+                      valueLabelDisplay="auto"
+                      marks={true}
+                      min={0}
+                      max={1000}
+                      onChange={v => this.handleChange(v, 'price')}
+                      valueLabelDisplay='auto'
+                    />
                   </Grid>
                 </Grid>
               </Box>
