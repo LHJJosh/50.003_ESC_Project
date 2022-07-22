@@ -3,6 +3,23 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
+class Destination(models.Model):
+  lat = models.DecimalField(decimal_places=5, max_digits=8, blank=True)
+  lng = models.DecimalField(decimal_places=5, max_digits=8, blank=True)
+  
+  state = models.CharField(max_length=256, blank=True, default='')
+  term = models.CharField(max_length=256, blank=True, default='')
+  type = models.CharField(max_length=256, blank=True, default='')
+  uid = models.CharField(max_length=256, blank=True, default='')
+
+  def __str__(self):
+    return self.term
+
+class DestinationSerialiser(serializers.ModelSerializer):
+  class Meta:
+    model = Destination
+    fields = ['lat', 'lng', 'state', 'term', 'type', 'uid']
+
 class Hotel(models.Model):
 
   class CustomerType(models.TextChoices):
