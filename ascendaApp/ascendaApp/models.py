@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 class Destination(models.Model):
-  lat = models.DecimalField(decimal_places=5, max_digits=8, blank=True)
-  lng = models.DecimalField(decimal_places=5, max_digits=8, blank=True)
+  lat = models.DecimalField(decimal_places=6, max_digits=16, blank=True)
+  lng = models.DecimalField(decimal_places=6, max_digits=16, blank=True)
   
   state = models.CharField(max_length=256, blank=True, default='')
   term = models.CharField(max_length=256, blank=True, default='')
