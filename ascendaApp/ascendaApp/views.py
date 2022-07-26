@@ -1,4 +1,6 @@
 import math
+import requests
+import json
 
 from django.shortcuts import render
 from rest_framework import viewsets, status
@@ -151,3 +153,25 @@ def destinations(request, format=None):
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+
+@api_view(['GET'])
+def hotels(request, format=None):
+  if request.method == 'GET':
+    destination_id = request.query_params.get('destination_id')
+    checkin = request.query_params.get('checkin')
+    checkout = request.query_params.get('checkout')
+    guests = request.query_params.get('guests')
+
+    url = f'https://hotelapi.loyalty.dev/api/hotels' + \
+      f'?destination_id={destination_id}' + \
+      f'&checkin={checkin}' + \
+      f'&checkout={checkout}' + \
+      f'&guests={guests}'
+    
+    res = requests.get(url)
+    data = json.loads(res.content)
+
+    if res.status_code == 200:
+      return Response(data, status=status.HTTP_201_CREATED)
+    return Response(res.content, status=status.HTTP_400_BAD_REQUEST)
