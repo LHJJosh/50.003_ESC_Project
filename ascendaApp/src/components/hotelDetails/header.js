@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 
-export function HeaderCard(props) {
+export function HeaderCard(props){
 
     function onClickHandler(){
       alert('Implement reroute to rooms component')
