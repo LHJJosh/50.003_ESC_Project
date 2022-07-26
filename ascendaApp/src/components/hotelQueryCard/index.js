@@ -24,7 +24,8 @@ class HotelQuery extends React.Component {
       children: "",
       reviewScore: 0,
       price: 1000,
-      searchCache: []
+      searchCache: [],
+      searchIdMap: new Map()
     }
   }
   
@@ -38,12 +39,16 @@ class HotelQuery extends React.Component {
 
   autoComplete = (evt, key) => {
     if (evt.target.value.length >= 2) {
-      // console.log(`/api/destinations/?term=${evt.target.value}`);
+      let query = `/api/destinations?term=${evt.target.value}`;
       axios
-        .get(`/api/destinations/?term=${evt.target.value}`)
+        .get(query)
         .then((res) => {
           let newCache = new Set();
-          res.data.forEach((data) => newCache.add(data['term']));
+          this.state.searchIdMap.clear();
+          res.data.forEach(data => {
+            newCache.add(data['term']);
+            this.state.searchIdMap.set(data['term'], data['uid']);
+          });
           this.setState({searchCache: Array.from(newCache)});
         })
         .catch((err) => console.log(err));
@@ -73,7 +78,9 @@ class HotelQuery extends React.Component {
                     options={this.state.searchCache}
                     fullWidth
                     id="destination"
-                    onChange={(event, newValue) => {this.handleChange('destination', newValue)}}
+                    onChange={(event, newValue) => {
+                      this.handleChange('destination_uid', this.state.searchIdMap.get(newValue))
+                    }}
                     onInputChange={this.autoComplete}
                     inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text/>}
                     renderInput={(params) => <TextField {...params}
