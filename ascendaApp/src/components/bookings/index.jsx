@@ -253,7 +253,7 @@ export default function SignUp() {
           
           <br>
           </br>
-          {/*<Box
+          <Box
             sx={{
               marginLeft: 2,
               marginRight: 2,
@@ -264,9 +264,9 @@ export default function SignUp() {
           >
              <Typography component="h1" variant="h5">
                 Payment Details
-            </Typography> */}
+            </Typography>
 
-            {/* <Box>
+            <Box>
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2} columns={60}>
                   <Grid item xs={60} sm={30}>
@@ -316,7 +316,7 @@ export default function SignUp() {
                 </Grid>
               </Box>
             </Box> 
-          </Box>*/}
+          </Box>
 
           <Box
             sx={{
@@ -327,12 +327,12 @@ export default function SignUp() {
               alignItems: 'center',
             }}
           >
-            {/* <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5">
                 Billing Address
-            </Typography> */}
+            </Typography>
 
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              {/* <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Box>
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2} columns={60}>
                   <Grid item xs={60} sm={30}>
                     <TextField
@@ -382,14 +382,14 @@ export default function SignUp() {
                       name="country"
                       autoComplete="country"
                     />
-                  </Grid> */}
+                  </Grid>
                   <Grid item xs={60}>
                     <FormControlLabel
                       control={<Checkbox value="allowExtraEmails" color="primary" id="checkBox"/>}
                       label="I agree to the Cancellation Policy and Ascenda's Terms of Use and Privacy policy"
                     />
                   </Grid>
-                {/* </Grid> */}
+                </Grid>
                 <Stack spacing={2} sx={{ width: '100%' }}>
                   <Button type="submit" variant="outlined" onClick={handleClick} id="confirmButton">
                   Confirm Booking
@@ -415,7 +415,7 @@ export default function SignUp() {
                     </Link>
                   </Grid>
                 </Grid>
-              {/* </Box> */}
+              </Box>
             </Box>
           </Box>
           <Copyright sx={{ mt: 5 }} />

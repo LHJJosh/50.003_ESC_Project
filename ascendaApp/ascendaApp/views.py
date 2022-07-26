@@ -5,7 +5,9 @@ from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Hotel, HotelSerializer, BookingInfo, BookingsSerializer
+from .models import Hotel, HotelSerializer, \
+  BookingInfo, BookingsSerializer, \
+  Destination, DestinationSerialiser
 
 from pathlib import Path
 
@@ -111,8 +113,7 @@ def detail_hotel(request, pk, format=None):
       hotel.delete()
       return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-@api_view(['GET','POST'])
+@api_view(['GET', 'POST'])
 def bookings(request, format=None):
   """
   List all code snippets, or create a new booking.
@@ -125,6 +126,27 @@ def bookings(request, format=None):
   elif request.method == 'POST':
     data = JSONParser().parse(request)
     serializer = BookingsSerializer(data=data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+@api_view(['GET', 'POST'])
+def destinations(request, format=None):
+  """
+  """
+  if request.method == 'GET':
+    term = request.query_params.get('term')
+    
+    destinations = Destination.objects
+    if term is not None:
+      destinations = destinations.filter(term__contains=term)
+    serializer = DestinationSerialiser(destinations, many=True)
+    return Response(serializer.data)
+
+  elif request.method == 'POST':
+    data = JSONParser().parse(request)
+    serializer = DestinationSerialiser(data=data)
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)

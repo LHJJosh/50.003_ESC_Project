@@ -11,9 +11,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import Slider from '@mui/material/Slider';
+import axios from 'axios';
 
 import "./styles.css";
-import { allCountries } from './searchCache.js'
 
 class HotelQuery extends React.Component {
   constructor(props) {
@@ -23,19 +23,31 @@ class HotelQuery extends React.Component {
       adults: "",
       children: "",
       reviewScore: 0,
-      price: 1000
+      price: 1000,
+      searchCache: []
     }
   }
   
-  handleChange = (evt, key) => {
-    if (typeof key !== 'undefined') {
-      evt.target.id = key;
-      this.setState({[key]: evt.target.value});
-    }
+  handleChange = (key, value) => {
+    this.setState({[key]: value});
     this.props.updateQuery({
       ...this.state,
-      [evt.target.id]: evt.target.value
+      [key]: value
     });
+  }
+
+  autoComplete = (evt, key) => {
+    if (evt.target.value.length >= 2) {
+      // console.log(`/api/destinations/?term=${evt.target.value}`);
+      axios
+        .get(`/api/destinations/?term=${evt.target.value}`)
+        .then((res) => {
+          let newCache = new Set();
+          res.data.forEach((data) => newCache.add(data['term']));
+          this.setState({searchCache: Array.from(newCache)});
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   render() {
@@ -58,16 +70,18 @@ class HotelQuery extends React.Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                   <Autocomplete
-                    options={allCountries}
+                    options={this.state.searchCache}
                     fullWidth
                     id="destination"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) => {this.handleChange('destination', newValue)}}
+                    onInputChange={this.autoComplete}
                     inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text/>}
                     renderInput={(params) => <TextField {...params}
                     label="Destination"
                     id="destination"
-                    autoComplete
-                    onChange={this.handleChange}
+                    onChange={this.autoComplete}
+                    // autoComplete='off'
+                    // limitTags={10}
                   />}
                   />
                   </Grid>
@@ -77,7 +91,7 @@ class HotelQuery extends React.Component {
                         required
                         size='small'
                         id="checkInDay"
-                        onChange={this.handleChange}
+                        onChange={evt => this.handleChange(evt.target.id, evt.target.value)}
                         label="Check In Day"
                     />      
                   </Grid>
@@ -87,7 +101,7 @@ class HotelQuery extends React.Component {
                         required
                         size='small'
                         id="checkOutDay"
-                        onChange={this.handleChange}
+                        onChange={evt => this.handleChange(evt.target.id, evt.target.value)}
                         label="Check Out Day"
                     />      
                   </Grid>
@@ -99,7 +113,7 @@ class HotelQuery extends React.Component {
                         id="rooms"
                         value={this.state.rooms}
                         label="Rooms"
-                        onChange={v => this.handleChange(v, 'rooms')}
+                        onChange={evt => this.handleChange('rooms', evt.target.value)}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -116,7 +130,7 @@ class HotelQuery extends React.Component {
                         id="adults"
                         value={this.state.adults}
                         label="Adults"
-                        onChange={v => this.handleChange(v, 'adults')}
+                        onChange={evt => this.handleChange('adults', evt.target.value)}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -133,7 +147,7 @@ class HotelQuery extends React.Component {
                         id="children"
                         value={this.state.children}
                         label="Children"
-                        onChange={v => this.handleChange(v, 'children')}
+                        onChange={evt => this.handleChange('children', evt.target.value)}
                       >
                         <MenuItem className='menuItem' value={0}>0</MenuItem>
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
@@ -154,7 +168,7 @@ class HotelQuery extends React.Component {
                       marks={true}
                       min={0}
                       max={5}
-                      onChange={v => this.handleChange(v, 'reviewScore')}
+                      onChange={evt => this.handleChange('reviewScore', evt.target.value)}
                     />
                   </Grid>
                   <Grid item sm={12}>
@@ -168,7 +182,7 @@ class HotelQuery extends React.Component {
                       marks={true}
                       min={0}
                       max={1000}
-                      onChange={v => this.handleChange(v, 'price')}
+                      onChange={evt => this.handleChange('price', evt.target.value)}
                     />
                   </Grid>
                 </Grid>
