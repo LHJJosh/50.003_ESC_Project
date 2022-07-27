@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import previewAlt from '../../assets/cardmedia_noPreviewAvailable.png';
 import './styles.css'
 
-class HotelListCardInternal extends React.Component {
+class HotelListCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -86,4 +86,4 @@ class HotelListCardInternal extends React.Component {
     
 }
 
-export const HotelListCard = HotelListCardInternal
+export default HotelListCard

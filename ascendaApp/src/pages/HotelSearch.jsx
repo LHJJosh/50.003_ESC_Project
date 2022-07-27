@@ -1,10 +1,9 @@
 import React, { Suspense } from "react";
-//import { HotelList } from '../components/hotelList';
 import DisplayTop from "./pageComponents/displayTop";
 import HotelQuery from '../components/hotelQueryCard';
 
+import { HotelList } from "../components/hotelList";
 
-const HotelList = React.lazy(() => import("../components/hotelList"));
 class HotelSearches extends React.Component {
   constructor(props) {
     super(props);
@@ -32,10 +31,9 @@ class HotelSearches extends React.Component {
           
         
         <HotelQuery className='hotelQuery' updateQuery={this.updateQuery}/>
-        <Suspense fallback={<h1>Loading hotel...</h1>}>
-          <HotelList className='hotelList' query={this.state}/>
-          
-        </Suspense>
+        
+        <HotelList className='hotelList' query={this.state}/>
+        
       </div>
     </DisplayTop>;
   }

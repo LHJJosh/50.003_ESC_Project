@@ -2,14 +2,16 @@ import React from "react";
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import axios from 'axios';
+import { Suspense } from "react";
 
-import { HotelListItem } from './hotelListItem.js'
-import { HotelListCard } from './hotelListCard.js'
+import HotelListItem from './hotelListItem.js'
 import { HotelDropdown } from './hotelDropdown.js'
 
 import "./styles.css";
 
-class HotelListInternal extends React.Component {
+const HotelListCard = React.lazy(() => import("./hotelListCard.js"));
+
+class HotelListInternals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,14 +66,16 @@ class HotelListInternal extends React.Component {
   renderItems = () => {
     return this.state.hotelList.slice(0, 10).map((hotel) => 
       <div key={hotel.id}>
-        <HotelListCard className='HotelListCard'
-                       hotelName={hotel.name}
-                       hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
-                       hotelAddress={hotel.address}
-                       hotelPrice={100}
-                       hotelId={hotel.id}
-                       hotelRating={hotel.rating}
-                       hotelDistance={hotel.distance}/>    
+        <Suspense fallback={<div><h5>Loading</h5></div>}>
+          <HotelListCard className='HotelListCard'
+                        hotelName={hotel.name}
+                        hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
+                        hotelAddress={hotel.address}
+                        hotelPrice={100}
+                        hotelId={hotel.id}
+                        hotelRating={hotel.rating}
+                        hotelDistance={hotel.distance}/> 
+        </Suspense>  
         <Divider variant='inset' component='li' />
       </div>
     );
@@ -95,4 +99,4 @@ class HotelListInternal extends React.Component {
   }
 }
 
-export const HotelList = HotelListInternal;
+export const HotelList = HotelListInternals;
