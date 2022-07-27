@@ -12,14 +12,27 @@ export function DetailsPage() {
   const [state, setState] = React.useState({
     id: "",
     address: "",
-    customerType: "",
-    lat: "",
-    lng: "",
+    latitude: "",
+    longitude: "",
     name: "",
-    price: "",
-    reviewScore: ""
+    rating: "",
+    description: "",
+    amenities: "",
+    image_details: {
+      prefix: "",
+      suffix: "",
+      count: 0
+    }
   });
   const location = useLocation();
+
+  function buildQueryInternalApi() {
+    return `/api/getHotel/${location.state.hotelId}`;
+  };
+
+  function buildQuery() {
+    return `/api/hotelDetail?hotel_id=${location.state.hotelId}`;
+  }
   
   function refreshDetails(queryUrl) {
     axios
@@ -30,23 +43,24 @@ export function DetailsPage() {
 
   React.useEffect(() => {
     if (location.state !== null && location.state.hotelId !== state.id) {
-      let queryUrl=`/api/getHotel/${location.state.hotelId}`
+      let queryUrl = buildQuery();
+      console.log(queryUrl);
       refreshDetails(queryUrl);
     }
   });
 
- 
   //const myRef = useRef(null)
-
   //const executeScroll = () => myRef.current.scrollIntoView() 
 
   return (
     <div className="detailsPage">
-      <HeaderCard hotelName={state.name} hotelAddress={state.address} hotelImg="https://d2ey9sqrvkqdfs.cloudfront.net/diH7/10.jpg"/>
+      <HeaderCard hotelName={state.name} 
+                  hotelAddress={state.address} 
+                  hotelImg={state.image_details.prefix + "0" + state.image_details.suffix}/>
       <DetailsCard detailsHeader1="Location" 
                    detailsHeader2="Amenities" 
-                   detailsText1="With a stay at The Fullerton Hotel Singapore, you'll be centrally located in Singapore, steps from Cavenagh Bridge and Anderson Bridge.  This 5-star hotel is close to Chinatown Heritage Center and Universal Studios Singapore®."
-                   detailsText2="Pamper yourself with a visit to the spa, which offers massages, body treatments, and facials. If you're looking for recreational opportunities, you'll find an outdoor pool and a fitness center. This Colonial hotel also features complimentary wireless Internet access, concierge services, and gift shops/newsstands. Guests can get to nearby shops on the complimentary shuttle."/>
+                   detailsText1={state.description}
+                   detailsText2={state.amenities.toString()}/>
       <RoomsCard //ref={myRef}
                  roomName1="Room 1" 
                  roomImg1="https://d2ey9sqrvkqdfs.cloudfront.net/diH7/2.jpg" 
@@ -56,8 +70,8 @@ export function DetailsPage() {
                  roomRate2="$Test2"/>
       <MapsCard hotelName={state.name}
                 hotelAddress={state.address}
-                hotelLat={state.lat}
-                hotelLng={state.lng}/>
+                hotelLat={state.latitude}
+                hotelLng={state.longitude}/>
       <br/>
     </div>
   );
