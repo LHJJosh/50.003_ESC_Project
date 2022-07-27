@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import axios from "axios";
@@ -50,13 +50,13 @@ class HotelListInternal extends React.Component {
   renderItems = () => {
     return this.state.hotelList.map((hotel) => 
       <div>
-        <HotelListCard className='HotelListCard'
-                      hotelName={hotel.name}
-                      hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
-                      hotelAddress={hotel.address}
-                      hotelPrice={hotel.price}
-                      hotelDeal='1 for 1 ??!?'
-                      hotelId={hotel.id}/>    
+          <HotelListCard className='HotelListCard'
+                        hotelName={hotel.name}
+                        hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
+                        hotelAddress={hotel.address}
+                        hotelPrice={hotel.price}
+                        hotelDeal='1 for 1 ??!?'
+                        hotelId={hotel.id}/>
         <Divider variant='inset' component='li' />
       </div>
     );
