@@ -21,7 +21,7 @@ class HotelListInternal extends React.Component {
     if (typeof queryUrl !== 'undefined') {
       axios
       .get(queryUrl)
-      .then((res) => this.setState({ hotelList: res.data }, () => console.log(queryUrl)))
+      .then((res) => this.setState({ hotelList: res.data }, () => console.log(res.data)))
       .catch((err) => console.log(err));
     }
   }
@@ -66,11 +66,12 @@ class HotelListInternal extends React.Component {
       <div key={hotel.id}>
         <HotelListCard className='HotelListCard'
                        hotelName={hotel.name}
-                       hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
+                       hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
                        hotelAddress={hotel.address}
                        hotelPrice={100}
-                       hotelDeal='1 for 1 ??!?'
-                       hotelId={hotel.id}/>    
+                       hotelId={hotel.id}
+                       hotelRating={hotel.rating}
+                       hotelDistance={hotel.distance}/>    
         <Divider variant='inset' component='li' />
       </div>
     );

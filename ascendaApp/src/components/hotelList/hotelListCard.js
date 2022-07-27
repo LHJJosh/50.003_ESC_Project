@@ -10,13 +10,12 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import Divider from '@mui/material/Divider';
 import { Link } from "react-router-dom";
 
+import previewAlt from '../../assets/cardmedia_noPreviewAvailable.png';
+import './styles.css'
 
 class HotelListCardInternal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: 0
-    }
   }
   
   render() {
@@ -26,26 +25,37 @@ class HotelListCardInternal extends React.Component {
       sx={{ width: 200, height: 200 }}
       image={this.props.hotelImage}
       alt={this.props.hotelName}
+      onError={({ currentTarget }) => {
+        currentTarget.onerror = null; // prevents looping
+        currentTarget.src = previewAlt;
+      }}
     />
 
     <Box className='cardInfoBox'>
 
       <CardContent sx={{ flex: '1 0 auto' }}>
-        <Typography component='div' variant='h5'>
+        <Typography component='div' variant='h4'>
           {this.props.hotelName}
         </Typography>
+
+        <div class="vspace1em"></div>
           
-        <Typography variant='subtitle1' color='text.secondary' component='div'>
+        <Typography variant='h5' color='text.secondary' component='div'>
           {this.props.hotelAddress}
         </Typography>
+        <Typography variant='h5' color='text.secondary' component='div'>
+          {(parseFloat(this.props.hotelDistance)).toFixed(1)} km from city centre
+        </Typography>
+
+        <div class="vspace1em"></div>
 
         <Rating
           name='simple-controlled'
-          value={this.state.value}
-          onChange={(event, newValue) => {
-            this.setState({value: newValue});
-          }}
-        />        
+          defaultValue={this.props.hotelRating}
+          precision={0.5}
+          size="large"
+          readOnly
+        /> 
       </CardContent>
 
     </Box>
@@ -54,12 +64,8 @@ class HotelListCardInternal extends React.Component {
 
     <Box className='cardBookBox'>
       <CardContent>
-        <Typography component='div' variant='body1'>
+        <Typography component='div' variant='h5'>
           SGD {this.props.hotelPrice}
-        </Typography>
-          
-        <Typography variant='subtitle1' color='text.secondary' component='div'>
-          {this.props.hotelDeal}
         </Typography>
 
         <Button className='hotelButton' 
