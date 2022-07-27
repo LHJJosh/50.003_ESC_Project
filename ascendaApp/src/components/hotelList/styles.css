@@ -1,5 +1,5 @@
 .hotelList {
-  width: 80%
+  width: 60%
 }
 
 .dropdownDiv {
@@ -34,4 +34,13 @@
 .cardDivider {
   margin-left: auto;
   margin-right: 0;
+}
+
+div.vspace1em {
+  clear: both;
+  height: 1em;
+}
+
+.cardBookBox{
+  text-align: center;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import axios from "axios";
+import axios from 'axios';
 
 import { HotelListItem } from './hotelListItem.js'
 import { HotelListCard } from './hotelListCard.js'
@@ -18,14 +18,12 @@ class HotelListInternal extends React.Component {
   }
 
   refreshList = (queryUrl) => {
-    axios
+    if (typeof queryUrl !== 'undefined') {
+      axios
       .get(queryUrl)
-      .then((res) => this.setState({ hotelList: res.data }, () => console.log(queryUrl)))
+      .then((res) => this.setState({ hotelList: res.data }, () => console.log(res.data)))
       .catch((err) => console.log(err));
-  }
-
-  componentDidMount() {
-    this.refreshList();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -35,6 +33,22 @@ class HotelListInternal extends React.Component {
   }
 
   buildQuery() {
+    let queryUrl = '/api/hotels'
+    let query = this.props.query;
+    if (query.destination_uid !== '' && 
+      query.checkin !== '' &&
+      query.checkout !== '' &&
+      query.rooms !== ''
+    ) {
+      queryUrl += `?destination_id=${query.destination_uid}`; // WD0M
+      queryUrl += `&checkin=${query.checkInDay}`; // 2022-08-18
+      queryUrl += `&checkout=${query.checkOutDay}`; // 2022-08-19
+      queryUrl += `&guests=${query.rooms}`;
+      return queryUrl
+    }
+  }
+
+  buildQueryInternalApi() {
     let queryUrl = '/api/listHotels/';
     if (this.props.query.destination !== "")
       queryUrl += `?destination=${this.props.query.destination}`
@@ -48,15 +62,16 @@ class HotelListInternal extends React.Component {
   }
 
   renderItems = () => {
-    return this.state.hotelList.map((hotel) => 
-      <div>
-          <HotelListCard className='HotelListCard'
-                        hotelName={hotel.name}
-                        hotelImage={require('../../assets/cardmedia_hotel1.jpg')}
-                        hotelAddress={hotel.address}
-                        hotelPrice={hotel.price}
-                        hotelDeal='1 for 1 ??!?'
-                        hotelId={hotel.id}/>
+    return this.state.hotelList.slice(0, 10).map((hotel) => 
+      <div key={hotel.id}>
+        <HotelListCard className='HotelListCard'
+                       hotelName={hotel.name}
+                       hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
+                       hotelAddress={hotel.address}
+                       hotelPrice={100}
+                       hotelId={hotel.id}
+                       hotelRating={hotel.rating}
+                       hotelDistance={hotel.distance}/>    
         <Divider variant='inset' component='li' />
       </div>
     );

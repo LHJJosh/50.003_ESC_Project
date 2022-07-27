@@ -22,10 +22,12 @@ urlpatterns = [
     path('booking/', views.booking, name='booking-view'),
     path('admin/', admin.site.urls),
     path("", views.front, name="front"),
-    path('api/listHotels/', views.list_hotels),
-    path('api/getHotel/<int:pk>', views.detail_hotel),
+    path('api/listHotelsInternal/', views.list_hotels_internal),
+    path('api/getHotelInternal/<int:pk>', views.detail_hotel_internal),
     path('api/bookings', views.bookings),
-    path('api/destinations/', views.destinations)
+    path('api/destinations', views.destinations),
+    path('api/hotels', views.hotels),
+    path('api/hotelDetail', views.hotel_detail)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
