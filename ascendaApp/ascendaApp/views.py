@@ -42,7 +42,7 @@ def getLongitudeBounds(lat, lng, metres):
   return (lng - metres / degLength, lng + metres / degLength)
 
 @api_view(['GET', 'POST'])
-def list_hotels(request, format=None):
+def list_hotels_internal(request, format=None):
   """
   List all code snippets, or create a new Hotel.
   """
@@ -90,7 +90,7 @@ def list_hotels(request, format=None):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def detail_hotel(request, pk, format=None):
+def detail_hotel_internal(request, pk, format=None):
   """
   Retrieve, update or delete a code Hotel.
   """
@@ -154,7 +154,6 @@ def destinations(request, format=None):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
-
 @api_view(['GET'])
 def hotels(request, format=None):
   if request.method == 'GET':
@@ -169,6 +168,19 @@ def hotels(request, format=None):
       f'&checkout={checkout}' + \
       f'&guests={guests}'
     
+    res = requests.get(url)
+    data = json.loads(res.content)
+
+    if res.status_code == 200:
+      return Response(data, status=status.HTTP_201_CREATED)
+    return Response(res.content, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def hotel_detail(request, format=None):
+  if request.method == 'GET':
+    hotel_id = request.query_params.get('hotel_id')
+
+    url = f'https://hotelapi.loyalty.dev/api/hotels/{hotel_id}'
     res = requests.get(url)
     data = json.loads(res.content)
 
