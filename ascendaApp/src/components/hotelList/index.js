@@ -66,7 +66,12 @@ class HotelListInternals extends React.Component {
   renderItems = () => {
     return this.state.hotelList.slice(0, 10).map((hotel) => 
       <div key={hotel.id}>
-        <Suspense fallback={<div><h5>Loading</h5></div>}>
+        <Suspense fallback={<div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'}}>
+        <h5>Loading</h5>
+      </div>}>
           <HotelListCard className='HotelListCard'
                         hotelName={hotel.name}
                         hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
