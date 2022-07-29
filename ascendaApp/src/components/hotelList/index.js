@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Suspense } from "react";
 
 import HotelListItem from './hotelListItem.js'
-import { HotelDropdown } from './hotelDropdown.js'
 
 import "./styles.css";
 
@@ -23,7 +22,7 @@ class HotelListInternals extends React.Component {
     if (typeof queryUrl !== 'undefined') {
       axios
       .get(queryUrl)
-      .then((res) => this.setState({ hotelList: res.data }, () => console.log(res.data)))
+      .then((res) => this.setState({ hotelList: res.data }))
       .catch((err) => console.log(err));
     }
   }
@@ -90,9 +89,6 @@ class HotelListInternals extends React.Component {
     
 
     return <div className='hotelList'>
-      <div className='dropdownDiv'>
-        <HotelDropdown/>
-      </div>
       <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
         {/* <HotelListItem name='Cindy Baker'
                       primaryText='Oui Oui'

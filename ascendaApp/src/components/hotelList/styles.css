@@ -2,21 +2,6 @@
   width: 60%
 }
 
-.dropdownDiv {
-  text-align: right;
-  padding-bottom: 10px;
-}
-
-.dropdownMainDisplay {
-  width: 170px;
-}
-
-.dropdownPopper {
-  z-index: 9999;
-  /* border-color: grey;
-  border: outset; */
-}
-
 .cardInfoBox {
   display: flex;
   flex-direction: column;
