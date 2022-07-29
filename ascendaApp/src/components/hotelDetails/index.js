@@ -45,7 +45,6 @@ export function DetailsPage() {
   React.useEffect(() => {
     if (location.state !== null && location.state.hotelId !== state.id) {
       let queryUrl = buildQuery();
-      console.log(queryUrl);
       refreshDetails(queryUrl);
     }
   });
@@ -60,10 +59,8 @@ export function DetailsPage() {
                   hotelImageUrl={state.cloudflare_image_url}
                   hotelImageCount={state.number_of_images}
                   hotelId={state.id}/>
-      <DetailsCard detailsHeader1="Location" 
-                   detailsHeader2="Amenities" 
-                   detailsText1={state.description}
-                   detailsText2={state.amenities.toString()}/>
+      <DetailsCard detailsHeader="Hotel Overview" 
+                   detailsText={state.description}/>
       <RoomsCard //ref={myRef}
                  roomName1="Room 1" 
                  roomImg1="https://d2ey9sqrvkqdfs.cloudfront.net/diH7/2.jpg" 

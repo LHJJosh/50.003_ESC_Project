@@ -23,7 +23,6 @@ export default function ImageGallery(props) {
       {props.itemData.map((item) => {
         const cols = item.featured ? 2 : 1;
         const rows = item.featured ? 2 : 1;
-        console.log(item.img)
 
         return (
           <ImageListItem key={item.img} cols={cols} rows={rows}>

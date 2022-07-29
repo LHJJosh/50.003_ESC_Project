@@ -43,6 +43,7 @@
     padding: 2% 3%;
     border: solid;
     border-width: thin;
+    border-color: gray;
 }
 /* .detailsText{
     padding-inline-end: 2%;
