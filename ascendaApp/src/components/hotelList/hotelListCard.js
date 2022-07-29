@@ -20,16 +20,18 @@ class HotelListCard extends React.Component {
   
   render() {
     return <Card sx={{ display: 'flex' }}>
-    <CardMedia
-      component='img'
-      sx={{ width: 200, height: 200 }}
-      image={this.props.hotelImage}
-      alt={this.props.hotelName}
-      onError={({ currentTarget }) => {
-        currentTarget.onerror = null; // prevents looping
-        currentTarget.src = previewAlt;
-      }}
-    />
+    <Box sx={{ width: 200, height: 200 }}>
+      <CardMedia
+        component='img'
+        sx={{ width: 200, height: 200 }}
+        image={this.props.hotelImage}
+        alt={this.props.hotelName}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = previewAlt;
+        }}
+      />
+    </Box>
 
     <Box className='cardInfoBox'>
 
