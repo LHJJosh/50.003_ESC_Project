@@ -22,7 +22,8 @@ export function DetailsPage() {
       prefix: "",
       suffix: "",
       count: 0
-    }
+    },
+    cloudflare_image_url: ""
   });
   const location = useLocation();
 
@@ -56,7 +57,9 @@ export function DetailsPage() {
     <div className="detailsPage">
       <HeaderCard hotelName={state.name} 
                   hotelAddress={state.address} 
-                  hotelImg={state.image_details.prefix + "0" + state.image_details.suffix}/>
+                  hotelImageUrl={state.cloudflare_image_url}
+                  hotelImageCount={state.number_of_images}
+                  hotelId={state.id}/>
       <DetailsCard detailsHeader1="Location" 
                    detailsHeader2="Amenities" 
                    detailsText1={state.description}
