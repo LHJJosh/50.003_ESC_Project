@@ -11,11 +11,12 @@ body {
   background-size: 100% 100%;
 }
 .search {
-  border-radius: 25px;
   background: white;
   padding: 20px;
   height: 480px;
   width: 350px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .search input {
   height: 40px;

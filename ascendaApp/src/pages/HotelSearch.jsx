@@ -25,14 +25,11 @@ class HotelSearches extends React.Component {
     return <DisplayTop>
       <div style={{
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'center',
-        }}>
+      }}>
           
-        
-        <HotelQuery className='hotelQuery' updateQuery={this.updateQuery}/>
-        
-        <HotelList className='hotelList' query={this.state}/>
+          <HotelQuery sx={{marginRight: 10}} className='hotelQuery' updateQuery={this.updateQuery}/>
+          <HotelList className='hotelList' query={this.state}/>
         
       </div>
     </DisplayTop>;
