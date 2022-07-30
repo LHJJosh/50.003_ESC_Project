@@ -19,12 +19,14 @@ class HotelListInternals extends React.Component {
     }
   }
 
-  refreshList = async (queryUrl) => {
+  updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
+      console.log(queryUrl);
+
       let hotelRes = await axios.get(`/api/hotels${queryUrl}`)
                                 .catch((err) => console.log(err));
       this.state.hotels.clear();
-      hotelRes.data.forEach(data => {
+      await hotelRes.data.forEach(data => {
         this.state.hotels.set(data['id'], {
           ...data,
           price: Number.MAX_VALUE
@@ -34,23 +36,33 @@ class HotelListInternals extends React.Component {
       let priceRes = await axios.get(`/api/hotelPrice${queryUrl}`)
                                 .catch((err) => console.log(err));
       priceRes.data.hotels.forEach(data => {
-        this.state.hotels.set(data['id'], {
-          ...this.state.hotels.get(data['id']),
-          ...data
-        });
+        if (this.state.hotels.has(data['id'])) {
+          this.state.hotels.set(data['id'], {
+            ...this.state.hotels.get(data['id']),
+            ...data
+          });
+        }
       });
-      let newHotelList = [];
-      this.state.hotels.forEach(data => {
-        newHotelList.push(data)
-      })
-      newHotelList.sort((a, b) => a.price - b.price);
-      this.setState({hotelList: newHotelList});
+
+      this.refreshList();
     }
+  }
+
+  refreshList = () => {
+    let newHotelList = [];
+    this.state.hotels.forEach(data => {
+      newHotelList.push(data)
+    })
+
+    newHotelList = newHotelList.filter(
+      item => item.price < this.props.query.price || item.price === Number.MAX_VALUE)
+    newHotelList.sort((a, b) => a.price - b.price);
+    this.setState({hotelList: newHotelList});
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.query !== this.props.query) {
-      this.refreshList(this.buildQuery());
+      this.updateHotelInfo(this.buildQuery());
     }
   }
 

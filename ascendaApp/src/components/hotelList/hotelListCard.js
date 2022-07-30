@@ -20,7 +20,7 @@ class HotelListCard extends React.Component {
 
   getPrice() {
     if (this.props.hotelPrice == Number.MAX_VALUE) {
-      return "Price Not Available";
+      return "Last Room Already Sold";
     } else {
       return `SGD ${this.props.hotelPrice.toFixed(2)}`;
     }
@@ -77,6 +77,8 @@ class HotelListCard extends React.Component {
         <Typography component='div' variant='h5'>
           {this.getPrice()}
         </Typography>
+        
+        <div class="vspace1em"></div>
 
         <Button className='hotelButton' 
           variant='outlined' 
