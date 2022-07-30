@@ -55,23 +55,26 @@ class HotelListInternals extends React.Component {
     })
 
     newHotelList = newHotelList.filter(
-      item => item.price < this.props.query.price || item.price === Number.MAX_VALUE)
+      item => item.price < this.props.sortParams.price || item.price === Number.MAX_VALUE)
     newHotelList.sort((a, b) => a.price - b.price);
     this.setState({hotelList: newHotelList});
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.query !== this.props.query) {
+    if (prevProps.queryParams !== this.props.queryParams) {
       this.updateHotelInfo(this.buildQuery());
+    }
+    if (prevProps.sortParams !== this.props.sortParams) {
+      this.refreshList();
     }
   }
 
   buildQuery() {    
     let queryUrl = '';
-    let query = this.props.query;
+    let query = this.props.queryParams;
     if (query.destination_uid !== '' && 
-      query.checkin !== '' &&
-      query.checkout !== '' &&
+      query.checkInDay !== '' &&
+      query.checkOutDay !== '' &&
       query.rooms !== ''
     ) {
       queryUrl += `?destination_id=${query.destination_uid}`; // WD0M
@@ -84,14 +87,15 @@ class HotelListInternals extends React.Component {
 
   buildQueryInternalApi() {
     let queryUrl = '/api/listHotels/';
-    if (this.props.query.destination !== "")
-      queryUrl += `?destination=${this.props.query.destination}`
-    if (this.props.query.rooms !== "")
-      queryUrl += `&rooms=${this.props.query.rooms}`
-    if (this.props.query.reviewScore !== "")
-      queryUrl += `&reviewScore=${this.props.query.reviewScore}`
-    if (this.props.query.price !== "")
-      queryUrl += `&price=${this.props.query.price}`
+    let query = this.props.queryParams;
+    if (query.destination !== "")
+      queryUrl += `?destination=${query.destination}`
+    if (query.rooms !== "")
+      queryUrl += `&rooms=${query.rooms}`
+    if (query.reviewScore !== "")
+      queryUrl += `&reviewScore=${query.reviewScore}`
+    if (query.price !== "")
+      queryUrl += `&price=${query.price}`
     return queryUrl
   }
 

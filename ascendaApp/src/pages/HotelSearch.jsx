@@ -8,17 +8,31 @@ class HotelSearches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      destination: '',
-      checkInDay: '',
-      checkOutDay: '',
-      rooms: 0,
-      adults: '',
-      children: ''
+      queryParams: {
+        destination_uid: '',
+        checkInDay: '',
+        checkOutDay: '',
+        rooms: '',
+      },
+      sortParams: {
+        price: 1000,
+        reviewScore: 0
+      }
     }
   }
 
-  updateQuery = (updateDict) => {
-    this.setState(updateDict);
+  updateQueryParams = (updateDict) => {
+    this.setState({queryParams: {
+      ...this.state.queryParams,
+      ...updateDict
+    }});
+  }
+
+  updateSortParams = (updateDict) => {
+    this.setState({sortParams: {
+      ...this.state.sortParams,
+      ...updateDict
+    }});
   }
 
   render() {
@@ -28,8 +42,13 @@ class HotelSearches extends React.Component {
         justifyContent: 'center',
       }}>
           
-          <HotelQuery sx={{marginRight: 10}} className='hotelQuery' updateQuery={this.updateQuery}/>
-          <HotelList className='hotelList' query={this.state}/>
+          <HotelQuery sx={{marginRight: 10}} 
+                      className='hotelQuery' 
+                      updateQueryParams={this.updateQueryParams}
+                      updateSortParams={this.updateSortParams}/>
+          <HotelList className='hotelList' 
+                     queryParams={this.state.queryParams}
+                     sortParams={this.state.sortParams}/>
         
       </div>
     </DisplayTop>;

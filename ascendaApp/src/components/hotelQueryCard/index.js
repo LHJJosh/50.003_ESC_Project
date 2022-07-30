@@ -22,19 +22,14 @@ class HotelQuery extends React.Component {
       rooms: "",
       adults: "",
       children: "",
-      reviewScore: 0,
-      price: 1000,
       searchCache: [],
       searchIdMap: new Map()
     }
   }
   
-  handleChange = (key, value) => {
+  updateQuery = (key, value, updateCallback) => {
     this.setState({[key]: value});
-    this.props.updateQuery({
-      ...this.state,
-      [key]: value
-    });
+    updateCallback({[key]: value});
   }
 
   autoComplete = (evt, key) => {
@@ -75,9 +70,11 @@ class HotelQuery extends React.Component {
                     options={this.state.searchCache}
                     fullWidth
                     id="destination"
-                    onChange={(event, newValue) => {
-                      this.handleChange('destination_uid', this.state.searchIdMap.get(newValue))
-                    }}
+                    onChange={(event, newValue) => this.updateQuery(
+                      'destination_uid', 
+                      this.state.searchIdMap.get(newValue), 
+                      this.props.updateQueryParams)
+                    }
                     onInputChange={this.autoComplete}
                     inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text/>}
                     renderInput={(params) => <TextField {...params}
@@ -95,7 +92,8 @@ class HotelQuery extends React.Component {
                         required
                         size='small'
                         id="checkInDay"
-                        onChange={evt => this.handleChange(evt.target.id, evt.target.value)}
+                        onChange={evt => this.updateQuery(
+                          evt.target.id, evt.target.value, this.props.updateQueryParams)}
                         label="Check In Day"
                     />      
                   </Grid>
@@ -105,7 +103,8 @@ class HotelQuery extends React.Component {
                         required
                         size='small'
                         id="checkOutDay"
-                        onChange={evt => this.handleChange(evt.target.id, evt.target.value)}
+                        onChange={evt => this.updateQuery(
+                          evt.target.id, evt.target.value, this.props.updateQueryParams)}
                         label="Check Out Day"
                     />      
                   </Grid>
@@ -117,7 +116,8 @@ class HotelQuery extends React.Component {
                         id="rooms"
                         value={this.state.rooms}
                         label="Rooms"
-                        onChange={evt => this.handleChange('rooms', evt.target.value)}
+                        onChange={evt => this.updateQuery(
+                          'rooms', evt.target.value, this.props.updateQueryParams)}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -134,7 +134,8 @@ class HotelQuery extends React.Component {
                         id="adults"
                         value={this.state.adults}
                         label="Adults"
-                        onChange={evt => this.handleChange('adults', evt.target.value)}
+                        onChange={evt => this.updateQuery(
+                          'adults', evt.target.value, this.props.updateQueryParams)}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -151,7 +152,8 @@ class HotelQuery extends React.Component {
                         id="children"
                         value={this.state.children}
                         label="Children"
-                        onChange={evt => this.handleChange('children', evt.target.value)}
+                        onChange={evt => this.updateQuery(
+                          'children', evt.target.value, this.props.updateQueryParams)}
                       >
                         <MenuItem className='menuItem' value={0}>0</MenuItem>
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
@@ -172,7 +174,8 @@ class HotelQuery extends React.Component {
                       marks={true}
                       min={0}
                       max={5}
-                      onChange={evt => this.handleChange('reviewScore', evt.target.value)}
+                      onChange={evt => this.updateQuery(
+                        'reviewScore', evt.target.value, this.props.updateSortParams)}
                     />
                   </Grid>
                   <Grid item sm={12}>
@@ -186,7 +189,8 @@ class HotelQuery extends React.Component {
                       marks={true}
                       min={0}
                       max={1000}
-                      onChange={evt => this.handleChange('price', evt.target.value)}
+                      onChange={evt => this.updateQuery(
+                        'price', evt.target.value, this.props.updateSortParams)}
                     />
                   </Grid>
                 </Grid>
