@@ -14,16 +14,37 @@ class HotelListInternals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hotelList: []
+      hotelList: [],
+      hotels: new Map()
     }
   }
 
-  refreshList = (queryUrl) => {
+  refreshList = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
-      axios
-      .get(queryUrl)
-      .then((res) => this.setState({ hotelList: res.data }))
-      .catch((err) => console.log(err));
+      let hotelRes = await axios.get(`/api/hotels${queryUrl}`)
+                                .catch((err) => console.log(err));
+      this.state.hotels.clear();
+      hotelRes.data.forEach(data => {
+        this.state.hotels.set(data['id'], {
+          ...data,
+          price: Number.MAX_VALUE
+        });
+      });
+      
+      let priceRes = await axios.get(`/api/hotelPrice${queryUrl}`)
+                                .catch((err) => console.log(err));
+      priceRes.data.hotels.forEach(data => {
+        this.state.hotels.set(data['id'], {
+          ...this.state.hotels.get(data['id']),
+          ...data
+        });
+      });
+      let newHotelList = [];
+      this.state.hotels.forEach(data => {
+        newHotelList.push(data)
+      })
+      newHotelList.sort((a, b) => a.price - b.price);
+      this.setState({hotelList: newHotelList});
     }
   }
 
@@ -33,8 +54,8 @@ class HotelListInternals extends React.Component {
     }
   }
 
-  buildQuery() {
-    let queryUrl = '/api/hotels'
+  buildQuery() {    
+    let queryUrl = '';
     let query = this.props.query;
     if (query.destination_uid !== '' && 
       query.checkin !== '' &&
@@ -72,13 +93,13 @@ class HotelListInternals extends React.Component {
         <h5>Loading</h5>
       </div>}>
           <HotelListCard className='HotelListCard'
-                        hotelName={hotel.name}
-                        hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
-                        hotelAddress={hotel.address}
-                        hotelPrice={100}
-                        hotelId={hotel.id}
-                        hotelRating={hotel.rating}
-                        hotelDistance={hotel.distance}/> 
+                         hotelName={hotel.name}
+                         hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
+                         hotelAddress={hotel.address}
+                         hotelPrice={hotel.price}
+                         hotelId={hotel.id}
+                         hotelRating={hotel.rating}
+                         hotelDistance={hotel.distance}/> 
         </Suspense>  
         <Divider variant='inset' component='li' />
       </div>
@@ -86,8 +107,6 @@ class HotelListInternals extends React.Component {
   };
 
   render() {
-    
-
     return <div className='hotelList'>
       <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
         {/* <HotelListItem name='Cindy Baker'

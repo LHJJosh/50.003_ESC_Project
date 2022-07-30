@@ -1,5 +1,5 @@
 .hotelList {
-  width: 60%
+  width: max(80em, 40%);
 }
 
 .cardInfoBox {
