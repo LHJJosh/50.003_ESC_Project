@@ -16,7 +16,7 @@ class HotelSearches extends React.Component {
       },
       sortParams: {
         price: 1000,
-        reviewScore: 0
+        rating: 0
       }
     }
   }

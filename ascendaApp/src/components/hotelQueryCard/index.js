@@ -175,7 +175,7 @@ class HotelQuery extends React.Component {
                       min={0}
                       max={5}
                       onChange={evt => this.updateQuery(
-                        'reviewScore', evt.target.value, this.props.updateSortParams)}
+                        'rating', evt.target.value, this.props.updateSortParams)}
                     />
                   </Grid>
                   <Grid item sm={12}>

@@ -56,6 +56,8 @@ class HotelListInternals extends React.Component {
 
     newHotelList = newHotelList.filter(
       item => item.price < this.props.sortParams.price || item.price === Number.MAX_VALUE)
+    newHotelList = newHotelList.filter(
+      item => item.rating >= this.props.sortParams.rating)
     newHotelList.sort((a, b) => a.price - b.price);
     this.setState({hotelList: newHotelList});
   }
@@ -92,8 +94,8 @@ class HotelListInternals extends React.Component {
       queryUrl += `?destination=${query.destination}`
     if (query.rooms !== "")
       queryUrl += `&rooms=${query.rooms}`
-    if (query.reviewScore !== "")
-      queryUrl += `&reviewScore=${query.reviewScore}`
+    if (query.rating !== "")
+      queryUrl += `&rating=${query.rating}`
     if (query.price !== "")
       queryUrl += `&price=${query.price}`
     return queryUrl
