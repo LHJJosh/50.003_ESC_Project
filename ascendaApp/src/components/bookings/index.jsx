@@ -19,6 +19,7 @@ import { send } from 'emailjs-com';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 //import PickDate from "./pageComponents/datePicker";
 
 function Copyright(props) {
@@ -43,7 +44,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function SignUp() {
 
-  const [data, setData] = useState({
+  const [data, setData] = useState({ //to database
     title: "",
     firstName: "",
     lastName: "",
@@ -61,7 +62,7 @@ export default function SignUp() {
     country: ""
   })
 
-  const [toSend, setToSend] = useState({
+  const [toSend, setToSend] = useState({ //to email
     emailAddress:'',
     title:'',
     firstName:'',
@@ -73,7 +74,7 @@ export default function SignUp() {
 
   function handleChange(e){
     const newdata={...data}
-    newdata[e.target.id] = e.target.value
+    newdata[e.target.uniqueID] = e.target.value
     setData(newdata)
     setToSend({ ...toSend, [e.target.name]: e.target.value });
     console.log(newdata)
@@ -116,6 +117,12 @@ export default function SignUp() {
       });
   };
   const [open, setOpen] = useState(false);
+
+  let navigate = useNavigate();
+  const routeChange = () =>{
+    let path = '/confirmationDetails';
+    navigate(path);
+  }
   
   const handleClick = () => {
     setOpen(true);
@@ -123,9 +130,11 @@ export default function SignUp() {
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
+      routeChange();
       return;
     }
     setOpen(false);
+    routeChange();
   };
 
   return (
@@ -394,7 +403,9 @@ export default function SignUp() {
                   <Button type="submit" variant="outlined" onClick={handleClick} id="confirmButton">
                   Confirm Booking
                   </Button>
-                  <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  {/* component={Link} to="/confirmationDetails" */}
+                  {/* <Button className="bookNowButton" component={Link} to="/bookings">Book Now!</Button> */}
+                  <Snackbar open={open} autoHideDuration={20} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                       Booking Confirmation successful! - Confirmation email sent
                     </Alert>
