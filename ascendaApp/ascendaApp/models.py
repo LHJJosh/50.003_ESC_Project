@@ -103,7 +103,7 @@ class HotelSerializer(serializers.Serializer):
 
 
 class BookingInfo(models.Model):
-    id = models.IntegerField(read_only=True)
+    id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=256, blank=True, default='')
     firstName = models.CharField(max_length=256, blank=True, default='')
     lastName = models.CharField(max_length=256, blank=True, default='')

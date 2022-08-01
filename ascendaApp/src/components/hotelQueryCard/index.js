@@ -188,7 +188,7 @@ class HotelQuery extends React.Component {
                       valueLabelDisplay="auto"
                       marks={true}
                       min={0}
-                      max={1000}
+                      max={5000}
                       onChange={evt => this.updateQuery(
                         'price', evt.target.value, this.props.updateSortParams)}
                     />

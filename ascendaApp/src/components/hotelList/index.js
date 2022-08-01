@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import axios from 'axios';
 import { Suspense } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import HotelListItem from './hotelListItem.js'
 
@@ -10,12 +11,19 @@ import "./styles.css";
 
 const HotelListCard = React.lazy(() => import("./hotelListCard.js"));
 
+
 class HotelListInternals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       hotelList: [],
-      hotels: new Map()
+      hotels: new Map(),
+      count: 10,
+      start: 0,
+      updatedHotelList: [],
+      hasMore: true,
+      perPage: 10,
+      lastPosition: 0
     }
   }
 
@@ -45,6 +53,7 @@ class HotelListInternals extends React.Component {
       });
 
       this.refreshList();
+      //this.state.lastPosition = this.state.lastPosition + 10
     }
   }
 
@@ -60,6 +69,7 @@ class HotelListInternals extends React.Component {
       item => item.rating >= this.props.sortParams.rating)
     newHotelList.sort((a, b) => a.price - b.price);
     this.setState({hotelList: newHotelList});
+    this.setState({updatedHotelList: newHotelList.slice(0,10)});
   }
 
   componentDidUpdate(prevProps) {
@@ -100,10 +110,27 @@ class HotelListInternals extends React.Component {
       queryUrl += `&price=${query.price}`
     return queryUrl
   }
+  
+  loadProducts = () => {   
+    setTimeout(() => {       
+      var joined = (this.state.hotelList.slice(0, this.state.lastPosition + this.state.perPage));
+      
+      this.setState(() => ({updatedHotelList: joined}));
+    }, 1000);      
+    this.setState(() => ({lastPosition: this.state.lastPosition+ this.state.perPage}) );
+  };
 
-  renderItems = () => {
-    return this.state.hotelList.slice(0, 10).map((hotel) => 
-      <div key={hotel.id}>
+  render() {
+    return <div className='hotelList'>
+      <InfiniteScroll
+      dataLength={this.state.updatedHotelList.length}
+      next={this.loadProducts}
+      hasMore={this.state.hasMore}
+      loader={<h4>Loading...</h4>}>
+      <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
+      
+      {this.state.updatedHotelList.map((hotel, index) => 
+      <div key={index}>
         <Suspense fallback={<div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -121,20 +148,13 @@ class HotelListInternals extends React.Component {
         </Suspense>  
         <Divider variant='inset' component='li' />
       </div>
-    );
-  };
-
-  render() {
-    return <div className='hotelList'>
-      <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
-        {/* <HotelListItem name='Cindy Baker'
-                      primaryText='Oui Oui'
-                      secondary='Sandra Adams'
-                      secondaryText=" — Do you have Paris recommendations? Have you ever…"/> */}
-        {this.renderItems()}
-      </List>
+    )}
+    
+    </List>
+      </InfiniteScroll>
     </div>
   }
 }
 
 export const HotelList = HotelListInternals;
+   
