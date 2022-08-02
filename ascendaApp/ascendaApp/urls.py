@@ -29,7 +29,8 @@ urlpatterns = [
     path('api/destinations', views.destinations),
     path('api/hotels', views.hotels),
     path('api/hotelDetail', views.hotel_detail),
-    path('api/hotelPrice', views.hotel_price)
+    path('api/hotelPrice', views.hotel_price),
+    path('api/rooms', views.rooms)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -50,6 +50,9 @@ class HotelListInternals extends React.Component {
             ...data
           });
         }
+        else{
+          console.log('no data')
+        }
       });
 
       this.refreshList();
@@ -144,7 +147,12 @@ class HotelListInternals extends React.Component {
                          hotelPrice={hotel.price}
                          hotelId={hotel.id}
                          hotelRating={hotel.rating}
-                         hotelDistance={hotel.distance}/> 
+                         hotelDistance={hotel.distance}
+                         destinationId={this.props.queryParams.destination_uid}
+                         checkInDay={this.props.queryParams.checkInDay}
+                         checkOutDay={this.props.queryParams.checkOutDay}
+                         rooms={this.props.queryParams.rooms}
+                         /> 
         </Suspense>  
         <Divider variant='inset' component='li' />
       </div>
