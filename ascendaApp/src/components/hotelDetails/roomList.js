@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 
 import previewAlt from '../../assets/cardmedia_noPreviewAvailable.png';
 import './styles.css'
-
+//Fixing
 export function RoomList(props){    
 
     function getRoomPrice(){
