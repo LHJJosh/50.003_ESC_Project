@@ -9,30 +9,50 @@ import { Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import ReactDOM from "react-dom/client"
 // redirect user to this page to check details after confirm booking 
 
 export default function DeleteBooking(){
 
     const [info, getInfo] = useState('');
 
-    React.useEffect(() => {
-        fetchData();
-    }, []);
+    // const fetchData = () => {
+    //     axios.get("/api/bookings")
+    //     .then(res => {
+    //         const data = res.data
+    //         getInfo(data)
+    //     })
+    //     .catch((err) => console.log(err));
+    // } 
 
-    const fetchData = () => {
-        axios.get("/api/bookings")
-        .then(res => {
-            const data = res.data
-            getInfo(data)
-        })
+    const booking = ReactDOM();
+
+    function buildQueryAPI() {
+        return '/api/bookings/${booking.info.bookingId}';
+    };
+
+    function buildQuery() {
+        return 'api/bookingInfo?booking_id-${booking.info.bookingId}';
+    }
+
+    function refreshBooking(queryUrl) {
+        axios
+        .get(queryUrl)
+        .then((res) => getInfo(res.data))
         .catch((err) => console.log(err));
     }
 
-    const deleteBooking = (id) => {
-        axios.delete('api/bookings/${id}/')
-        .then((res) => {
-            fetchData();
+    React.useEffect(() => {
+        if (booking.info !== null && booking.info.bookingId !== info.id) {
+            let queryUrl = buildQuery();
+            refreshBooking(queryUrl);
+          }
         });
+
+    handleClick = bookingId => {
+        axios
+        .delete(bookingId)
+        .catch((err) => console.log(err))
     }
 
     const [open, setOpen] = useState(true);
@@ -72,6 +92,19 @@ export default function DeleteBooking(){
                 <Typography variant="h3" fontFamily={'Roboto'}>
                     THANK YOU FOR BOOKING WITH US
                 </Typography>
+                <p>
+                    Name: {info.title} {info.firstName} {info.lastName}
+                    <br></br>
+                    Country Code: {info.countryCode}
+                    <br></br>
+                    Phone Number: {info.phoneNumber}
+                    <br></br>
+                    Email Address: {info.emailAddress}
+                    <br></br>
+                    Special Request: {info.specialRequest}
+                    <br></br>
+                    Card Number used: {info.cardNumber}
+                </p>
                     <Stack spacing={2} sx={{ width: '100%' }}>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>

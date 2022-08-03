@@ -126,17 +126,16 @@ def detail_hotel_internal(request, pk, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET', 'POST'])
-def bookings(request, format=None):
+@api_view(['GET', 'POST', 'DELETE'])
+def bookings(request, pk, format=None):
     """
     List all code snippets, or create a new booking.
     """
+    try:
+        booking = BookingInfo.objects.get(pk=pk)
+    except BookingInfo.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
-        unique_id = request.query_params.get('id')
-        url = f'http://localhost:8000/api/bookings/{unique_id}'
-        res = requests.get(url)
-        data = json.loads(res.content)
-
         bookings = BookingInfo.objects
         serializer = BookingsSerializer(bookings, many=True)
         return Response(serializer.data)
@@ -148,6 +147,10 @@ def bookings(request, format=None):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        booking.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET', 'POST'])
@@ -229,25 +232,26 @@ def hotel_price(request, format=None):
             return Response(data, status=status.HTTP_201_CREATED)
         return Response(res.content, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 def rooms(request, format=None):
-  if request.method == 'GET':
-    hotel_id = request.query_params.get('hotel_id')
-    destination_id = request.query_params.get('destination_id')
-    checkin = request.query_params.get('checkin')
-    checkout = request.query_params.get('checkout')
-    guests = request.query_params.get('guests')
+    if request.method == 'GET':
+        hotel_id = request.query_params.get('hotel_id')
+        destination_id = request.query_params.get('destination_id')
+        checkin = request.query_params.get('checkin')
+        checkout = request.query_params.get('checkout')
+        guests = request.query_params.get('guests')
 
-    url = f'https://hotelapi.loyalty.dev/api/hotels' + \
-      f'/{hotel_id}/price?currency=SGD&partner_id=1' + \
-      f'&destination_id={destination_id}' + \
-      f'&checkin={checkin}' + \
-      f'&checkout={checkout}' + \
-      f'&guests={guests}'
-    print(url)
-    res = requests.get(url)
-    data = json.loads(res.content)
-    print(data['completed'])
-    if res.status_code == 200:
-      return Response(data, status=status.HTTP_201_CREATED)
-    return Response(res.content, status=status.HTTP_400_BAD_REQUEST)
+        url = f'https://hotelapi.loyalty.dev/api/hotels' + \
+            f'/{hotel_id}/price?currency=SGD&partner_id=1' + \
+            f'&destination_id={destination_id}' + \
+            f'&checkin={checkin}' + \
+            f'&checkout={checkout}' + \
+            f'&guests={guests}'
+        print(url)
+        res = requests.get(url)
+        data = json.loads(res.content)
+        print(data['completed'])
+        if res.status_code == 200:
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(res.content, status=status.HTTP_400_BAD_REQUEST)
