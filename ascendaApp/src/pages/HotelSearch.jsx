@@ -19,9 +19,10 @@ class HotelSearches extends React.Component {
         price: 1000,
         rating: 0
       }
-    } || JSON.parse(localStorage.getItem('state'))
+    } 
   }
 
+  /*|| JSON.parse(localStorage.getItem('state'))
   componentDidMount() {
     const json = window.localStorage.getItem('destination_uid')
     const destination_uid = JSON.parse(json)

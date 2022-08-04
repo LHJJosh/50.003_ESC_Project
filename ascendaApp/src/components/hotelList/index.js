@@ -128,8 +128,7 @@ class HotelListInternals extends React.Component {
         className='infiniteScroll'
         dataLength={this.state.updatedHotelList.length}
         next={this.loadProducts}
-        hasMore={this.state.hasMore}
-        loader={<h4>Loading...</h4>}>
+        hasMore={this.state.hasMore}>
         <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
         
         {this.state.updatedHotelList.map((hotel, index) => 
