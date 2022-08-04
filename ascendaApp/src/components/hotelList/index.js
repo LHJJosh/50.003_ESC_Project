@@ -123,7 +123,7 @@ class HotelListInternals extends React.Component {
   };
 
   render() {
-    return <div className='hotelList'>
+    return <div className='hotelList' id='hotelList'>
       <InfiniteScroll
         className='infiniteScroll'
         dataLength={this.state.updatedHotelList.length}
