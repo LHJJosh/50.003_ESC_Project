@@ -77,13 +77,14 @@ class HotelQuery extends React.Component {
                     }
                     onInputChange={this.autoComplete}
                     inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text/>}
+                    autoHighlight={true}
+                    autoSelect={true}
                     renderInput={(params) => <TextField {...params}
-                    label="Destination"
-                    id="destination"
-                    onChange={this.autoComplete}
-                    // autoComplete='off'
-                    // limitTags={10}
-                  />}
+                      label="Destination"
+                      id="destination"
+                      onChange={this.autoComplete}
+                      // limitTags={10}
+                    />}
                   />
                   </Grid>
                   <Grid item sm={6}>

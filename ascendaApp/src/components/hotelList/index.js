@@ -117,7 +117,6 @@ class HotelListInternals extends React.Component {
   loadProducts = () => {   
     setTimeout(() => {       
       var joined = (this.state.hotelList.slice(0, this.state.lastPosition + this.state.perPage));
-      
       this.setState(() => ({updatedHotelList: joined}));
     }, 1000);      
     this.setState(() => ({lastPosition: this.state.lastPosition+ this.state.perPage}) );
@@ -126,39 +125,41 @@ class HotelListInternals extends React.Component {
   render() {
     return <div className='hotelList'>
       <InfiniteScroll
-      dataLength={this.state.updatedHotelList.length}
-      next={this.loadProducts}
-      hasMore={this.state.hasMore}
-      loader={<h4>Loading...</h4>}>
-      <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
-      
-      {this.state.updatedHotelList.map((hotel, index) => 
-      <div key={index}>
-        <Suspense fallback={<div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'}}>
-        <h5>Loading</h5>
-      </div>}>
-          <HotelListCard className='HotelListCard'
-                         hotelName={hotel.name}
-                         hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
-                         hotelAddress={hotel.address}
-                         hotelPrice={hotel.price}
-                         hotelId={hotel.id}
-                         hotelRating={hotel.rating}
-                         hotelDistance={hotel.distance}
-                         destinationId={this.props.queryParams.destination_uid}
-                         checkInDay={this.props.queryParams.checkInDay}
-                         checkOutDay={this.props.queryParams.checkOutDay}
-                         rooms={this.props.queryParams.rooms}
-                         /> 
-        </Suspense>  
-        <Divider variant='inset' component='li' />
-      </div>
-    )}
-    
-    </List>
+        className='infiniteScroll'
+        dataLength={this.state.updatedHotelList.length}
+        next={this.loadProducts}
+        hasMore={this.state.hasMore}
+        loader={<h4>Loading...</h4>}>
+        <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
+        
+        {this.state.updatedHotelList.map((hotel, index) => 
+          <div key={index}>
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'}}>
+                <h5>Loading</h5>
+              </div>
+            }>
+              <HotelListCard className='HotelListCard'
+                             hotelName={hotel.name}
+                             hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
+                             hotelAddress={hotel.address}
+                             hotelPrice={hotel.price}
+                             hotelId={hotel.id}
+                             hotelRating={hotel.rating}
+                             hotelDistance={hotel.distance}
+                             destinationId={this.props.queryParams.destination_uid}
+                             checkInDay={this.props.queryParams.checkInDay}
+                             checkOutDay={this.props.queryParams.checkOutDay}
+                             rooms={this.props.queryParams.rooms}/> 
+            </Suspense>
+            <Divider variant='inset' component='li' />
+          </div>
+        )}
+        
+        </List>
       </InfiniteScroll>
     </div>
   }
