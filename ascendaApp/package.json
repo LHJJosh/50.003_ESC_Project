@@ -27,11 +27,13 @@
     "mocha": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-final-form": "^6.5.9",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.1",
     "selenium-webdriver": "^4.3.1",
+    "styled-components": "^5.3.5",
     "throttled-queue": "^2.1.4",
     "web-vitals": "^2.1.4"
   },

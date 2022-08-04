@@ -49,11 +49,11 @@ export default function DeleteBooking(){
           }
         });
 
-    handleClick = bookingId => {
+    /*handleClick = bookingId => {
         axios
         .delete(bookingId)
         .catch((err) => console.log(err))
-    }
+    }*/
 
     const [open, setOpen] = useState(true);
 
