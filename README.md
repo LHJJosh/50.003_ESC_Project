@@ -81,6 +81,12 @@ h3 = Hotel(name='Aqueen Hotel Paya Lebar', reviewScore=4.69, price=192.0, addres
 h3.save()
 ```
 
+## Experiment with sqlite3 and Django Cryptography encryption
+```
+sqlite3  db.sqlite3
+SELECT * FROM ascendaApp_bookinginfo;
+```
+
 ## Project structure
 ```
 └───ascendaApp:

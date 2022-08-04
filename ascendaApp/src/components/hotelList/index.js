@@ -27,6 +27,31 @@ class HotelListInternals extends React.Component {
     }
   }
 
+  /*|| JSON.parse(localStorage.getItem('state'))
+  componentDidMount() {
+    const json = window.localStorage.getItem('destination_uid')
+    const destination_uid = JSON.parse(json)
+    this.setState({destination_uid: destination_uid })
+  }
+  componentDidUpdate(prevProps, prevStates){
+    const json = JSON.stringify(this.state.queryParams.destination_uid)
+    window.localStorage.setItem('destination_uid', json)
+  }
+  /*
+  JSON.parse(localStorage.getItem('state')) || 
+  useEffect= (() => {
+    this.setState(JSON.parse(window.localStorage.getItem('state')));
+  }, []);
+
+  useEffect = (() => {
+    window.localStorage.setItem('state', this.state);
+  }, [this.state]);
+
+  setState(state) {
+    localStorage.setItem('state', JSON.stringify(state));
+    super.setState(state);
+  }*/
+
   updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
       console.log(queryUrl);
@@ -84,6 +109,8 @@ class HotelListInternals extends React.Component {
     }
   }
 
+
+  
   buildQuery() {    
     let queryUrl = '';
     let query = this.props.queryParams;
@@ -96,6 +123,7 @@ class HotelListInternals extends React.Component {
       queryUrl += `&checkin=${query.checkInDay}`; // 2022-08-18
       queryUrl += `&checkout=${query.checkOutDay}`; // 2022-08-19
       queryUrl += `&guests=${query.rooms}`;
+      sessionStorage.setItem("queryUrl", queryUrl)
       return queryUrl
     }
   }
