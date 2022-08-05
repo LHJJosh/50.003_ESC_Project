@@ -17,7 +17,7 @@ function formatDate(date) {
 
 
 describe('Home Actions', function() {
-  this.timeout(10000);
+  this.timeout(100000);
   var driver;
 
   beforeEach(function(){
@@ -29,9 +29,9 @@ describe('Home Actions', function() {
   describe('fill all form fields', function() {
     it('function should terminate without error', async function() {
 
-      let start = new Date();
-      let end = new Date();
-      end.setDate(start.getDate() + 3);
+      let today = new Date();
+      let start = new Date(today.getTime() + 2.628e+9);
+      let end = new Date(today.getTime() + 2.628e+9 + 2.592e+8);
       let startdate = formatDate(start);
       let enddate = formatDate(end);
 
