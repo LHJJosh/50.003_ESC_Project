@@ -16,6 +16,11 @@ class Destination(models.Model):
     type = models.CharField(max_length=256, blank=True, default='')
     uid = models.CharField(max_length=256, blank=True, default='')
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['term']),
+        ]
+
     def __str__(self):
         return self.term
 

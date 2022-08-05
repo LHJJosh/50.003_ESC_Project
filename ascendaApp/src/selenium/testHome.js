@@ -2,6 +2,20 @@ require('chromedriver');
 const { Builder, By, Key, Capabilities} = require('selenium-webdriver');
 const assert = require('assert');
 
+
+function formatDate(date) {
+  let formattedMonth = (date.getMonth() + 1).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  let formattedDate = date.getDate().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  return `${formattedMonth}${formattedDate}${date.getFullYear()}`;
+}
+
+
 describe('Home Actions', function() {
   this.timeout(10000);
   var driver;
@@ -15,14 +29,20 @@ describe('Home Actions', function() {
   describe('fill all form fields', function() {
     it('function should terminate without error', async function() {
 
+      let start = new Date();
+      let end = new Date();
+      end.setDate(start.getDate() + 3);
+      let startdate = formatDate(start);
+      let enddate = formatDate(end);
+
       let destBox = await driver.findElement(By.xpath('//*[@id="destination"]'));
       destBox.sendKeys('Singapore, Singapore (SIN-Changi)');
       
       let checkInDayBox = await driver.findElement(By.xpath('//*[@id="checkInDay"]'));
-      checkInDayBox.sendKeys('09012022');
+      checkInDayBox.sendKeys(startdate);
       
       let checkOutDayBox = await driver.findElement(By.xpath('//*[@id="checkOutDay"]'));
-      checkOutDayBox.sendKeys('09032022');
+      checkOutDayBox.sendKeys(enddate);
       
       let roomSelectBox = await driver.findElement(By.xpath('//*[@id="rooms"]'));
       await roomSelectBox.click();
