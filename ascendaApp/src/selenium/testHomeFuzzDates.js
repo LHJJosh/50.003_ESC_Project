@@ -2,43 +2,36 @@ require('chromedriver');
 const { Builder, By, Key, Capabilities} = require('selenium-webdriver');
 const assert = require('assert');
 
-var today = new Date();
 
-const currentYear = today.getFullYear();
-const currentMonth = today.getMonth()+1;
-const currentDay = today.getDate();
-console.log(currentMonth);
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max + 1);
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
+function formatDate(date) {
+  let formattedMonth = (date.getMonth() + 1).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  let formattedDate = date.getDate().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  return `${formattedMonth}${formattedDate}${date.getFullYear()}`;
+}
 
 for(let i = 0; i < 6; i++){
   try{
     
   describe('Home Actions', function() {
-    this.timeout(10000);
+    this.timeout(12000);
     var driver;
     
-
-    var month1 = currentMonth.toString();
-    var month2 = Math.min(currentMonth + getRandomInt(11),12).toString();
-    var day1 = currentDay.toString();
-    if(day1 < 28){
-      var day2 = Math.min(currentDay + getRandomInt(27),12).toString();
-    }
-    else{
-      var day2 = currentDay.toString();
-    }
-    var secondYear = currentYear;
-    if(month1 == 12){
-      secondYear += 1;
-      month2 = 1;
-    }
-    let startdate = day1.concat(month1,currentYear.toString());
-    let enddate = day2.concat(month2,secondYear.toString());
-
+    let today = new Date();
+    let startdate = formatDate(today);
+    let enddate = formatDate(randomDate(today, new Date(today.getFullYear(), 12-1, 31)));
+    console.log(startdate);
+    console.log(enddate);
+    
     beforeEach(function(){
       driver = new Builder().withCapabilities(
         Capabilities.chrome()).build();
@@ -73,7 +66,7 @@ for(let i = 0; i < 6; i++){
         let childrenOptions = await driver.findElements(By.className('menuItem'));
         childrenOptions[0].click();
         
-        await driver.sleep(3000);
+        await driver.sleep(4000);
         let hotelList = await driver.findElements(By.xpath("//*[@id='hotelList']/div/div/ul/div"));
         assert(hotelList.length > 0);
   
