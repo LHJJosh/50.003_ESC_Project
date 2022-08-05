@@ -63,8 +63,16 @@ describe('Home Actions', function() {
       let hotelList = await driver.findElements(By.xpath("//*[@id='hotelList']/div/div/ul/div"));
       assert(hotelList.length > 0);
 
-      let cardSelectBox = driver.findElement(By.className('hotelButton'));
-      cardSelectBox.click();
+      let ratingSlider = await driver.findElement(By.xpath('//*[@id="rating"]/span/input'));
+      let maxValue = await ratingSlider.getAttribute('max');
+      
+      for(let i = 0; i < maxValue; i++){
+        await ratingSlider.sendKeys(Key.ARROW_RIGHT);
+        await driver.sleep(1000);
+        let ratingList = await driver.findElements(By.xpath("//*[@role='img']"));
+        let firstRating = await ratingList[0].getAttribute('aria-label');
+        assert(parseInt(firstRating) >= i);
+      }
     });
   });
 

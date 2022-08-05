@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import "./style.css";
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -14,7 +14,24 @@ import ReactDOM from "react-dom/client"
 
 export default function DeleteBooking(){
 
-    const [info, getInfo] = useState('');
+    const [info, getInfo] = useState({
+        id:"",
+        title: "",
+        firstName: "",
+        lastName: "",
+        countryCode: "",
+        phoneNumber: "",
+        emailAddress: "",
+        specialRequest: "",
+        cardNumber: "",
+        nameOnCard: "",
+        expiryDate: "",
+        cvvCvc: "",
+        address: "",
+        city: "",
+        zipCode: "",
+        country: ""
+    });
 
     // const fetchData = () => {
     //     axios.get("/api/bookings")
@@ -25,35 +42,35 @@ export default function DeleteBooking(){
     //     .catch((err) => console.log(err));
     // } 
 
-    const booking = ReactDOM();
+    // const booking = ReactDOM();
 
-    function buildQueryAPI() {
-        return '/api/bookings/${booking.info.bookingId}';
-    };
+    // function buildQueryAPI() {
+    //     return '/api/bookings/${bookings.info.id}';
+    // };
 
-    function buildQuery() {
-        return 'api/bookingInfo?booking_id-${booking.info.bookingId}';
-    }
+    // function buildQuery() {
+    //     return 'api/bookings?booking_id-${bookings.info.id}';
+    // }
 
-    function refreshBooking(queryUrl) {
-        axios
-        .get(queryUrl)
-        .then((res) => getInfo(res.data))
-        .catch((err) => console.log(err));
-    }
+    // function refreshBooking(queryUrl) {
+    //     axios
+    //     .get(queryUrl)
+    //     .then((res) => getInfo(res.data))
+    //     .catch((err) => console.log(err));
+    // }
 
-    React.useEffect(() => {
-        if (booking.info !== null && booking.info.bookingId !== info.id) {
-            let queryUrl = buildQuery();
-            refreshBooking(queryUrl);
-          }
-        });
+    // React.useEffect(() => {
+    //     if (booking.info !== null) {
+    //         let queryUrl = buildQuery();
+    //         refreshBooking(queryUrl);
+    //       }
+    //     });
 
-    /*handleClick = bookingId => {
-        axios
-        .delete(bookingId)
-        .catch((err) => console.log(err))
-    }*/
+    // const handleClick = bookingId => {
+    //     axios
+    //     .delete(bookingId)
+    //     .catch((err) => console.log(err))
+    // }
 
     const [open, setOpen] = useState(true);
 
@@ -92,7 +109,7 @@ export default function DeleteBooking(){
                 <Typography variant="h3" fontFamily={'Roboto'}>
                     THANK YOU FOR BOOKING WITH US
                 </Typography>
-                <p>
+                {/* <p>
                     Name: {info.title} {info.firstName} {info.lastName}
                     <br></br>
                     Country Code: {info.countryCode}
@@ -105,6 +122,7 @@ export default function DeleteBooking(){
                     <br></br>
                     Card Number used: {info.cardNumber}
                 </p>
+                <Button></Button> */}
                     <Stack spacing={2} sx={{ width: '100%' }}>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
