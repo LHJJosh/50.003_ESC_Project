@@ -23,14 +23,12 @@ for(let i = 0; i < 6; i++){
   try{
     
   describe('Home Actions', function() {
-    this.timeout(12000);
+    this.timeout(100000);
     var driver;
     
     let today = new Date();
     let startdate = formatDate(today);
     let enddate = formatDate(randomDate(today, new Date(today.getFullYear(), 12-1, 31)));
-    console.log(startdate);
-    console.log(enddate);
     
     beforeEach(function(){
       driver = new Builder().withCapabilities(
@@ -66,7 +64,7 @@ for(let i = 0; i < 6; i++){
         let childrenOptions = await driver.findElements(By.className('menuItem'));
         childrenOptions[0].click();
         
-        await driver.sleep(4000);
+        await driver.sleep(5000);
         let hotelList = await driver.findElements(By.xpath("//*[@id='hotelList']/div/div/ul/div"));
         assert(hotelList.length > 0);
   
