@@ -97,7 +97,7 @@ class HotelListInternals extends React.Component {
       item => item.rating >= this.props.sortParams.rating)
     newHotelList.sort((a, b) => a.price - b.price);
     this.setState({hotelList: newHotelList});
-    this.setState({updatedHotelList: newHotelList.slice(0,10)});
+    this.setState({updatedHotelList: this.state.hotelList.slice(0,10)});
   }
 
   componentDidUpdate(prevProps) {
