@@ -1,6 +1,9 @@
 require('chromedriver');
 const { Builder, By, Key, Capabilities } = require('selenium-webdriver');
 
+NUM_ATTEMPTS = 3;
+
+
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 function createEntries(length){
@@ -25,7 +28,7 @@ function createNum(length){
 function getRandomInt(max) {
   return Math.floor(Math.random() * max + 1);
 }
-for(let i = 0; i < 6; i++){
+for(let i = 0; i < NUM_ATTEMPTS; i++){
   describe('Booking Actions', function() {
       this.timeout(10000);
       var driver;

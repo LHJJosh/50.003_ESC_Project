@@ -2,6 +2,7 @@ require('chromedriver');
 const { Builder, By, Key, Capabilities} = require('selenium-webdriver');
 const assert = require('assert');
 
+NUM_ATTEMPTS = 3;
 
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -19,7 +20,7 @@ function formatDate(date) {
   return `${formattedMonth}${formattedDate}${date.getFullYear()}`;
 }
 
-for(let i = 0; i < 6; i++){
+for(let i = 0; i < NUM_ATTEMPTS; i++){
   try{
     
   describe('Home Actions', function() {
