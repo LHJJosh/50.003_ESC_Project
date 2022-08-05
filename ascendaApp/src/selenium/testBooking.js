@@ -13,7 +13,9 @@ describe('Booking Actions', function() {
     describe('fill all form fields', function(){
         it('function should terminate without error', async function() {
             let titleBox = await driver.findElement(By.xpath('//*[@id="title"]'));
-            titleBox.sendKeys('Ms');
+            await titleBox.click();
+            let titleOptions = await driver.findElements(By.className('menuItem'));
+            titleOptions[2].click();
 
             let firstNameBox = await driver.findElement(By.xpath('//*[@id="firstName"]'));
             firstNameBox.sendKeys('Jane');

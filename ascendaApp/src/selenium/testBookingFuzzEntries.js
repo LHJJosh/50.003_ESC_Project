@@ -1,7 +1,7 @@
 require('chromedriver');
 const { Builder, By, Key, Capabilities } = require('selenium-webdriver');
 
-const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 function createEntries(length){
   let entry = "";
@@ -11,6 +11,15 @@ function createEntries(length){
     }
 
     return entry;
+}
+
+function createNum(length){
+  let entry = "";
+  for ( let i = 0; i < length; i++ ) {
+    entry += getRandomInt(9);
+  }
+
+  return entry;
 }
 
 function getRandomInt(max) {
@@ -29,7 +38,9 @@ for(let i = 0; i < 6; i++){
       describe('fill all form fields', function(){
           it('function should terminate without error', async function() {
               let titleBox = await driver.findElement(By.xpath('//*[@id="title"]'));
-              titleBox.sendKeys(createEntries(getRandomInt(10)));
+              await titleBox.click();
+              let titleOptions = await driver.findElements(By.className('menuItem'));
+              titleOptions[getRandomInt(4)-1].click();
 
               let firstNameBox = await driver.findElement(By.xpath('//*[@id="firstName"]'));
               firstNameBox.sendKeys(createEntries(getRandomInt(10)));
@@ -41,7 +52,7 @@ for(let i = 0; i < 6; i++){
               countryCodeBox.sendKeys(createEntries(getRandomInt(10)));
 
               let phoneNoBox = await driver.findElement(By.xpath('//*[@id="phoneNumber"]'));
-              phoneNoBox.sendKeys('12345678')
+              phoneNoBox.sendKeys(createNum(8))
 
               let emailAddressBox = await driver.findElement(By.xpath('//*[@id="emailAddress"]'));
               emailAddressBox.sendKeys(createEntries(getRandomInt(10)).concat('@mymail.sutd.edu.sg'));

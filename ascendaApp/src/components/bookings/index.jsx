@@ -20,6 +20,10 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 //import PickDate from "./pageComponents/datePicker";
 
 function Copyright(props) {
@@ -168,17 +172,25 @@ export default function SignUp() {
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2} columns={60}>
                 <Grid item xs={60} sm={12}>
-                  <TextField
-                    onChange = {(e) => handleChange(e)}
-                    value={toSend.title}
-                    autoComplete="title"
-                    name="title"
-                    required
-                    fullWidth
-                    id="title"
-                    label="Title"
-                    autoFocus
-                  />
+                  <FormControl fullWidth>
+                      <InputLabel>Title</InputLabel>
+                      <Select
+                        onChange = {(e) => handleChange(e)}
+                        value={toSend.title}
+                        autoComplete="title"
+                        name="title"
+                        required
+                        fullWidth
+                        id="title"
+                        label="Title"
+                        autoFocus
+                      >
+                        <MenuItem className='menuItem' value={1}>Mr</MenuItem>
+                        <MenuItem className='menuItem' value={2}>Mrs</MenuItem>
+                        <MenuItem className='menuItem' value={3}>Ms</MenuItem>
+                        <MenuItem className='menuItem' value={4}>Dr</MenuItem>
+                      </Select>
+                    </FormControl>
                 </Grid>
                 <Grid item xs={60} sm={24}>
                   <TextField
