@@ -8,7 +8,7 @@ describe('Booking Actions', function() {
     beforeEach(function(){
       driver = new Builder().withCapabilities(
         Capabilities.chrome()).build();
-      driver.get('http://127.0.0.1:8000/bookings');
+      driver.get('http://127.0.0.1:3000/bookings');
     });
     describe('fill all form fields', function(){
         it('function should terminate without error', async function() {
@@ -43,5 +43,5 @@ describe('Booking Actions', function() {
 
     afterEach(function() {
         driver.quit();
-      });
+    });
 });
