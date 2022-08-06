@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom'
 import React from 'react';
 import { HeaderCard } from './header';
 import { DetailsCard } from './extraDetails';
-import { RoomsCard } from './roomCard';
+import { RoomsCard } from './roomList';
 import { MapsCard } from './mapView';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ export function DetailsPage() {
     address: "",
     latitude: "",
     longitude: "",
-    name: "",
+    name: "", 
     rating: "",
     description: "",
     amenities: "",

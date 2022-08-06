@@ -1,131 +1,108 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
+import React from "react";
 import List from '@mui/material/List';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';  
-import Button from '@mui/material/Button';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import NoMealsIcon from '@mui/icons-material/NoMeals';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import Divider from '@mui/material/Divider';
-import { Link } from "react-router-dom";
+import Grid from '@mui/material/Grid';
+import axios from 'axios';
+import { useState, useEffect } from "react";
+import "./styles.css";
+import { RoomCard } from "./roomCard.js";
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
-import previewAlt from '../../assets/cardmedia_noPreviewAvailable.png';
-import './styles.css'
-//Fixing
-export function RoomList(props){    
-
-    function getRoomPrice(){
-        return `SGD ${props.roomPrice.toFixed(2)}`;
-    }
-
-    function freeCancellation(){
-        if (props.freeCancellation == false){
-            return ({text: "No Free Cancellation",
-                    icon: <CancelIcon/>})
+export function RoomsCard(props){
+    const [state, setState] = useState({
+        roomList: [],
+        uniqueList: [],
+        completed: false,
+    });
+    
+    async function refreshList(queryUrl){
+        if (typeof queryUrl !== 'undefined'){
+            await axios
+            .get(queryUrl)
+            // .then((res) => console.log(res.data))
+            .then((res) => {
+                let typeList = [];
+                let uniqueList = [];
+                res.data.rooms.forEach((room) => {
+                    if (!typeList.includes(room.type)){
+                        typeList.push(room.type);
+                        uniqueList.push(room);
+                    }            
+                });
+                setState({roomList: res.data.rooms,
+                          completed: res.data.completed,
+                          uniqueList: uniqueList});
+                if (res.data.completed == false){
+                    refreshList(queryUrl)
+                };
+            })
+            .catch((err) => console.log(err));
         }
         else{
-            return ({text: "Free Cancellation",
-                    icon: <CheckCircleIcon/>})
+            console.log('done');
         }
     }
 
-    function breakfastInfo(){
-        if (props.breakfastInfo == "hotel_detail_room_only"){
-            return ({text:"No Breakfast Included",
-                    icon: <NoMealsIcon/>})
-        }
+    useEffect(() => {refreshList(buildQuery())}, []);
+
+    function buildQuery() {
+        let queryUrl = '/api/rooms';
+        let query = props.queryParams;
+        // console.log(query);
+        if (query.hotel_id !== '' && 
+            query.destination_id !== '' && 
+            query.checkin !== '' &&
+            query.checkout !== '' &&
+            query.guests !== ''
+            ) {
+            queryUrl += `?hotel_id=${query.hotel_id}`; // diH7
+            queryUrl += `&destination_id=${query.destination_id}`; // WD0M
+            queryUrl += `&checkin=${query.checkin}`; // 2022-08-18
+            queryUrl += `&checkout=${query.checkout}`; // 2022-08-19
+            queryUrl += `&guests=${query.guests}`;
+            return queryUrl
+            }
         else{
-            return ({text: "Breakfast Included",
-                    icon: <RestaurantIcon/>})
+            console.log(props.queryParams)
         }
     }
 
-    function loadImage(){
-        let imageUrl = ''
-        try{
-            imageUrl = props.roomImage[0].url;
-        }
-        catch(err){
-            imageUrl = previewAlt;
-        }
-        return imageUrl
-    }
+    // function roomImage(){
+    //     state.roomList.forEach((room) => {
+    //         if(room.images == []){
+    //             console.log('no image')
+    //         }
+    //         return 
+    //     })
+    // }
 
+    function renderItems(){
         return (
-            <Card sx={{ display: 'flex', mx: 15, my:5}}>
-                <Box sx={{ width: 200, height: 200 }}>
-                    <CardMedia
-                    component='img'
-                    sx={{ width: 200, height: 200 }}
-                    image={loadImage()}
-                    alt={props.roomName}
-                    onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = previewAlt;
-                      }}
-                    />
-                </Box>
-                <Box className='cardInfoBox'>
-
-                    <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Typography component='div' variant='h4'>
-                        {props.roomName}
-                    </Typography>
-
-                    <div class="vspace1em"></div>
-
-                    <Typography variant='h5' color='text.secondary' component='div'>
-                        <List>
-                            <ListItemIcon>
-                                {freeCancellation().icon}
-                            </ListItemIcon>
-                            <ListItemText primary={freeCancellation().text} />
-                        </List>
-                    </Typography>
-                    <Typography variant='h5' color='text.secondary' component='div'>
-                        <List>
-                            <ListItemIcon>
-                                {breakfastInfo().icon}
-                            </ListItemIcon>
-                            <ListItemText primary={breakfastInfo().text} />
-                        </List>
-                    </Typography>
-
-                    <div class="vspace1em"></div>
-
-                    </CardContent>
-
-                </Box>
-
-                <Box className='cardBookBox'>
-                    <CardContent>
-                    <Typography component='div' variant='h5'>
-                        {getRoomPrice()}
-                    </Typography>
-                    
-                    <div class="vspace1em"></div>
-
-                    <Button className='roomButton' 
-                        variant='outlined' 
-                        startIcon={<LocalOfferIcon />} 
-                        aria-label='book' 
-                        component={Link} to="/bookings"
-                        state={{key: props.key,
-                                roomName: props.roomName,
-                                price: getRoomPrice()}}
-                    >
-                        Book Room
-                    </Button>
-
-                    </CardContent>
-                </Box>
-            </Card>
+            <Grid sx={{ flexGrow: 1}} container spacing={0} padding>
+                <Grid item xs={12}>
+                    <Grid container justifyContent="center" spacing={2}>
+                        {state.uniqueList.map((room) => (
+                            <Grid key={room.key} item>
+                                <RoomCard className='RoomList'
+                                            type = {room.type}
+                                            roomImage = {room.images}
+                                            roomName = {room.description}
+                                            roomList = {state.roomList}/>
+                                <div class="vspace1em"></div>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Grid>
+            </Grid>
+            // <p>{room.free_cancellation}</p>
         );
+    }
+
+    return(
+        <div className='roomsCard'>
+            <h3>Available Rooms</h3>
+            <Grid container spacing={0}>
+                {renderItems()}
+            </Grid>
+        </div>
+    )
 }

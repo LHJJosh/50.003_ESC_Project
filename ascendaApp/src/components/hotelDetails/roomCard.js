@@ -1,87 +1,180 @@
-import React from "react";
-import List from '@mui/material/List';
-import axios from 'axios';
-import { useState, useEffect } from "react";
-import "./styles.css";
-import { RoomList } from "./roomList.js";
+import React, { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';  
+import { styled } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+import { Link } from "react-router-dom";
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { RatesList } from "./ratesList.js";
 
-export function RoomsCard(props){
+import previewAlt from '../../assets/cardmedia_noPreviewAvailable.png';
+import './styles.css'
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+export function RoomCard(props){    
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
+
     const [state, setState] = useState({
-        roomList: [],
-        completed: false,
+        uniqueList: [],
     });
-    
-    async function refreshList(queryUrl){
-        if (typeof queryUrl !== 'undefined'){
-            await axios
-            .get(queryUrl)
-            // .then((res) => console.log(res.data))
-            .then((res) => {
-                setState({roomList: res.data.rooms,
-                          completed: res.data.completed});
-                if (res.data.completed == false){
-                    refreshList(queryUrl)
+
+    function populateUniqueList(){
+
+        function populateRatesList(){
+            let ratesList = [];
+            props.roomList.forEach((room, index) => {
+                if (room.type == props.type){
+                    console.log("match!")
+                    ratesList.push(room);
                 }
-            })
-            .catch((err) => console.log(err));
+                // else{
+                //     console.log("room " + index + ": " + room.type)
+                //     console.log("props: " + props.type)
+                // }
+            });
+            // console.log(ratesList)
+            return ratesList
         }
-        else{
-            console.log('done');
-        }
+
+        let ratesList = populateRatesList();
+
+        // function filterRooms(room){
+        //     this.forEach((uroom) => {
+                
+        //     });
+        // }
+
+        // let uniqueList = ratesList.filter()
+        
+        // var keys = ['free_cancellation', 'roomAdditionalInfo.breakfastInfo']
+        
+        const uniqueList = [];
+
+        ratesList.map(x => uniqueList.filter(a => a.free_cancellation == x.free_cancellation && a.roomAdditionalInfo.breakfastInfo == x.roomAdditionalInfo.breakfastInfo).length > 0 ? null : uniqueList.push(x));
+        
+        // var uniqueList = ratesList.reduce((prices, room) =>{
+        //     let temp = prices[room.free_cancellation];
+        //     if(!temp) temp = room;
+        //     else if (price.price < room.price)
+        // })
+        
+        // var uniqueList = ratesList.filter(
+        //     (s => o =>
+        //         (k => !s.has(k) && s.add(k))
+        //         (keys.map(k => o[k]).join('|'))
+        //     )
+        //     (new Set)
+        // );
+
+        // var uniqueList = ratesList.reduce((newRatesList, current) => {
+        //     if (!newRatesList.some(x => x.free_cancellation == current.free_cancellation && x.roomAdditionalInfo.breakfastInfo == current.roomAdditionalInfo.breakfastInfo && x.lowest_converted_price > current.lowest_converted_price)){
+        //         newRatesList.push(current);
+        //     }
+        //     return newRatesList;
+        // }, []);
+
+        // ratesList.forEach((newRoom) => {
+        //     if (uniqueList.length != 0){
+        //         uniqueList.forEach((uniqueRoom, index) => {
+        //             if ((newRoom.free_cancellation == uniqueRoom.free_cancellation) && (newRoom.roomAdditionalInfo.breakfastInfo == uniqueRoom.roomAdditionalInfo.breakfastInfo)){
+        //                 console.log("room already exists")
+        //                 let bestRate = Math.min(newRoom.lowest_converted_price, uniqueRoom.lowest_converted_price);
+        //                 if (bestRate == newRoom.lowest_converted_price){
+        //                     console.log("but this room is cheaper")
+        //                     uniqueList.splice(index, 1);
+        //                     uniqueList.push(newRoom);
+        //                     return;
+        //                 }
+        //                 else{
+        //                     console.log("but this room more expensive, don't add")
+        //                 }
+        //             }
+        //             else{
+        //                 console.log("room doesn't exist yet")
+        //                 uniqueList.push(newRoom);
+        //                 return;
+        //             }
+        //         });
+        //     }
+        //     else{
+        //         uniqueList.push(newRoom);
+        //         console.log("first room EVER")
+        //     }
+        // });
+        setState({uniqueList: uniqueList}, () => {
+            console.log(state.uniqueList);
+          }); 
+        console.log(uniqueList);
     }
 
-    useEffect(() => {refreshList(buildQuery())}, []);
+    useEffect(() => {populateUniqueList()}, []);
 
-    function buildQuery() {
-        let queryUrl = '/api/rooms';
-        let query = props.queryParams;
-        // console.log(query);
-        if (query.hotel_id !== '' && 
-            query.destination_id !== '' && 
-            query.checkin !== '' &&
-            query.checkout !== '' &&
-            query.guests !== ''
-            ) {
-            queryUrl += `?hotel_id=${query.hotel_id}`; // diH7
-            queryUrl += `&destination_id=${query.destination_id}`; // WD0M
-            queryUrl += `&checkin=${query.checkin}`; // 2022-08-18
-            queryUrl += `&checkout=${query.checkout}`; // 2022-08-19
-            queryUrl += `&guests=${query.guests}`;
-            return queryUrl
-            }
-        else{
-            console.log(props.queryParams)
+    function loadImage(){
+        let imageUrl = ''
+        try{
+            imageUrl = props.roomImage[0].url;
         }
+        catch(err){
+            imageUrl = previewAlt;
+        }
+        return imageUrl
     }
 
-    // function roomImage(){
-    //     state.roomList.forEach((room) => {
-    //         if(room.images == []){
-    //             console.log('no image')
-    //         }
-    //         return 
-    //     })
-    // }
 
-    function renderItems(){
-        return state.roomList.map((room) =>
-            <div key={room.key}>
-                <RoomList className='RoomList'
-                            roomPrice = {room.lowest_converted_price}
-                            freeCancellation = {room.free_cancellation}
-                            breakfastInfo = {room.roomAdditionalInfo.breakfastInfo}
-                            roomImage = {room.images}
-                            roomName = {room.description}/>   
-            </div>
-            // <p>{room.free_cancellation}</p>
-        );
-    }
-
-    return(
-        <div className='roomList'>
-            <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
-                {renderItems()}
-            </List>
-        </div>
-    )
+    return (
+        <Card sx={{ maxWidth: 300, borderRadius: 2}}>
+            <CardHeader
+                title={props.roomName}
+                style={{ textAlign: 'center' }}
+            />
+            <CardMedia
+            component='img'
+            sx={{ width: 300, height: 200, overflow: 'hidden'}}
+            image={loadImage()}
+            alt={props.roomName}
+            onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = previewAlt;
+                }}
+            />
+            <CardActions disableSpacing>
+                <Typography variant="body2" color="text.secondary">
+                Show details
+                </Typography>
+                <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show details"
+                >
+                <ExpandMoreIcon />
+                </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <RatesList className='ratesList'
+                            uniqueList={state.uniqueList}/>
+            </Collapse>
+        </Card>
+    );
 }
