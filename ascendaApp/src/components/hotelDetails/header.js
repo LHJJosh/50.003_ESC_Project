@@ -8,10 +8,6 @@ export function HeaderCard(props){
     imgData: []
   });
 
-  function onClickHandler(){
-    alert('Implement reroute to rooms component')
-  }
-
   React.useEffect(() => {
     state.imgData = []
     for (let i = 1; i <= props.hotelImageCount; i++) {
@@ -32,7 +28,6 @@ export function HeaderCard(props){
         <h1>{props.hotelName}</h1>
         <p>{props.hotelAddress}</p>
       </div>
-      <button className="roomOptionsButton" onClick={onClickHandler}>Room Options</button>
     </div>
   );
 }
