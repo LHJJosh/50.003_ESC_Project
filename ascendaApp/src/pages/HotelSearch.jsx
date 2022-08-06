@@ -3,7 +3,8 @@ import DisplayTop from "./pageComponents/displayTop";
 import HotelQuery from '../components/hotelQueryCard';
 
 import { HotelList } from "../components/hotelList";
-
+//import HotelForm from "../components/hotelQueryCard/form";
+import { HotelForm } from "../components/hotelQueryCard/form";
 class HotelSearches extends React.Component {
   constructor(props) {
     super(props);
@@ -18,9 +19,9 @@ class HotelSearches extends React.Component {
         price: 1000,
         rating: 0
       }
-    }
+    } 
   }
-
+  
   updateQueryParams = (updateDict) => {
     this.setState({queryParams: {
       ...this.state.queryParams,
@@ -41,7 +42,6 @@ class HotelSearches extends React.Component {
         display: 'flex',
         justifyContent: 'center',
       }}>
-          
           <HotelQuery sx={{marginRight: 10}} 
                       className='hotelQuery' 
                       updateQueryParams={this.updateQueryParams}
@@ -56,3 +56,4 @@ class HotelSearches extends React.Component {
 }
 
 export default HotelSearches;
+

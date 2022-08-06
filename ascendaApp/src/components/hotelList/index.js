@@ -27,6 +27,31 @@ class HotelListInternals extends React.Component {
     }
   }
 
+  /*|| JSON.parse(localStorage.getItem('state'))
+  componentDidMount() {
+    const json = window.localStorage.getItem('destination_uid')
+    const destination_uid = JSON.parse(json)
+    this.setState({destination_uid: destination_uid })
+  }
+  componentDidUpdate(prevProps, prevStates){
+    const json = JSON.stringify(this.state.queryParams.destination_uid)
+    window.localStorage.setItem('destination_uid', json)
+  }
+  /*
+  JSON.parse(localStorage.getItem('state')) || 
+  useEffect= (() => {
+    this.setState(JSON.parse(window.localStorage.getItem('state')));
+  }, []);
+
+  useEffect = (() => {
+    window.localStorage.setItem('state', this.state);
+  }, [this.state]);
+
+  setState(state) {
+    localStorage.setItem('state', JSON.stringify(state));
+    super.setState(state);
+  }*/
+
   updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
       console.log(queryUrl);
@@ -72,7 +97,7 @@ class HotelListInternals extends React.Component {
       item => item.rating >= this.props.sortParams.rating)
     newHotelList.sort((a, b) => a.price - b.price);
     this.setState({hotelList: newHotelList});
-    this.setState({updatedHotelList: newHotelList.slice(0,10)});
+    this.setState({updatedHotelList: this.state.hotelList.slice(0,10)});
   }
 
   componentDidUpdate(prevProps) {
@@ -84,6 +109,8 @@ class HotelListInternals extends React.Component {
     }
   }
 
+
+  
   buildQuery() {    
     let queryUrl = '';
     let query = this.props.queryParams;
@@ -96,6 +123,7 @@ class HotelListInternals extends React.Component {
       queryUrl += `&checkin=${query.checkInDay}`; // 2022-08-18
       queryUrl += `&checkout=${query.checkOutDay}`; // 2022-08-19
       queryUrl += `&guests=${query.rooms}`;
+      sessionStorage.setItem("queryUrl", queryUrl)
       return queryUrl
     }
   }
@@ -117,48 +145,48 @@ class HotelListInternals extends React.Component {
   loadProducts = () => {   
     setTimeout(() => {       
       var joined = (this.state.hotelList.slice(0, this.state.lastPosition + this.state.perPage));
-      
       this.setState(() => ({updatedHotelList: joined}));
     }, 1000);      
     this.setState(() => ({lastPosition: this.state.lastPosition+ this.state.perPage}) );
   };
 
   render() {
-    return <div className='hotelList'>
+    return <div className='hotelList' id='hotelList'>
       <InfiniteScroll
-      dataLength={this.state.updatedHotelList.length}
-      next={this.loadProducts}
-      hasMore={this.state.hasMore}
-      loader={<h4>Loading...</h4>}>
-      <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
-      
-      {this.state.updatedHotelList.map((hotel, index) => 
-      <div key={index}>
-        <Suspense fallback={<div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'}}>
-        <h5>Loading</h5>
-      </div>}>
-          <HotelListCard className='HotelListCard'
-                         hotelName={hotel.name}
-                         hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
-                         hotelAddress={hotel.address}
-                         hotelPrice={hotel.price}
-                         hotelId={hotel.id}
-                         hotelRating={hotel.rating}
-                         hotelDistance={hotel.distance}
-                         destinationId={this.props.queryParams.destination_uid}
-                         checkInDay={this.props.queryParams.checkInDay}
-                         checkOutDay={this.props.queryParams.checkOutDay}
-                         rooms={this.props.queryParams.rooms}
-                         /> 
-        </Suspense>  
-        <Divider variant='inset' component='li' />
-      </div>
-    )}
-    
-    </List>
+        className='infiniteScroll'
+        dataLength={this.state.updatedHotelList.length}
+        next={this.loadProducts}
+        hasMore={this.state.hasMore}>
+        <List sx={{ bgcolor: 'background.paper', padding: '0px'}}>
+        
+        {this.state.updatedHotelList.map((hotel, index) => 
+          <div key={index}>
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'}}>
+                <h5>Loading</h5>
+              </div>
+            }>
+              <HotelListCard className='HotelListCard'
+                             hotelName={hotel.name}
+                             hotelImage={`${hotel.cloudflare_image_url}/${hotel.id}/i1.jpg`}
+                             hotelAddress={hotel.address}
+                             hotelPrice={hotel.price}
+                             hotelId={hotel.id}
+                             hotelRating={hotel.rating}
+                             hotelDistance={hotel.distance}
+                             destinationId={this.props.queryParams.destination_uid}
+                             checkInDay={this.props.queryParams.checkInDay}
+                             checkOutDay={this.props.queryParams.checkOutDay}
+                             rooms={this.props.queryParams.rooms}/> 
+            </Suspense>
+            <Divider variant='inset' component='li' />
+          </div>
+        )}
+        
+        </List>
       </InfiniteScroll>
     </div>
   }

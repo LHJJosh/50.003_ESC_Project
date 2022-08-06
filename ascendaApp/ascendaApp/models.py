@@ -3,6 +3,7 @@ import django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
+from django_cryptography.fields import encrypt
 import uuid
 
 
@@ -14,6 +15,11 @@ class Destination(models.Model):
     term = models.CharField(max_length=256, blank=True, default='')
     type = models.CharField(max_length=256, blank=True, default='')
     uid = models.CharField(max_length=256, blank=True, default='')
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['term']),
+        ]
 
     def __str__(self):
         return self.term
@@ -104,21 +110,21 @@ class HotelSerializer(serializers.Serializer):
 
 class BookingInfo(models.Model):
     id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=256, blank=True, default='')
-    firstName = models.CharField(max_length=256, blank=True, default='')
-    lastName = models.CharField(max_length=256, blank=True, default='')
-    countryCode = models.CharField(max_length=256, blank=True, default='')
-    phoneNumber = models.CharField(max_length=256, blank=True, default='')
-    emailAddress = models.CharField(max_length=256, blank=True, default='')
-    specialRequest = models.CharField(max_length=256, blank=True, default='')
-    cardNumber = models.CharField(max_length=256, blank=True, default='')
-    nameOnCard = models.CharField(max_length=256, blank=True, default='')
-    expiryDate = models.DateField(default=django.utils.timezone.now)
-    cvvCvc = models.CharField(max_length=256, blank=True, default='')
-    address = models.CharField(max_length=256, blank=True, default='')
-    city = models.CharField(max_length=256, blank=True, default='')
-    zipCode = models.CharField(max_length=256, blank=True, default='')
-    country = models.CharField(max_length=256, blank=True, default='')
+    title = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    firstName = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    lastName = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    countryCode = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    phoneNumber = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    emailAddress = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    specialRequest = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    cardNumber = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    nameOnCard = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    expiryDate = encrypt(models.DateField(default=django.utils.timezone.now))
+    cvvCvc = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    address = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    city = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    zipCode = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    country = encrypt(models.CharField(max_length=256, blank=True, default=''))
 
     def _str_(self):
         return self.title

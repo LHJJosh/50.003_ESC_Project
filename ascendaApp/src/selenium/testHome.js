@@ -1,27 +1,48 @@
 require('chromedriver');
-const { Builder, By, Key, Capabilities } = require('selenium-webdriver');
+const { Builder, By, Key, Capabilities} = require('selenium-webdriver');
+const assert = require('assert');
+
+
+function formatDate(date) {
+  let formattedMonth = (date.getMonth() + 1).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  let formattedDate = date.getDate().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  return `${formattedMonth}${formattedDate}${date.getFullYear()}`;
+}
+
 
 describe('Home Actions', function() {
-  this.timeout(10000);
+  this.timeout(100000);
   var driver;
 
   beforeEach(function(){
     driver = new Builder().withCapabilities(
       Capabilities.chrome()).build();
-    driver.get('http://127.0.0.1:8000/');
+    driver.get('http://127.0.0.1:3000/');
   });
 
   describe('fill all form fields', function() {
     it('function should terminate without error', async function() {
 
+      let today = new Date();
+      let start = new Date(today.getTime() + 2.628e+9);
+      let end = new Date(today.getTime() + 2.628e+9 + 2.592e+8);
+      let startdate = formatDate(start);
+      let enddate = formatDate(end);
+
       let destBox = await driver.findElement(By.xpath('//*[@id="destination"]'));
-      destBox.sendKeys('Singapore');
+      destBox.sendKeys('Singapore, Singapore (SIN-Changi)');
       
       let checkInDayBox = await driver.findElement(By.xpath('//*[@id="checkInDay"]'));
-      checkInDayBox.sendKeys('01012022');
+      checkInDayBox.sendKeys(startdate);
       
       let checkOutDayBox = await driver.findElement(By.xpath('//*[@id="checkOutDay"]'));
-      checkOutDayBox.sendKeys('01012022');
+      checkOutDayBox.sendKeys(enddate);
       
       let roomSelectBox = await driver.findElement(By.xpath('//*[@id="rooms"]'));
       await roomSelectBox.click();
@@ -38,8 +59,12 @@ describe('Home Actions', function() {
       let childrenOptions = await driver.findElements(By.className('menuItem'));
       childrenOptions[0].click();
       
-      let cardSelectBox = await driver.findElement(By.className('hotelButton'));
-      await cardSelectBox.click();
+      await driver.sleep(3000);
+      let hotelList = await driver.findElements(By.xpath("//*[@id='hotelList']/div/div/ul/div"));
+      assert(hotelList.length > 0);
+
+      let cardSelectBox = driver.findElement(By.className('hotelButton'));
+      cardSelectBox.click();
     });
   });
 
