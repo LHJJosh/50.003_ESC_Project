@@ -87,7 +87,7 @@ export function RoomsCard(props){
                                             roomImage = {room.images}
                                             roomName = {room.description}
                                             roomList = {state.roomList}/>
-                                <div class="vspace1em"></div>
+                                <div className="vspace1em"></div>
                             </Grid>
                         ))}
                     </Grid>

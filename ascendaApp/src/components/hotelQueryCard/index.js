@@ -52,7 +52,10 @@ class HotelQuery extends React.Component {
   }
 
   autoComplete = (evt, key) => {
-    if (evt !== null && evt.target.value.length >= 2) {
+    if (evt !== null && 
+      evt.target.type === 'text' && 
+      evt.target.value.length >= 2
+    ) {
       let query = `/api/destinations?term=${evt.target.value}`;
       axios
         .get(query)
@@ -86,7 +89,7 @@ class HotelQuery extends React.Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                   <Autocomplete
-                    defaultValue={this.props.queryParams.destination}
+                    value={this.props.queryParams.destination}
                     options={this.state.searchCache}
                     fullWidth
                     id="destination"
@@ -150,7 +153,7 @@ class HotelQuery extends React.Component {
                     <Typography id="input-slider" gutterBottom>Review Score</Typography>
                     <Slider
                       id='rating'
-                      defaultValue={this.props.sortParams.rating}
+                      value={this.props.sortParams.rating}
                       valueLabelDisplay="auto"
                       marks={true}
                       min={0}
@@ -165,7 +168,7 @@ class HotelQuery extends React.Component {
                     <Typography id="input-slider" gutterBottom>Price</Typography>
                     <Slider
                       id='price'
-                      defaultValue={this.props.sortParams.price}
+                      value={this.props.sortParams.price}
                       valueLabelDisplay="auto"
                       marks={true}
                       min={0}

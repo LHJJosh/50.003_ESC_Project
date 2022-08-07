@@ -14,7 +14,7 @@ class AppInternal extends React.Component {
     this.state = {
       queryParams: {
         hotel_uid: '',
-        destination: '',
+        destination: null,
         destination_uid: '',
         checkInDay: '',
         checkOutDay: '',
