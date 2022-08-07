@@ -19,21 +19,13 @@ class HotelQuery extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      rooms: "",
-      adults: "",
-      children: "",
       searchCache: [],
       searchIdMap: new Map()
     }
   }
-  
-  updateQuery = (key, value, updateCallback) => {
-    this.setState({[key]: value});
-    updateCallback({[key]: value});
-  }
 
   autoComplete = (evt, key) => {
-    if (evt.target.value.length >= 2) {
+    if (evt !== null && evt.target.value.length >= 2) {
       let query = `/api/destinations?term=${evt.target.value}`;
       axios
         .get(query)
@@ -67,23 +59,22 @@ class HotelQuery extends React.Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                   <Autocomplete
+                    defaultValue={this.props.queryParams.destination}
                     options={this.state.searchCache}
                     fullWidth
                     id="destination"
-                    onChange={(event, newValue) => this.updateQuery(
-                      'destination_uid', 
-                      this.state.searchIdMap.get(newValue), 
-                      this.props.updateQueryParams)
-                    }
+                    onChange={(event, newValue) => 
+                      this.props.updateQueryParams({
+                        destination_uid: this.state.searchIdMap.get(newValue),
+                        destination: newValue
+                      }
+                    )}
                     onInputChange={this.autoComplete}
-                    inputProps={{style: {fontSize: 14, height : 20}}} // font size of input text/>}
                     autoHighlight={true}
                     autoSelect={true}
                     renderInput={(params) => <TextField {...params}
                       label="Destination"
                       id="destination"
-                      onChange={this.autoComplete}
-                      // limitTags={10}
                     />}
                   />
                   </Grid>
@@ -93,9 +84,11 @@ class HotelQuery extends React.Component {
                         required
                         size='small'
                         id="checkInDay"
-                        onChange={evt => this.updateQuery(
-                          evt.target.id, evt.target.value, this.props.updateQueryParams)}
+                        onChange={evt => this.props.updateQueryParams(
+                          {[evt.target.id]: evt.target.value}
+                        )}
                         label="Check In Day"
+                        defaultValue={this.props.queryParams.checkInDay}
                     />      
                   </Grid>
                   <Grid item sm={6}>
@@ -104,9 +97,11 @@ class HotelQuery extends React.Component {
                         required
                         size='small'
                         id="checkOutDay"
-                        onChange={evt => this.updateQuery(
-                          evt.target.id, evt.target.value, this.props.updateQueryParams)}
+                        onChange={evt => this.props.updateQueryParams(
+                          {[evt.target.id]: evt.target.value}
+                        )}
                         label="Check Out Day"
+                        defaultValue={this.props.queryParams.checkOutDay}
                     />      
                   </Grid>
                   <Grid item sm={4}>
@@ -115,10 +110,11 @@ class HotelQuery extends React.Component {
                       <Select
                         labelId="rooms"
                         id="rooms"
-                        value={this.state.rooms}
+                        value={this.props.queryParams.rooms}
                         label="Rooms"
-                        onChange={evt => this.updateQuery(
-                          'rooms', evt.target.value, this.props.updateQueryParams)}
+                        onChange={evt => this.props.updateQueryParams(
+                          {rooms: evt.target.value}
+                        )}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -133,10 +129,11 @@ class HotelQuery extends React.Component {
                       <Select
                         labelId="adults"
                         id="adults"
-                        value={this.state.adults}
+                        value={this.props.queryParams.adults}
                         label="Adults"
-                        onChange={evt => this.updateQuery(
-                          'adults', evt.target.value, this.props.updateQueryParams)}
+                        onChange={evt => this.props.updateQueryParams(
+                          {adults: evt.target.value}
+                        )}
                       >
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
                         <MenuItem className='menuItem' value={2}>2</MenuItem>
@@ -151,10 +148,11 @@ class HotelQuery extends React.Component {
                       <Select
                         labelId="children"
                         id="children"
-                        value={this.state.children}
+                        value={this.props.queryParams.children}
                         label="Children"
-                        onChange={evt => this.updateQuery(
-                          'children', evt.target.value, this.props.updateQueryParams)}
+                        onChange={evt => this.props.updateQueryParams(
+                          {children: evt.target.value}
+                        )}
                       >
                         <MenuItem className='menuItem' value={0}>0</MenuItem>
                         <MenuItem className='menuItem' value={1}>1</MenuItem>
@@ -170,14 +168,15 @@ class HotelQuery extends React.Component {
                     </Typography>
                     <Slider
                       id='rating'
-                      defaultValue={0}
+                      defaultValue={this.props.sortParams.rating}
                       valueLabelDisplay="auto"
                       step={1}
                       marks={true}
                       min={0}
                       max={5}
-                      onChange={evt => this.updateQuery(
-                        'rating', evt.target.value, this.props.updateSortParams)}
+                      onChange={evt => this.props.updateSortParams(
+                        {rating: evt.target.value}
+                      )}
                     />
                   </Grid>
                   <Grid item sm={12}>
@@ -186,14 +185,15 @@ class HotelQuery extends React.Component {
                     </Typography>
                     <Slider
                       id='price'
-                      defaultValue={500}
+                      defaultValue={this.props.sortParams.price}
                       step={100}
                       valueLabelDisplay="auto"
                       marks={true}
                       min={0}
                       max={2000}
-                      onChange={evt => this.updateQuery(
-                        'price', evt.target.value, this.props.updateSortParams)}
+                      onChange={evt => this.props.updateSortParams(
+                        {price: evt.target.value}
+                      )}
                     />
                   </Grid>
                 </Grid>

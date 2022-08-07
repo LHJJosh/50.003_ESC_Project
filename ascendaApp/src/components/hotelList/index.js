@@ -92,6 +92,10 @@ class HotelListInternals extends React.Component {
     this.setState({updatedHotelList: this.state.filteredList.slice(0,10)});
   }
 
+  componentDidMount() {
+    this.updateHotelInfo(this.buildQuery());
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.queryParams !== this.props.queryParams) {
       this.updateHotelInfo(this.buildQuery());
