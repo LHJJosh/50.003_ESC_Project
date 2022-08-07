@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Card from '@mui/material/Card';
@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import "./style.css";
 import { Button, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -14,63 +15,29 @@ import ReactDOM from "react-dom/client"
 
 export default function DeleteBooking(){
 
-    const [info, getInfo] = useState({
-        id:"",
-        title: "",
-        firstName: "",
-        lastName: "",
-        countryCode: "",
-        phoneNumber: "",
-        emailAddress: "",
-        specialRequest: "",
-        cardNumber: "",
-        nameOnCard: "",
-        expiryDate: "",
-        cvvCvc: "",
-        address: "",
-        city: "",
-        zipCode: "",
-        country: ""
-    });
+    const [info, getInfo] = useState('');
 
-    // const fetchData = () => {
-    //     axios.get("/api/bookings")
-    //     .then(res => {
-    //         const data = res.data
-    //         getInfo(data)
-    //     })
-    //     .catch((err) => console.log(err));
-    // } 
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/bookings")
+        .then(res => {
+            const data = res.data.latest('id')
+            getInfo(data)
+        })
+        .catch((err) => console.log(err));
+    }, []);
 
-    // const booking = ReactDOM();
-
-    // function buildQueryAPI() {
-    //     return '/api/bookings/${bookings.info.id}';
-    // };
-
-    // function buildQuery() {
-    //     return 'api/bookings?booking_id-${bookings.info.id}';
-    // }
-
-    // function refreshBooking(queryUrl) {
-    //     axios
-    //     .get(queryUrl)
-    //     .then((res) => getInfo(res.data))
-    //     .catch((err) => console.log(err));
-    // }
-
-    // React.useEffect(() => {
-    //     if (booking.info !== null) {
-    //         let queryUrl = buildQuery();
-    //         refreshBooking(queryUrl);
-    //       }
-    //     });
-
-    // const handleClick = bookingId => {
-    //     axios
-    //     .delete(bookingId)
-    //     .catch((err) => console.log(err))
-    // }
+    function handleClick() {
+        let alert = prompt("Are you sure you would like to cancel this booking?");
+        let text;
+        if (alert == null || alert == ""){
+            text = "Cancelled booking deletion process";
+        } else {
+            text = "Booking cancellation successful!"
+        }
+        // axios
+        // .delete(bookingId)
+        // .catch((err) => console.log(err))
+    }
 
     const [open, setOpen] = useState(true);
 
@@ -101,6 +68,7 @@ export default function DeleteBooking(){
                     marginLeft: 2,
                     marginRight: 2,
                     marginTop: 6,
+                    marginBottom: 6,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -109,7 +77,7 @@ export default function DeleteBooking(){
                 <Typography variant="h3" fontFamily={'Roboto'}>
                     THANK YOU FOR BOOKING WITH US
                 </Typography>
-                {/* <p>
+                <p>
                     Name: {info.title} {info.firstName} {info.lastName}
                     <br></br>
                     Country Code: {info.countryCode}
@@ -122,7 +90,9 @@ export default function DeleteBooking(){
                     <br></br>
                     Card Number used: {info.cardNumber}
                 </p>
-                <Button></Button> */}
+                <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleClick}>
+                    Delete Booking 
+                </Button>
                     <Stack spacing={2} sx={{ width: '100%' }}>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
