@@ -169,6 +169,7 @@ class HotelQuery extends React.Component {
                       Review Score
                     </Typography>
                     <Slider
+                      id='rating'
                       defaultValue={0}
                       valueLabelDisplay="auto"
                       step={1}
@@ -184,12 +185,13 @@ class HotelQuery extends React.Component {
                       Price
                     </Typography>
                     <Slider
-                      defaultValue={1000}
-                      step={50}
+                      id='price'
+                      defaultValue={500}
+                      step={100}
                       valueLabelDisplay="auto"
                       marks={true}
                       min={0}
-                      max={5000}
+                      max={2000}
                       onChange={evt => this.updateQuery(
                         'price', evt.target.value, this.props.updateSortParams)}
                     />
