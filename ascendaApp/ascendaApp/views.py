@@ -127,7 +127,7 @@ def detail_hotel_internal(request, pk, format=None):
 
 
 @api_view(['GET', 'POST', 'DELETE'])
-def bookings(request, pk, format=None):
+def bookings(request, pk=None, format=None):
     """
     List all code snippets, or create a new booking.
     """
