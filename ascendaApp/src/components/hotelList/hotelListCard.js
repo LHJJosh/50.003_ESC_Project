@@ -48,7 +48,7 @@ class HotelListCard extends React.Component {
           {this.props.hotelName}
         </Typography>
 
-        <div class="vspace1em"></div>
+        <div className="vspace1em"></div>
           
         <Typography variant='h5' color='text.secondary' component='div'>
           {this.props.hotelAddress}
@@ -57,7 +57,7 @@ class HotelListCard extends React.Component {
           {(parseFloat(this.props.hotelDistance)).toFixed(1)} km from city centre
         </Typography>
 
-        <div class="vspace1em"></div>
+        <div className="vspace1em"></div>
 
         <Rating
           name='simple-controlled'
@@ -79,7 +79,7 @@ class HotelListCard extends React.Component {
           {this.getPrice()}
         </Typography>
         
-        <div class="vspace1em"></div>
+        <div className="vspace1em"></div>
 
         <Button className='hotelButton' 
           variant='outlined' 

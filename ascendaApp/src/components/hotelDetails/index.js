@@ -13,8 +13,8 @@ export function DetailsPage() {
   const [state, setState] = React.useState({
     id: "",
     address: "",
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
     name: "", 
     rating: "",
     description: "",
