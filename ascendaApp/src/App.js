@@ -7,15 +7,52 @@ import HotelDetails from "./pages/HotelDetails";
 import HotelSearches from "./pages/HotelSearch";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
-import "./Navbarstyle.css"
 
 class AppInternal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      queryParams: {
+        destination: '',
+        destination_uid: '',
+        checkInDay: '',
+        checkOutDay: '',
+        rooms: '',
+        adults: '',
+        children: ''
+      },
+      sortParams: {
+        price: 500,
+        rating: 0
+      }
+    }
+  }
+
+  updateQueryParams = (updateDict) => {
+    this.setState({queryParams: {
+      ...this.state.queryParams,
+      ...updateDict
+    }}, () => console.log(this.state.queryParams));
+  }
+
+  updateSortParams = (updateDict) => {
+    this.setState({sortParams: {
+      ...this.state.sortParams,
+      ...updateDict
+    }});
+  }
+  
   render() {
     return <div className="App">
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-        <Route index element={<HotelSearches />} />
+        <Route index element={
+          <HotelSearches updateQueryParams={this.updateQueryParams} 
+                         updateSortParams={this.updateSortParams}
+                         queryParams={this.state.queryParams}
+                         sortParams={this.state.sortParams}/>
+        } />
         <Route path="hoteldetails" element={<HotelDetails />} />
         <Route path="bookings" element={<Bookings />} />
         <Route path="confirmationDetails" element={<ConfirmDetails />}/>
