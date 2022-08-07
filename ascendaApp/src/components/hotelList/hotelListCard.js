@@ -61,7 +61,8 @@ class HotelListCard extends React.Component {
 
         <Rating
           name='simple-controlled'
-          defaultValue={this.props.hotelRating}
+          defaultValue={0}
+          value={this.props.hotelRating ? this.props.hotelRating : 0}
           precision={0.5}
           size="large"
           readOnly

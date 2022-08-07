@@ -5,35 +5,10 @@ import HotelQuery from '../components/hotelQueryCard';
 import { HotelList } from "../components/hotelList";
 //import HotelForm from "../components/hotelQueryCard/form";
 import { HotelForm } from "../components/hotelQueryCard/form";
+
 class HotelSearches extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      queryParams: {
-        destination_uid: '',
-        checkInDay: '',
-        checkOutDay: '',
-        rooms: '',
-      },
-      sortParams: {
-        price: 1000,
-        rating: 0
-      }
-    } 
-  }
-  
-  updateQueryParams = (updateDict) => {
-    this.setState({queryParams: {
-      ...this.state.queryParams,
-      ...updateDict
-    }});
-  }
-
-  updateSortParams = (updateDict) => {
-    this.setState({sortParams: {
-      ...this.state.sortParams,
-      ...updateDict
-    }});
   }
 
   render() {
@@ -44,11 +19,13 @@ class HotelSearches extends React.Component {
       }}>
           <HotelQuery sx={{marginRight: 10}} 
                       className='hotelQuery' 
-                      updateQueryParams={this.updateQueryParams}
-                      updateSortParams={this.updateSortParams}/>
+                      updateQueryParams={this.props.updateQueryParams}
+                      updateSortParams={this.props.updateSortParams}
+                      queryParams={this.props.queryParams}
+                      sortParams={this.props.sortParams}/>
           <HotelList className='hotelList' 
-                     queryParams={this.state.queryParams}
-                     sortParams={this.state.sortParams}/>
+                     queryParams={this.props.queryParams}
+                     sortParams={this.props.sortParams}/>
         
       </div>
     </DisplayTop>;

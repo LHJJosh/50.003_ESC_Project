@@ -16,41 +16,14 @@ class HotelListInternals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      filteredList: [],
       hotelList: [],
       hotels: new Map(),
-      count: 10,
-      start: 0,
       updatedHotelList: [],
       hasMore: true,
-      perPage: 10,
-      lastPosition: 0
+      perPage: 10
     }
   }
-
-  /*|| JSON.parse(localStorage.getItem('state'))
-  componentDidMount() {
-    const json = window.localStorage.getItem('destination_uid')
-    const destination_uid = JSON.parse(json)
-    this.setState({destination_uid: destination_uid })
-  }
-  componentDidUpdate(prevProps, prevStates){
-    const json = JSON.stringify(this.state.queryParams.destination_uid)
-    window.localStorage.setItem('destination_uid', json)
-  }
-  /*
-  JSON.parse(localStorage.getItem('state')) || 
-  useEffect= (() => {
-    this.setState(JSON.parse(window.localStorage.getItem('state')));
-  }, []);
-
-  useEffect = (() => {
-    window.localStorage.setItem('state', this.state);
-  }, [this.state]);
-
-  setState(state) {
-    localStorage.setItem('state', JSON.stringify(state));
-    super.setState(state);
-  }*/
 
   updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
@@ -74,30 +47,28 @@ class HotelListInternals extends React.Component {
             ...this.state.hotels.get(data['id']),
             ...data
           });
-        }
-        else{
+        } else {
           console.log('no data')
         }
       });
 
+      this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
       this.refreshList();
-      //this.state.lastPosition = this.state.lastPosition + 10
     }
   }
 
   refreshList = () => {
-    let newHotelList = [];
-    this.state.hotels.forEach(data => {
-      newHotelList.push(data)
-    })
+    this.state.filteredList = this.state.hotelList.filter(item => 
+      (item.price < this.props.sortParams.price || item.price === Number.MAX_VALUE) &&
+      item.rating >= this.props.sortParams.rating
+    );
+    this.state.filteredList.sort((a, b) => a.price - b.price);
+    console.log(this.state.filteredList);
+    this.setState({updatedHotelList: this.state.filteredList.slice(0,10)});
+  }
 
-    newHotelList = newHotelList.filter(
-      item => item.price < this.props.sortParams.price || item.price === Number.MAX_VALUE)
-    newHotelList = newHotelList.filter(
-      item => item.rating >= this.props.sortParams.rating)
-    newHotelList.sort((a, b) => a.price - b.price);
-    this.setState({hotelList: newHotelList});
-    this.setState({updatedHotelList: this.state.hotelList.slice(0,10)});
+  componentDidMount() {
+    this.updateHotelInfo(this.buildQuery());
   }
 
   componentDidUpdate(prevProps) {
@@ -109,8 +80,6 @@ class HotelListInternals extends React.Component {
     }
   }
 
-
-  
   buildQuery() {    
     let queryUrl = '';
     let query = this.props.queryParams;
@@ -144,10 +113,11 @@ class HotelListInternals extends React.Component {
   
   loadProducts = () => {   
     setTimeout(() => {       
-      var joined = (this.state.hotelList.slice(0, this.state.lastPosition + this.state.perPage));
-      this.setState(() => ({updatedHotelList: joined}));
-    }, 1000);      
-    this.setState(() => ({lastPosition: this.state.lastPosition+ this.state.perPage}) );
+      let dataLength = this.state.updatedHotelList.length;
+      let nextSet = this.state.filteredList.slice(dataLength, dataLength + this.state.perPage);
+      this.state.updatedHotelList.push(...nextSet);
+      this.setState({updatedHotelList: this.state.updatedHotelList});
+    }, 1000);
   };
 
   render() {

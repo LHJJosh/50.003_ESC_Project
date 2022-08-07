@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from django_cryptography.fields import encrypt
-import uuid
 
 
 class Destination(models.Model):
@@ -111,14 +110,22 @@ class HotelSerializer(serializers.Serializer):
 class BookingInfo(models.Model):
     id = models.IntegerField(primary_key=True)
     title = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    firstName = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    lastName = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    countryCode = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    phoneNumber = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    emailAddress = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    specialRequest = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    cardNumber = encrypt(models.CharField(max_length=256, blank=True, default=''))
-    nameOnCard = encrypt(models.CharField(max_length=256, blank=True, default=''))
+    firstName = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    lastName = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    countryCode = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    phoneNumber = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    emailAddress = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    specialRequest = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    cardNumber = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
+    nameOnCard = encrypt(models.CharField(
+        max_length=256, blank=True, default=''))
     expiryDate = encrypt(models.DateField(default=django.utils.timezone.now))
     cvvCvc = encrypt(models.CharField(max_length=256, blank=True, default=''))
     address = encrypt(models.CharField(max_length=256, blank=True, default=''))
