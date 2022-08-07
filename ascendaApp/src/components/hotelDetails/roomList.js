@@ -48,17 +48,17 @@ export function RoomsCard(props){
         let queryUrl = '/api/rooms';
         let query = props.queryParams;
         // console.log(query);
-        if (query.hotel_id !== '' && 
-            query.destination_id !== '' && 
-            query.checkin !== '' &&
-            query.checkout !== '' &&
-            query.guests !== ''
+        if (query.hotel_uid !== '' && 
+            query.destination_uid !== '' && 
+            query.checkInDay !== '' &&
+            query.checkOutDay !== '' &&
+            query.rooms !== ''
             ) {
-            queryUrl += `?hotel_id=${query.hotel_id}`; // diH7
-            queryUrl += `&destination_id=${query.destination_id}`; // WD0M
-            queryUrl += `&checkin=${query.checkin}`; // 2022-08-18
-            queryUrl += `&checkout=${query.checkout}`; // 2022-08-19
-            queryUrl += `&guests=${query.guests}`;
+            queryUrl += `?hotel_id=${query.hotel_uid}`; // diH7
+            queryUrl += `&destination_id=${query.destination_uid}`; // WD0M
+            queryUrl += `&checkin=${query.checkInDay}`; // 2022-08-18
+            queryUrl += `&checkout=${query.checkOutDay}`; // 2022-08-19
+            queryUrl += `&guests=${query.rooms}`;
             return queryUrl
             }
         else{

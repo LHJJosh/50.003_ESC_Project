@@ -86,12 +86,6 @@ class HotelListCard extends React.Component {
           startIcon={<LocalOfferIcon />} 
           aria-label='book' 
           component={Link} to="/hoteldetails"
-          state={{hotelId: this.props.hotelId,
-                  destinationId: this.props.destinationId,
-                  checkInDay: this.props.checkInDay,
-                  checkOutDay: this.props.checkOutDay,
-                  rooms: this.props.rooms,
-                }}
           onClick={() => this.props.updateQueryParams({hotel_uid: this.props.hotelId})}
         >
           Book Deal
