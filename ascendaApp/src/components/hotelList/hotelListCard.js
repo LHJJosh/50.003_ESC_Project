@@ -92,6 +92,7 @@ class HotelListCard extends React.Component {
                   checkOutDay: this.props.checkOutDay,
                   rooms: this.props.rooms,
                 }}
+          onClick={() => this.props.updateQueryParams({hotel_uid: this.props.hotelId})}
         >
           Book Deal
         </Button>

@@ -25,7 +25,8 @@ class HotelSearches extends React.Component {
                       sortParams={this.props.sortParams}/>
           <HotelList className='hotelList' 
                      queryParams={this.props.queryParams}
-                     sortParams={this.props.sortParams}/>
+                     sortParams={this.props.sortParams}
+                     updateQueryParams={this.props.updateQueryParams}/>
         
       </div>
     </DisplayTop>;

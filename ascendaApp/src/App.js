@@ -13,6 +13,7 @@ class AppInternal extends React.Component {
     super(props);
     this.state = {
       queryParams: {
+        hotel_uid: '',
         destination: '',
         destination_uid: '',
         checkInDay: '',
@@ -53,7 +54,9 @@ class AppInternal extends React.Component {
                          queryParams={this.state.queryParams}
                          sortParams={this.state.sortParams}/>
         } />
-        <Route path="hoteldetails" element={<HotelDetails />} />
+        <Route path="hoteldetails" element={
+          <HotelDetails queryParams={this.state.queryParams}/>
+        } />
         <Route path="bookings" element={<Bookings />} />
         <Route path="confirmationDetails" element={<ConfirmDetails />}/>
         <Route path="*" element={<NoPage />} />

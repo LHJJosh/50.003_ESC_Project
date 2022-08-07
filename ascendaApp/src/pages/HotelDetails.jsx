@@ -2,14 +2,12 @@ import React from 'react';
 import { DetailsPage } from '../components/hotelDetails';
 import DisplayTop from "./pageComponents/displayTop";
 
-function HotelDetails() {
-    return (
-        
+function HotelDetails(props) {
+  return (
     <DisplayTop>
-        <DetailsPage />
+        <DetailsPage queryParams={props.queryParams}/>
     </DisplayTop>
-
-    );
+  );
 }
 
 export default HotelDetails;

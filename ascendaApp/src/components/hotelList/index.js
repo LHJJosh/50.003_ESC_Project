@@ -90,7 +90,7 @@ class HotelListInternals extends React.Component {
       queryUrl += `&checkin=${query.checkInDay}`; // 2022-08-18
       queryUrl += `&checkout=${query.checkOutDay}`; // 2022-08-19
       queryUrl += `&guests=${query.rooms}`;
-      sessionStorage.setItem("queryUrl", queryUrl)
+      // sessionStorage.setItem("queryUrl", queryUrl)
       return queryUrl
     }
   }
@@ -148,7 +148,8 @@ class HotelListInternals extends React.Component {
                              destinationId={this.props.queryParams.destination_uid}
                              checkInDay={this.props.queryParams.checkInDay}
                              checkOutDay={this.props.queryParams.checkOutDay}
-                             rooms={this.props.queryParams.rooms}/> 
+                             rooms={this.props.queryParams.rooms}
+                             updateQueryParams={this.props.updateQueryParams}/> 
             </Suspense>
             <Divider variant='inset' component='li' />
           </div>
