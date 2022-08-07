@@ -32,7 +32,7 @@ class AppInternal extends React.Component {
     this.setState({queryParams: {
       ...this.state.queryParams,
       ...updateDict
-    }}, () => console.log(this.state.queryParams));
+    }});
   }
 
   updateSortParams = (updateDict) => {

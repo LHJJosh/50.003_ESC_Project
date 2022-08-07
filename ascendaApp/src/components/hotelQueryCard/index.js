@@ -15,9 +15,36 @@ import axios from 'axios';
 
 import "./styles.css";
 
+class HotelQueryDropdown extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <FormControl fullWidth>
+      <InputLabel>{this.props.id}</InputLabel>
+      <Select
+        labelId={this.props.id}
+        id={this.props.id}
+        value={this.props.queryParams[[this.props.id]]}
+        label={this.props.label}
+        onChange={evt => this.props.updateQueryParams(
+          {[this.props.id]: evt.target.value}
+        )}
+      >
+        {this.props.isZeroAllowed && <MenuItem className='menuItem' value={0}>0</MenuItem>}
+        <MenuItem className='menuItem' value={1}>1</MenuItem>
+        <MenuItem className='menuItem' value={2}>2</MenuItem>
+        <MenuItem className='menuItem' value={3}>3</MenuItem>
+        <MenuItem className='menuItem' value={4}>4</MenuItem>
+      </Select>
+    </FormControl>
+  }
+}
+
 class HotelQuery extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       searchCache: [],
       searchIdMap: new Map()
@@ -105,92 +132,45 @@ class HotelQuery extends React.Component {
                     />      
                   </Grid>
                   <Grid item sm={4}>
-                    <FormControl fullWidth>
-                      <InputLabel>Rooms</InputLabel>
-                      <Select
-                        labelId="rooms"
-                        id="rooms"
-                        value={this.props.queryParams.rooms}
-                        label="Rooms"
-                        onChange={evt => this.props.updateQueryParams(
-                          {rooms: evt.target.value}
-                        )}
-                      >
-                        <MenuItem className='menuItem' value={1}>1</MenuItem>
-                        <MenuItem className='menuItem' value={2}>2</MenuItem>
-                        <MenuItem className='menuItem' value={3}>3</MenuItem>
-                        <MenuItem className='menuItem' value={4}>4</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <HotelQueryDropdown id="rooms" label="Rooms"
+                                        updateQueryParams={this.props.updateQueryParams}
+                                        queryParams={this.props.queryParams}/>
                   </Grid> 
                   <Grid item sm={4}>
-                    <FormControl fullWidth>
-                      <InputLabel>Adults</InputLabel>
-                      <Select
-                        labelId="adults"
-                        id="adults"
-                        value={this.props.queryParams.adults}
-                        label="Adults"
-                        onChange={evt => this.props.updateQueryParams(
-                          {adults: evt.target.value}
-                        )}
-                      >
-                        <MenuItem className='menuItem' value={1}>1</MenuItem>
-                        <MenuItem className='menuItem' value={2}>2</MenuItem>
-                        <MenuItem className='menuItem' value={3}>3</MenuItem>
-                        <MenuItem className='menuItem' value={4}>4</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <HotelQueryDropdown id="adults" label="Adults" isZeroAllowed
+                                        updateQueryParams={this.props.updateQueryParams}
+                                        queryParams={this.props.queryParams}/>
                   </Grid>
                   <Grid item sm={4}>
-                    <FormControl fullWidth>
-                      <InputLabel>Children</InputLabel>
-                      <Select
-                        labelId="children"
-                        id="children"
-                        value={this.props.queryParams.children}
-                        label="Children"
-                        onChange={evt => this.props.updateQueryParams(
-                          {children: evt.target.value}
-                        )}
-                      >
-                        <MenuItem className='menuItem' value={0}>0</MenuItem>
-                        <MenuItem className='menuItem' value={1}>1</MenuItem>
-                        <MenuItem className='menuItem' value={2}>2</MenuItem>
-                        <MenuItem className='menuItem' value={3}>3</MenuItem>
-                        <MenuItem className='menuItem' value={4}>4</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <HotelQueryDropdown id="children" label="Children" isZeroAllowed
+                                        updateQueryParams={this.props.updateQueryParams}
+                                        queryParams={this.props.queryParams}/>
                   </Grid>
                   <Grid item sm={12}>
-                    <Typography id="input-slider" gutterBottom>
-                      Review Score
-                    </Typography>
+                    <Typography id="input-slider" gutterBottom>Review Score</Typography>
                     <Slider
                       id='rating'
                       defaultValue={this.props.sortParams.rating}
                       valueLabelDisplay="auto"
-                      step={1}
                       marks={true}
                       min={0}
                       max={5}
+                      step={1}
                       onChange={evt => this.props.updateSortParams(
                         {rating: evt.target.value}
                       )}
                     />
                   </Grid>
                   <Grid item sm={12}>
-                    <Typography id="input-slider" gutterBottom>
-                      Price
-                    </Typography>
+                    <Typography id="input-slider" gutterBottom>Price</Typography>
                     <Slider
                       id='price'
                       defaultValue={this.props.sortParams.price}
-                      step={100}
                       valueLabelDisplay="auto"
                       marks={true}
                       min={0}
                       max={2000}
+                      step={100}
                       onChange={evt => this.props.updateSortParams(
                         {price: evt.target.value}
                       )}

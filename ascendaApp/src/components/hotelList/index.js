@@ -47,9 +47,7 @@ class HotelListInternals extends React.Component {
             ...this.state.hotels.get(data['id']),
             ...data
           });
-        } else {
-          console.log('no data')
-        }
+        } // no data left as Number.MAX_VALUE
       });
 
       this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
@@ -63,7 +61,7 @@ class HotelListInternals extends React.Component {
       item.rating >= this.props.sortParams.rating
     );
     this.state.filteredList.sort((a, b) => a.price - b.price);
-    console.log(this.state.filteredList);
+    // console.log(this.state.filteredList);
     this.setState({updatedHotelList: this.state.filteredList.slice(0,10)});
   }
 
