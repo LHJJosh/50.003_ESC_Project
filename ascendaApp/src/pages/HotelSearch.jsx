@@ -1,16 +1,11 @@
-import React, { Suspense } from "react";
+import React from "react";
 import DisplayTop from "./pageComponents/displayTop";
 import HotelQuery from '../components/hotelQueryCard';
 
 import { HotelList } from "../components/hotelList";
-//import HotelForm from "../components/hotelQueryCard/form";
-import { HotelForm } from "../components/hotelQueryCard/form";
+// import { HotelForm } from "../components/hotelQueryCard/form";
 
 class HotelSearches extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return <DisplayTop>
       <div style={{

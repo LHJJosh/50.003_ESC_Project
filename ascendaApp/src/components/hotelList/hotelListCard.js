@@ -14,12 +14,9 @@ import previewAlt from '../../assets/cardmedia_noPreviewAvailable.png';
 import './styles.css'
 
 class HotelListCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   getPrice() {
-    if (this.props.hotelPrice == Number.MAX_VALUE) {
+    if (this.props.hotelPrice === Number.MAX_VALUE) {
       return "Last Room Already Sold";
     } else {
       return `SGD ${this.props.hotelPrice.toFixed(2)}`;

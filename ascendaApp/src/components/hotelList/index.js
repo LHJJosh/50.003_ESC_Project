@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import axios from 'axios';
 import { Suspense } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-import HotelListItem from './hotelListItem.js'
+// import HotelListItem from './hotelListItem.js'
 
 import "./styles.css";
 

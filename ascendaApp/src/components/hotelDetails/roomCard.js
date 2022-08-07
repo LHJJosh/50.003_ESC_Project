@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';  
 import { styled } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
-import { Link } from "react-router-dom";
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -39,24 +35,19 @@ export function RoomCard(props){
         uniqueList: [],
     });
 
+    function populateRatesList(){
+        let ratesList = [];
+        props.roomList.forEach((room, index) => {
+            if (room.type == props.type){
+                ratesList.push(room);
+            }
+            // console.log(room);
+        });
+        return ratesList
+    }
+  
     function populateUniqueList(){
-
-        function populateRatesList(){
-            let ratesList = [];
-            props.roomList.forEach((room, index) => {
-                if (room.type == props.type){
-                    console.log("match!")
-                    ratesList.push(room);
-                }
-                // else{
-                //     console.log("room " + index + ": " + room.type)
-                //     console.log("props: " + props.type)
-                // }
-            });
-            // console.log(ratesList)
-            return ratesList
-        }
-
+        
         let ratesList = populateRatesList();
 
         // function filterRooms(room){
@@ -64,14 +55,23 @@ export function RoomCard(props){
                 
         //     });
         // }
-
         // let uniqueList = ratesList.filter()
         
         // var keys = ['free_cancellation', 'roomAdditionalInfo.breakfastInfo']
         
         const uniqueList = [];
 
-        ratesList.map(x => uniqueList.filter(a => a.free_cancellation == x.free_cancellation && a.roomAdditionalInfo.breakfastInfo == x.roomAdditionalInfo.breakfastInfo).length > 0 ? null : uniqueList.push(x));
+        ratesList.map(x => {
+            let sameInstances = uniqueList.filter(a => 
+                a.free_cancellation == x.free_cancellation && 
+                a.roomAdditionalInfo.breakfastInfo == x.roomAdditionalInfo.breakfastInfo
+            )
+            if (sameInstances.length === 0) {
+                uniqueList.push(x);
+            }
+        });
+        // console.log(ratesList);
+        // console.log(uniqueList);
         
         // var uniqueList = ratesList.reduce((prices, room) =>{
         //     let temp = prices[room.free_cancellation];
@@ -122,13 +122,13 @@ export function RoomCard(props){
         //         console.log("first room EVER")
         //     }
         // });
-        setState({uniqueList: uniqueList}, () => {
-            console.log(state.uniqueList);
-          }); 
-        console.log(uniqueList);
+        setState({uniqueList: uniqueList}); 
     }
 
-    useEffect(() => {populateUniqueList()}, []);
+    useEffect(() => {
+        populateUniqueList();
+        // console.log(state.uniqueList);
+    }, []);
 
     function loadImage(){
         let imageUrl = ''
@@ -160,20 +160,19 @@ export function RoomCard(props){
             />
             <CardActions disableSpacing>
                 <Typography variant="body2" color="text.secondary">
-                Show details
+                    Show details
                 </Typography>
-                <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show details"
+                <ExpandMore expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label="show details"
                 >
-                <ExpandMoreIcon />
+                    <ExpandMoreIcon />
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <RatesList className='ratesList'
-                            uniqueList={state.uniqueList}/>
+                           uniqueList={state.uniqueList}/>
             </Collapse>
         </Card>
     );
