@@ -49,15 +49,6 @@ export function RoomCard(props){
     function populateUniqueList(){
         
         let ratesList = populateRatesList();
-
-        // function filterRooms(room){
-        //     this.forEach((uroom) => {
-                
-        //     });
-        // }
-        // let uniqueList = ratesList.filter()
-        
-        // var keys = ['free_cancellation', 'roomAdditionalInfo.breakfastInfo']
         
         const uniqueList = [];
 
@@ -70,58 +61,7 @@ export function RoomCard(props){
                 uniqueList.push(x);
             }
         });
-        // console.log(ratesList);
-        // console.log(uniqueList);
         
-        // var uniqueList = ratesList.reduce((prices, room) =>{
-        //     let temp = prices[room.free_cancellation];
-        //     if(!temp) temp = room;
-        //     else if (price.price < room.price)
-        // })
-        
-        // var uniqueList = ratesList.filter(
-        //     (s => o =>
-        //         (k => !s.has(k) && s.add(k))
-        //         (keys.map(k => o[k]).join('|'))
-        //     )
-        //     (new Set)
-        // );
-
-        // var uniqueList = ratesList.reduce((newRatesList, current) => {
-        //     if (!newRatesList.some(x => x.free_cancellation == current.free_cancellation && x.roomAdditionalInfo.breakfastInfo == current.roomAdditionalInfo.breakfastInfo && x.lowest_converted_price > current.lowest_converted_price)){
-        //         newRatesList.push(current);
-        //     }
-        //     return newRatesList;
-        // }, []);
-
-        // ratesList.forEach((newRoom) => {
-        //     if (uniqueList.length != 0){
-        //         uniqueList.forEach((uniqueRoom, index) => {
-        //             if ((newRoom.free_cancellation == uniqueRoom.free_cancellation) && (newRoom.roomAdditionalInfo.breakfastInfo == uniqueRoom.roomAdditionalInfo.breakfastInfo)){
-        //                 console.log("room already exists")
-        //                 let bestRate = Math.min(newRoom.lowest_converted_price, uniqueRoom.lowest_converted_price);
-        //                 if (bestRate == newRoom.lowest_converted_price){
-        //                     console.log("but this room is cheaper")
-        //                     uniqueList.splice(index, 1);
-        //                     uniqueList.push(newRoom);
-        //                     return;
-        //                 }
-        //                 else{
-        //                     console.log("but this room more expensive, don't add")
-        //                 }
-        //             }
-        //             else{
-        //                 console.log("room doesn't exist yet")
-        //                 uniqueList.push(newRoom);
-        //                 return;
-        //             }
-        //         });
-        //     }
-        //     else{
-        //         uniqueList.push(newRoom);
-        //         console.log("first room EVER")
-        //     }
-        // });
         setState({uniqueList: uniqueList}); 
     }
 
