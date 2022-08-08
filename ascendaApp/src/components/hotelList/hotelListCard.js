@@ -87,7 +87,7 @@ class HotelListCard extends React.Component {
           component={Link} to="/hoteldetails"
           onClick={() => this.props.updateQueryParams({hotel_uid: this.props.hotelId})}
           disabled={this.props.hotelPrice === Number.MAX_VALUE}
-          disable
+          data-testid='hotelBookButton'
         >
           Book Deal
         </Button>

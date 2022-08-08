@@ -90,3 +90,10 @@ it("renders with correct image", () => {
 it("renders with correct image alt", () => {
   expect(screen.queryByTestId('hotelImg')).toHaveAttribute('alt', hotel.name);
 });
+
+it("button calls update query callback", () => {
+  act(() => {
+    fireEvent.click(screen.getByTestId('hotelBookButton'));
+  })
+  expect(updateQueryParams.mock.calls.length).toBe(1);
+});
