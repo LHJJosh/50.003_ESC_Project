@@ -42,6 +42,7 @@ class HotelListInternals extends React.Component {
                                 .catch((err) => console.log(err));
       priceRes.data.hotels.forEach(data => {
         if (this.state.hotels.has(data['id'])) {
+          console.log(data['price'])
           this.state.hotels.set(data['id'], {
             ...this.state.hotels.get(data['id']),
             ...data
@@ -80,15 +81,23 @@ class HotelListInternals extends React.Component {
   buildQuery() {    
     let queryUrl = '';
     let query = this.props.queryParams;
+    function formatGuests(adults, children, rooms){
+      let numGuests = adults + children;
+      const guests = new Array(rooms).fill(numGuests);
+      return guests.join('|');
+    }
     if (query.destination_uid !== '' && 
       query.checkInDay !== '' &&
       query.checkOutDay !== '' &&
-      query.rooms !== ''
+      query.rooms !== '' &&
+      query.adults !== '' &&
+      query.children !== '' 
     ) {
       queryUrl += `?destination_id=${query.destination_uid}`; // WD0M
       queryUrl += `&checkin=${query.checkInDay}`; // 2022-08-18
       queryUrl += `&checkout=${query.checkOutDay}`; // 2022-08-19
-      queryUrl += `&guests=${query.rooms}`;
+      queryUrl += `&guests=${formatGuests(query.adults, query.children, query.rooms)}`;
+      // queryUrl += `&guests=${query.rooms}`;
       // sessionStorage.setItem("queryUrl", queryUrl)
       return queryUrl
     }
