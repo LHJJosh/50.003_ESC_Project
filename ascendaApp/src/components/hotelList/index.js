@@ -4,6 +4,7 @@ import Divider from '@mui/material/Divider';
 import axios from 'axios';
 import { Suspense } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from './loader.js'
 // import HotelListItem from './hotelListItem.js'
 
 import "./styles.css";
@@ -20,14 +21,16 @@ class HotelListInternals extends React.Component {
       hotels: new Map(),
       updatedHotelList: [],
       hasMore: true,
-      perPage: 10
+      perPage: 10,
+      completed: false,
+      emptyForm: true
     }
   }
 
   updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
       console.log(queryUrl);
-
+      this.setState({emptyForm: false})
       let hotelRes = await axios.get(`/api/hotels${queryUrl}`)
                                 .catch((err) => console.log(err));
       this.state.hotels.clear();
@@ -47,11 +50,15 @@ class HotelListInternals extends React.Component {
             ...this.state.hotels.get(data['id']),
             ...data
           });
+          this.setState({completed: true})
         } // no data left as Number.MAX_VALUE
       });
-
       this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
       this.refreshList();
+
+      if (this.state.completed == false){
+        this.updateHotelInfo(queryUrl);
+      };
     }
   }
 
@@ -71,6 +78,7 @@ class HotelListInternals extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.queryParams !== this.props.queryParams) {
+      this.setState({completed: false})
       this.updateHotelInfo(this.buildQuery());
     }
     if (prevProps.sortParams !== this.props.sortParams) {
@@ -128,6 +136,7 @@ class HotelListInternals extends React.Component {
 
   render() {
     return <div className='hotelList' id='hotelList'>
+      {this.state.completed || this.state.emptyForm ? <div></div>: <div><Loader></Loader><br></br></div>}
       <InfiniteScroll
         className='infiniteScroll'
         dataLength={this.state.updatedHotelList.length}
