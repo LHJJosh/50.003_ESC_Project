@@ -140,7 +140,7 @@ class HotelQuery extends React.Component {
                                         queryParams={this.props.queryParams}/>
                   </Grid> 
                   <Grid item sm={4}>
-                    <HotelQueryDropdown id="adults" label="Adults" isZeroAllowed
+                    <HotelQueryDropdown id="adults" label="Adults"
                                         updateQueryParams={this.props.updateQueryParams}
                                         queryParams={this.props.queryParams}/>
                   </Grid>
