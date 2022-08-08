@@ -6,12 +6,22 @@ import { BrowserRouter } from 'react-router-dom'
 
 import HotelListCard from './hotelListCard.js';
 
-function getRandomString() {
-  return "a";
+function getRandomString(length) {
+  let result = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+`[]\\;\',./_+{}|:"<>?~';
+  let charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+ return result;
 }
 
-function getRandomNumber() {
-  return 1;
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function randomDoubleFromInterval(min, max) { // min and max included 
+  return Math.random() * (max - min + 1) + min
 }
 
 function getRandomDate() {
@@ -21,20 +31,20 @@ function getRandomDate() {
 }
 
 let hotel = {
-  name: getRandomString(),
-  cloudflare_image_url: getRandomString(),
-  id: getRandomString(),
-  address: getRandomString(),
-  price: getRandomNumber(),
-  rating: getRandomNumber(),
-  distance: getRandomNumber()
+  name: getRandomString(31),
+  cloudflare_image_url: getRandomString(31),
+  id: getRandomString(31),
+  address: getRandomString(31),
+  price: randomDoubleFromInterval(0, 5000),
+  rating: randomIntFromInterval(0, 5),
+  distance: randomDoubleFromInterval(0, 5000)
 }
 
 let queryParams = {
-  destination_uid: getRandomString(),
+  destination_uid: getRandomString(31),
   checkInDay: getRandomDate(),
   checkOutDay: getRandomDate(),
-  rooms: getRandomNumber(),
+  rooms: randomIntFromInterval(1, 4),
 }
 
 let updateQueryParams = jest.fn();
