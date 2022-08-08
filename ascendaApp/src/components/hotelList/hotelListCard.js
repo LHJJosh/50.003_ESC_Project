@@ -17,7 +17,7 @@ class HotelListCard extends React.Component {
 
   getPrice() {
     if (this.props.hotelPrice === Number.MAX_VALUE) {
-      return "Last Room Already Sold";
+      return "No Rooms Available";
     } else {
       return `SGD ${this.props.hotelPrice.toFixed(2)}`;
     }
@@ -84,6 +84,8 @@ class HotelListCard extends React.Component {
           aria-label='book' 
           component={Link} to="/hoteldetails"
           onClick={() => this.props.updateQueryParams({hotel_uid: this.props.hotelId})}
+          disabled={this.props.hotelPrice === Number.MAX_VALUE}
+          disable
         >
           Book Deal
         </Button>
