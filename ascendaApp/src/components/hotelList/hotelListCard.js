@@ -35,22 +35,23 @@ class HotelListCard extends React.Component {
           currentTarget.onerror = null; // prevents looping
           currentTarget.src = previewAlt;
         }}
+        data-testid='hotelImg'
       />
     </Box>
 
     <Box className='cardInfoBox'>
 
       <CardContent sx={{ flex: '1 0 auto' }}>
-        <Typography component='div' variant='h4'>
+        <Typography component='div' variant='h4' data-testid='hotelName'>
           {this.props.hotelName}
         </Typography>
 
         <div className="vspace1em"></div>
           
-        <Typography variant='h5' color='text.secondary' component='div'>
+        <Typography variant='h5' color='text.secondary' component='div' data-testid='hotelAddress'>
           {this.props.hotelAddress}
         </Typography>
-        <Typography variant='h5' color='text.secondary' component='div'>
+        <Typography variant='h5' color='text.secondary' component='div' data-testid='hotelDistance'>
           {(parseFloat(this.props.hotelDistance)).toFixed(1)} km from city centre
         </Typography>
 
@@ -63,6 +64,7 @@ class HotelListCard extends React.Component {
           precision={0.5}
           size="large"
           readOnly
+          data-testid='hotelRating'
         /> 
       </CardContent>
 
