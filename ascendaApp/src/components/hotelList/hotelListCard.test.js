@@ -87,8 +87,9 @@ it("renders with correct distance", () => {
 });
 
 it("renders with correct rating", () => {
-  expect(screen.queryByTestId('hotelRating')).toHaveAttribute(
-    'aria-label', `${hotel.rating} Star`);
+  expect(screen.queryByTestId('hotelRating').getAttribute('aria-label')).toContain(
+    `${hotel.rating} Star`
+  );
 });
 
 it("renders with correct image", () => {
