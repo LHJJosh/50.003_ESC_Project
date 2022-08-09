@@ -76,6 +76,7 @@ class HotelQuery extends React.Component {
                       label="Destination"
                       id="destination"
                     />}
+                    data-testid='queryDestination'
                   />
                   </Grid>
                   <Grid item sm={6}>
@@ -89,6 +90,7 @@ class HotelQuery extends React.Component {
                         )}
                         label="Check In Day"
                         defaultValue={this.props.queryParams.checkInDay}
+                        data-testid='queryCheckInDay'
                     />      
                   </Grid>
                   <Grid item sm={6}>
@@ -102,6 +104,7 @@ class HotelQuery extends React.Component {
                         )}
                         label="Check Out Day"
                         defaultValue={this.props.queryParams.checkOutDay}
+                        data-testid='queryCheckOutDay'
                     />      
                   </Grid>
                   <Grid item sm={4}>
@@ -132,6 +135,7 @@ class HotelQuery extends React.Component {
                       onChange={evt => this.props.updateSortParams(
                         {rating: evt.target.value}
                       )}
+                      data-testid='queryRating'
                     />
                   </Grid>
                   <Grid item sm={12}>
@@ -147,6 +151,7 @@ class HotelQuery extends React.Component {
                       onChange={evt => this.props.updateSortParams(
                         {price: evt.target.value}
                       )}
+                      data-testid='queryPrice'
                     />
                   </Grid>
                 </Grid>

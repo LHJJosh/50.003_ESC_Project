@@ -4,7 +4,7 @@
 import '@testing-library/jest-dom'
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { fireEvent, render, screen, cleanup, within } from "@testing-library/react";
+import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 
 import HotelQueryDropdown from './dropdown.js';
 import { randString, randBoolean, randIntRange } from '../../testUtils.js'
@@ -45,7 +45,6 @@ it("renders with correct label", () => {
   fireEvent.mouseDown(buttonElement);
   let listBoxElement = screen.queryByRole('listbox');
   expect(listBoxElement).toHaveAttribute('aria-labelledby', id);
-  // expect(screen.queryByTestId('queryDropdownSelect')).toHaveAttribute('label', label);
 });
 
 it("renders with correct menu items", () => {
