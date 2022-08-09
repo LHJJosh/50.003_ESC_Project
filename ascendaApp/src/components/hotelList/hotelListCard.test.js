@@ -1,10 +1,10 @@
 /**
  * @jest-environment jsdom
  */
+import '@testing-library/jest-dom'
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import '@testing-library/jest-dom'
 import { BrowserRouter } from 'react-router-dom'
 
 import HotelListCard from './hotelListCard.js';

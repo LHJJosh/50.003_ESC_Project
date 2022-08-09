@@ -29,7 +29,7 @@ class HotelList extends React.Component {
   updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
       // console.log(queryUrl);
-      this.setState({emptyForm: false})
+      this.state.emptyForm = false;
       let hotelRes = await axios.get(`/api/hotels${queryUrl}`)
                                 .catch((err) => console.log(err));
       this.state.hotels.clear();
@@ -49,7 +49,7 @@ class HotelList extends React.Component {
             ...this.state.hotels.get(data['id']),
             ...data
           });
-          this.setState({completed: true})
+          this.state.completed = true;
         } // no data left as Number.MAX_VALUE
       });
       this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
@@ -166,7 +166,8 @@ class HotelList extends React.Component {
                              checkInDay={this.props.queryParams.checkInDay}
                              checkOutDay={this.props.queryParams.checkOutDay}
                              rooms={this.props.queryParams.rooms}
-                             updateQueryParams={this.props.updateQueryParams}/> 
+                             updateQueryParams={this.props.updateQueryParams}
+                             data-testid='hotelListCard'/> 
             </Suspense>
             <Divider variant='inset' component='li' />
           </div>
