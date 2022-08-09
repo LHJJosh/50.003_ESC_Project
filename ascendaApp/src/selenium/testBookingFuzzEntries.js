@@ -28,10 +28,30 @@ function createNum(length){
 function getRandomInt(max) {
   return Math.floor(Math.random() * max + 1);
 }
+
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+function formatDate(date) {
+  let formattedMonth = (date.getMonth() + 1).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  let formattedDate = date.getDate().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
+  return `${formattedMonth}${formattedDate}${date.getFullYear()}`;
+}
+
 for(let i = 0; i < NUM_ATTEMPTS; i++){
   describe('Booking Actions', function() {
       this.timeout(10000);
       var driver;
+
+      let day = new Date();
+      let expiryDate =  formatDate(randomDate(day, new Date(day.getFullYear(), 12-1, 31)));
     
       beforeEach(function(){
         driver = new Builder().withCapabilities(
@@ -62,6 +82,30 @@ for(let i = 0; i < NUM_ATTEMPTS; i++){
 
               let specialRecBox = await driver.findElement(By.xpath('//*[@id="specialRequest"]'));
               specialRecBox.sendKeys(createEntries(getRandomInt(10)));
+
+              let cardNoBox = await driver.findElement(By.xpath('//*[@id="cardNumber"]'));
+              cardNoBox.sendKeys(createNum(16));
+
+              let nameBox = await driver.findElement(By.xpath('//*[@id="nameOnCard"]'));
+              nameBox.sendKeys(createEntries(getRandomInt(10)));
+
+              let expiryDateBox = await driver.findElement(By.xpath('//*[@id="expiryDate"]'));
+              expiryDateBox.sendKeys(expiryDate);
+
+              let CVVBox = await driver.findElement(By.xpath('//*[@id="cvvCvc"]'));
+              CVVBox.sendKeys(createNum(3));
+
+              let addressBox = await driver.findElement(By.xpath('//*[@id="address"]'));
+              addressBox.sendKeys(createEntries(getRandomInt(10)).concat('Street'));
+
+              let cityBox = await driver.findElement(By.xpath('//*[@id="city"]'));
+              cityBox.sendKeys(createEntries(getRandomInt(10)));
+
+              let zipCodeBox = await driver.findElement(By.xpath('//*[@id="zipCode"]'));
+              zipCodeBox.sendKeys(createNum(6));
+
+              let countryBox = await driver.findElement(By.xpath('//*[@id="country"]'));
+              countryBox.sendKeys(createEntries(getRandomInt(10)));
 
               let clickCheckBox = await driver.findElement(By.xpath('//*[@id="checkBox"]'));
               clickCheckBox.click();
