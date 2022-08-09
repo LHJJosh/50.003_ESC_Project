@@ -21,3 +21,7 @@ export function randDate() {
   let end = new Date(start.getFullYear(), 12-1, 31);
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
+
+export function randBoolean() {
+  return Math.random() < 0.5;
+}
