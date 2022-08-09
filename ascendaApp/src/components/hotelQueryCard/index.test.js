@@ -5,10 +5,11 @@ import '@testing-library/jest-dom'
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
+import axios from 'axios';
 
 import HotelQuery from './index.js';
 import { randString, randIntRange, randDoubleRange, randDate } from '../../testUtils.js'
-import { debug } from 'jest-preview';
+jest.mock('axios');
 
 const CHANGE_DEST_COUNT = 10;
 const CHANGE_SLIDER_COUNT = 5;
@@ -33,6 +34,11 @@ let updateQueryParams = jest.fn();
 let updateSortParams = jest.fn();
 
 beforeEach(() => {
+  axios.get.mockImplementation((url) => {
+    return Promise.resolve({data: [
+      {'term': 'a', 'uid': 'a'}
+    ]});
+  });
 
   act(() => {
     render(
@@ -85,7 +91,7 @@ for (let i = 0; i < CHANGE_DEST_COUNT; i++) {
   it("destination can be changed", () => {
     let destAutocomplete = screen.queryByTestId('queryDestination');
     let destInp = destAutocomplete.querySelector('input');
-    let testInp = randString(31);
+    let testInp = randString(1);
     act(() => {
       destInp.focus();
       fireEvent.change(destInp, { target: { value: testInp } })
@@ -104,10 +110,9 @@ for (let i = 0; i < CHANGE_SLIDER_COUNT; i++) {
     act(() => {
       ratingInp.focus();
       fireEvent.change(ratingInp, { target: { value: "3" } })
+      fireEvent.change(ratingInp, { target: { value: "2" } })
     });
 
-    screen.debug(ratingSlider);
-    screen.debug(ratingInp);
     expect(updateSortParams.mock.calls.length).toBe(1);
   });
 }
