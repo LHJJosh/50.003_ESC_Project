@@ -10,33 +10,44 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import ReactDOM from "react-dom/client"
 // redirect user to this page to check details after confirm booking 
 
 export default function DeleteBooking(){
 
-    const [info, getInfo] = useState('');
+    const [info, getInfo] = useState({
+        title: "",
+        firstName: "",
+        lastName: "",
+        countryCode: "",
+        phoneNumber: "",
+        emailAddress: "",
+        specialRequest: "",
+        cardNumber: "",
+    });
 
-    useEffect(() => {
+    const fetchData = () => {
         axios.get("http://localhost:8000/api/bookings")
         .then(res => {
-            const data = res.data.latest('id')
+            const data = res.data
             getInfo(data)
         })
         .catch((err) => console.log(err));
+    }
+
+    useEffect(() => {
+        fetchData()
     }, []);
 
     function handleClick() {
-        let alert = prompt("Are you sure you would like to cancel this booking?");
-        let text;
-        if (alert == null || alert == ""){
-            text = "Cancelled booking deletion process";
+        if (window.confirm("Are you sure you would like to cancel this booking?")){
+            alert("Booking cancellation successful!");
+            axios
+            .delete(info)
+            .catch((err) => console.log(err))
+    
         } else {
-            text = "Booking cancellation successful!"
+            alert("Cancelled booking deletion process");
         }
-        // axios
-        // .delete(bookingId)
-        // .catch((err) => console.log(err))
     }
 
     const [open, setOpen] = useState(true);
@@ -65,8 +76,8 @@ export default function DeleteBooking(){
                 <CssBaseline />
                 <Box
                 sx={{
-                    marginLeft: 2,
-                    marginRight: 2,
+                    marginLeft: 6,
+                    marginRight: 6,
                     marginTop: 6,
                     marginBottom: 6,
                     display: 'flex',
@@ -77,7 +88,10 @@ export default function DeleteBooking(){
                 <Typography variant="h3" fontFamily={'Roboto'}>
                     THANK YOU FOR BOOKING WITH US
                 </Typography>
+                <br></br>
                 <p>
+                    Booking ID: {info.id}
+                    <br></br>
                     Name: {info.title} {info.firstName} {info.lastName}
                     <br></br>
                     Country Code: {info.countryCode}
