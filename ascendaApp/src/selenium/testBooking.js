@@ -14,7 +14,7 @@ function formatDate(date) {
 }
 
 describe('Booking Actions', function() {
-    this.timeout(10000);
+    this.timeout(100000);
     var driver;
   
     beforeEach(function(){
@@ -24,62 +24,63 @@ describe('Booking Actions', function() {
     });
     describe('fill all form fields', function(){
         it('function should terminate without error', async function() {
-            // let titleBox = await driver.findElement(By.xpath('//*[@id="title"]'));
-            // await titleBox.click();
+            
             let day = new Date();
             let date = new Date(day.getTime() + 2.628e+9);
             let expiryDate = formatDate(date);
 
+            let titleBox = await driver.findElement(By.xpath('//*[@id="title"]'));
+            await titleBox.click(); 
 
             let titleOptions = await driver.findElements(By.className('menuItem'));
             titleOptions[2].click();
 
-            let firstNameBox = await driver.find_element_by_id("firstName");
+            let firstNameBox = await driver.findElement(By.xpath('//*[@id="firstName"]'));
             firstNameBox.sendKeys('Jane');
 
-            let lastNameBox = await driver.find_element_by_id("lastName");
+            let lastNameBox = await driver.findElement(By.xpath('//*[@id="lastName"]'));
             lastNameBox.sendKeys('Doe');
 
-            let countryCodeBox = await driver.find_element_by_id("countryCode");
+            let countryCodeBox = await driver.findElement(By.xpath('//*[@id="countryCode"]'));
             countryCodeBox.sendKeys('Singapore');
 
-            let phoneNoBox = await driver.find_element_by_id("phoneNumber");
+            let phoneNoBox = await driver.findElement(By.xpath('//*[@id="phoneNumber"]'));
             phoneNoBox.sendKeys('12345678');
 
-            let emailAddressBox = await driver.find_element_by_id("emailAddress");
+            let emailAddressBox = await driver.findElement(By.xpath('//*[@id="emailAddress"]'));
             emailAddressBox.sendKeys('beverley_chee@mymail.sutd.edu.sg');
 
-            let specialRecBox = await driver.find_element_by_id("specialRequest");
+            let specialRecBox = await driver.findElement(By.xpath('//*[@id="specialRequest"]'));
             specialRecBox.sendKeys('NIL');
 
-            let cardNoBox = await driver.find_element_by_id("cardNumber");
+            let cardNoBox = await driver.findElement(By.xpath('//*[@id="cardNumber"]'));
             cardNoBox.sendKeys('12345678');
 
-            let nameBox = await driver.find_element_by_id("nameOnCard");
+            let nameBox = await driver.findElement(By.xpath('//*[@id="nameOnCard"]'));
             nameBox.sendKeys('Jane Doe');
 
-            let expiryDateBox = await driver.find_element_by_id("expiryDate");
+            let expiryDateBox = await driver.findElement(By.xpath('//*[@id="expiryDate"]'));
             expiryDateBox.sendKeys(expiryDate);
 
-            let CVVBox = await driver.find_element_by_id("cvvCvc");
+            let CVVBox = await driver.findElement(By.xpath('//*[@id="cvvCvc"]'));
             CVVBox.sendKeys('123');
 
-            let addressBox = await driver.find_element_by_id("address");
+            let addressBox = await driver.findElement(By.xpath('//*[@id="address"]'));
             addressBox.sendKeys('ABC Street');
 
-            let cityBox = await driver.find_element_by_id("city");
+            let cityBox = await driver.findElement(By.xpath('//*[@id="city"]'));
             cityBox.sendKeys('aaAAAA');
 
-            let zipCodeBox = await driver.find_element_by_id("zipCode");
+            let zipCodeBox = await driver.findElement(By.xpath('//*[@id="zipCode"]'));
             zipCodeBox.sendKeys('654321');
 
-            let countryBox = await driver.find_element_by_id("country");
+            let countryBox = await driver.findElement(By.xpath('//*[@id="country"]'));
             countryBox.sendKeys('Singapore')
 
-            let clickCheckBox = await driver.find_element_by_id("checkBox");
+            let clickCheckBox = await driver.findElement(By.xpath('//*[@id="checkBox"]'));
             clickCheckBox.click();
 
-            let confirmButton = await driver.find_element_by_id("confirmButton");
+            let confirmButton = await driver.findElement(By.xpath('//*[@id="confirmButton"]'));
             confirmButton.click();
         });
     });
