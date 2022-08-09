@@ -7,55 +7,32 @@ import { shallow, configure } from 'enzyme';
 import axios from 'axios';
 
 import HotelList from '.';
+import { randString, randIntRange, randDate, randDoubleRange} from '../../testUtils.js'
 
 configure({ adapter: new Adapter() });
 jest.mock('axios');
 
-function getRandomString(length) {
-  let result = '';
-  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+`[]\\;\',./_+{}|:"<>?~';
-  let charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
- return result;
-}
-
-function randomIntFromInterval(min, max) { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-function randomDoubleFromInterval(min, max) { // min and max included 
-  return Math.random() * (max - min + 1) + min
-}
-
-function getRandomDate() {
-  let start = new Date();
-  let end = new Date(start.getFullYear(), 12-1, 31);
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
-
 let queryParams = {
-  destination_uid: getRandomString(31),
-  checkInDay: getRandomDate(),
-  checkOutDay: getRandomDate(),
-  rooms: randomIntFromInterval(1, 4),
-  adults: randomIntFromInterval(1, 4),
-  children: randomIntFromInterval(0, 4)
+  destination_uid: randString(31),
+  checkInDay: randDate(),
+  checkOutDay: randDate(),
+  rooms: randIntRange(1, 4),
+  adults: randIntRange(1, 4),
+  children: randIntRange(0, 4)
 }
 
 let sortParams = {
-  price: randomDoubleFromInterval(0, 5000),
-  rating: randomIntFromInterval(0, 5),
+  price: randDoubleRange(0, 5000),
+  rating: randIntRange(0, 5),
 }
 
 let hotelMap = new Map();
-for (let i = 0; i < randomIntFromInterval(1, 7); i++) {
-  let id = getRandomString(4);
+for (let i = 0; i < randIntRange(1, 7); i++) {
+  let id = randString(4);
   hotelMap.set(id, {
     id: id, 
-    rating: randomIntFromInterval(0, 5), 
-    price: randomDoubleFromInterval(0, 5000).toString()
+    rating: randIntRange(0, 5), 
+    price: randDoubleRange(0, 5000).toString()
   });
 }
 let hotelRes = Array.from(hotelMap, ([k, {price, ...rest}]) => rest);
