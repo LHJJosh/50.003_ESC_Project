@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from './loader.js'
 // import HotelListItem from './hotelListItem.js'
-
 import "./styles.css";
 
 const HotelListCard = React.lazy(() => import("./hotelListCard.js"));
