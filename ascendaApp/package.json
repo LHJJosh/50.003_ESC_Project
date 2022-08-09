@@ -29,9 +29,9 @@
     "emailjs-com": "^3.2.0",
     "final-form": "^4.20.7",
     "google-maps": "^4.3.3",
-    "js-email-validator": "^1.1.2",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
+    "js-email-validator": "^1.1.2",
     "mocha": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -75,12 +75,13 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6"
   },
   "jest": {
     "moduleNameMapper": {
       "^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$": "identity-obj-proxy"
-    },
-    "testEnvironment": "jsdom"
+    }
   }
 }
