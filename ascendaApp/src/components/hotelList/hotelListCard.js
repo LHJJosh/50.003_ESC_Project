@@ -100,4 +100,4 @@ class HotelListCard extends React.Component {
     
 }
 
-export default HotelListCard
+export default HotelListCard;

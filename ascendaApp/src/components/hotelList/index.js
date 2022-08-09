@@ -6,13 +6,12 @@ import { Suspense } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from './loader.js'
 // import HotelListItem from './hotelListItem.js'
-
 import "./styles.css";
 
 const HotelListCard = React.lazy(() => import("./hotelListCard.js"));
 
 
-class HotelListInternals extends React.Component {
+class HotelList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +28,7 @@ class HotelListInternals extends React.Component {
 
   updateHotelInfo = async (queryUrl) => {
     if (typeof queryUrl !== 'undefined') {
-      console.log(queryUrl);
+      // console.log(queryUrl);
       this.setState({emptyForm: false})
       let hotelRes = await axios.get(`/api/hotels${queryUrl}`)
                                 .catch((err) => console.log(err));
@@ -45,7 +44,7 @@ class HotelListInternals extends React.Component {
                                 .catch((err) => console.log(err));
       priceRes.data.hotels.forEach(data => {
         if (this.state.hotels.has(data['id'])) {
-          console.log(data['price'])
+          // console.log(data['price'])
           this.state.hotels.set(data['id'], {
             ...this.state.hotels.get(data['id']),
             ...data
@@ -69,7 +68,8 @@ class HotelListInternals extends React.Component {
     );
     this.state.filteredList.sort((a, b) => a.price - b.price);
     // console.log(this.state.filteredList);
-    this.setState({updatedHotelList: this.state.filteredList.slice(0,10)});
+    this.setState({updatedHotelList: this.state.filteredList.slice(
+      0, Math.min(this.state.filteredList.length, 10))});
   }
 
   componentDidMount() {
@@ -178,5 +178,5 @@ class HotelListInternals extends React.Component {
   }
 }
 
-export const HotelList = HotelListInternals;
+export default HotelList;
    
