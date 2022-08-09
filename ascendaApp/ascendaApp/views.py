@@ -131,12 +131,8 @@ def bookings(request, pk=None, format=None):
     """
     List all code snippets, or create a new booking.
     """
-    # try:
-    #     booking = BookingInfo.objects.get(pk=pk)
-    # except BookingInfo.DoesNotExist:
-    #     return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
-        bookings = BookingInfo.objects.all().last()
+        bookings = BookingInfo.objects
         serializer = BookingsSerializer(bookings, many=True)
         return Response(serializer.data)
 
