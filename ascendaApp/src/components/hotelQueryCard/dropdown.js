@@ -20,12 +20,13 @@ export default class HotelQueryDropdown extends React.Component {
         onChange={evt => this.props.updateQueryParams(
           {[this.props.id]: evt.target.value}
         )}
+        data-testid='queryDropdownSelect'
       >
         {this.props.isZeroAllowed && <MenuItem className='menuItem' value={0}>0</MenuItem>}
-        <MenuItem className='menuItem' value={1}>1</MenuItem>
-        <MenuItem className='menuItem' value={2}>2</MenuItem>
-        <MenuItem className='menuItem' value={3}>3</MenuItem>
-        <MenuItem className='menuItem' value={4}>4</MenuItem>
+        <MenuItem className='menuItem' value={1} data-testid='menuItem'>1</MenuItem>
+        <MenuItem className='menuItem' value={2} data-testid='menuItem'>2</MenuItem>
+        <MenuItem className='menuItem' value={3} data-testid='menuItem'>3</MenuItem>
+        <MenuItem className='menuItem' value={4} data-testid='menuItem'>4</MenuItem>
       </Select>
     </FormControl>
   }
