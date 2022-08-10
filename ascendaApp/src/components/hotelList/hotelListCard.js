@@ -89,7 +89,7 @@ class HotelListCard extends React.Component {
           disabled={this.props.hotelPrice === Number.MAX_VALUE}
           data-testid='hotelBookButton'
         >
-          Book Deal
+          Select Hotel
         </Button>
 
       </CardContent>
