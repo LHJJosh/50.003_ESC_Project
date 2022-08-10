@@ -36,7 +36,7 @@ function generateUUID() { // Public Domain/MIT
           r = (d2 + r)%16 | 0;
           d2 = Math.floor(d2/16);
       }
-      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      return (c === 'x' ? r : ((r & 0x3) | 0x8)).toString(16);
   });
 }
 
@@ -186,10 +186,10 @@ export default function SignUp() {
                         label="Title"
                         autoFocus
                       >
-                        <MenuItem className='menuItem' value={1}>Mr</MenuItem>
-                        <MenuItem className='menuItem' value={2}>Mrs</MenuItem>
-                        <MenuItem className='menuItem' value={3}>Ms</MenuItem>
-                        <MenuItem className='menuItem' value={4}>Dr</MenuItem>
+                        <MenuItem className='menuItem' value={'Mr'}>Mr</MenuItem>
+                        <MenuItem className='menuItem' value={'Mrs'}>Mrs</MenuItem>
+                        <MenuItem className='menuItem' value={'Ms'}>Ms</MenuItem>
+                        <MenuItem className='menuItem' value={'Dr'}>Dr</MenuItem>
                       </Select>
                     </FormControl>
                 </Grid>

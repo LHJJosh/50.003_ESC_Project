@@ -1,11 +1,11 @@
 import React from "react";
-import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
 import { useState, useEffect } from "react";
-import "./styles.css";
 import { RoomCard } from "./roomCard.js";
-import { alignProperty } from "@mui/material/styles/cssUtils";
+
+import "./styles.css";
+
 
 export function RoomsCard(props){
     const [state, setState] = useState({
@@ -31,7 +31,7 @@ export function RoomsCard(props){
                 setState({roomList: res.data.rooms,
                           completed: res.data.completed,
                           uniqueList: uniqueList});
-                if (res.data.completed == false){
+                if (res.data.completed === false){
                     refreshList(queryUrl)
                 };
             })
@@ -56,18 +56,18 @@ export function RoomsCard(props){
             }
             else {
               let R = numGuests%(rooms);
-              if (R == 0){
-                var guests = new Array(rooms).fill(numGuests/rooms);
+              if (R === 0){
+                guests = new Array(rooms).fill(numGuests/rooms);
               }
               else{
                 let newR = numGuests%(rooms-1);
-                if (newR == 0){
-                  var guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
+                if (newR === 0){
+                  guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
                   guests.splice(0, 1, Math.ceil(numGuests/rooms));
                 }
                 else{
                   let M = numGuests-newR
-                  var guests = new Array(rooms).fill(M/(rooms-1));
+                  guests = new Array(rooms).fill(M/(rooms-1));
                   guests.splice(0, 1, newR);
                 }
               }  
@@ -97,7 +97,7 @@ export function RoomsCard(props){
 
     // function roomImage(){
     //     state.roomList.forEach((room) => {
-    //         if(room.images == []){
+    //         if(room.images === []){
     //             console.log('no image')
     //         }
     //         return 

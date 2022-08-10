@@ -55,7 +55,7 @@ class HotelList extends React.Component {
       this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
       this.refreshList();
 
-      if (this.state.completed == false){
+      if (this.state.completed === false){
         this.updateHotelInfo(queryUrl);
       };
     }
@@ -97,18 +97,18 @@ class HotelList extends React.Component {
       }
       else {
         let R = numGuests%(rooms);
-        if (R == 0){
-          var guests = new Array(rooms).fill(numGuests/rooms);
+        if (R === 0){
+          guests = new Array(rooms).fill(numGuests/rooms);
         }
         else{
           let newR = numGuests%(rooms-1);
-          if (newR == 0){
-            var guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
+          if (newR === 0){
+            guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
             guests.splice(0, 1, Math.ceil(numGuests/rooms));
           }
           else{
             let M = numGuests-newR
-            var guests = new Array(rooms).fill(M/(rooms-1));
+            guests = new Array(rooms).fill(M/(rooms-1));
             guests.splice(0, 1, newR);
           }
         }  
