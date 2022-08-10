@@ -54,11 +54,14 @@ export function RoomCard(props){
 
         ratesList.map(x => {
             let sameInstances = uniqueList.filter(a => 
-                a.free_cancellation == x.free_cancellation && 
-                a.roomAdditionalInfo.breakfastInfo == x.roomAdditionalInfo.breakfastInfo
+                (a.free_cancellation == (x.free_cancellation || '')) && 
+                (a.roomAdditionalInfo.breakfastInfo == (x.roomAdditionalInfo.breakfastInfo || ''))
             )
             if (sameInstances.length === 0) {
                 uniqueList.push(x);
+            }
+            else{
+                console.log(sameInstances)
             }
         });
         
