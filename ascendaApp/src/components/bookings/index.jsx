@@ -17,14 +17,28 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Axios from 'axios'
 import { send } from 'emailjs-com';
 import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 //import PickDate from "./pageComponents/datePicker";
+
+function generateUUID() { // Public Domain/MIT
+  var d = new Date().getTime();//Timestamp
+  var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16;//random number between 0 and 16
+      if(d > 0){//Use timestamp until depleted
+          r = (d + r)%16 | 0;
+          d = Math.floor(d/16);
+      } else {//Use microseconds since page-load if supported
+          r = (d2 + r)%16 | 0;
+          d2 = Math.floor(d2/16);
+      }
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
 
 function Copyright(props) {
   return (
@@ -42,13 +56,10 @@ function Copyright(props) {
 const theme = createTheme({
 });
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 export default function SignUp() {
 
   const [data, setData] = useState({ //to database
+    uid: generateUUID(),
     title: "",
     firstName: "",
     lastName: "",
@@ -77,12 +88,11 @@ export default function SignUp() {
   });
 
   function handleChange(e){
-    const newdata={...data}
+    const newdata = {...data}
     newdata[e.target.name] = e.target.value
     setData(newdata)
-    console.log(newdata);
     setToSend({ ...toSend, [e.target.name]: e.target.value });
-    console.log(newdata)
+    // console.log(newdata)
   }
 
   function handleSubmit(event){
@@ -90,6 +100,7 @@ export default function SignUp() {
     let url = "http://localhost:8000/api/bookings"
 
     const info = {
+      uid: data.uid,
       title: data.title,
       firstName: data.firstName,
       lastName: data.lastName,
@@ -119,31 +130,17 @@ export default function SignUp() {
     .then(res=>{
       console.log(res.data)
       console.log('SUCCESS!', res.status, res.text);
-      })
-      .catch((err) =>{
-        console.log('FAILED...', err);
-      });
+    })
+    .catch((err) =>{
+      console.log('FAILED...', err);
+    });
+    routeChange();
   };
-  const [open, setOpen] = useState(false);
 
   let navigate = useNavigate();
   const routeChange = () =>{
-    let path = '/confirmationDetails';
-    navigate(path);
+    navigate('/confirmationDetails', { state: data });
   }
-  
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      routeChange();
-      return;
-    }
-    setOpen(false);
-    routeChange();
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -415,26 +412,13 @@ export default function SignUp() {
                     />
                   </Grid>
                 </Grid>
+
                 <Stack spacing={2} sx={{ width: '100%' }}>
-                  <Button type="submit" variant="outlined" onClick={handleClick} id="confirmButton">
-                  Confirm Booking
+                  <Button type="submit" variant="outlined" id="confirmButton">
+                    Confirm Booking
                   </Button>
-                  {/* component={Link} to="/confirmationDetails" */}
-                  {/* <Button className="bookNowButton" component={Link} to="/bookings">Book Now!</Button> */}
-                  <Snackbar open={open} autoHideDuration={20} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                      Booking Confirmation successful! - Confirmation email sent
-                    </Alert>
-                  </Snackbar>
                 </Stack>
-                {/* <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Confirm Booking
-                </Button> */}
+                
                 <Grid container justifyContent="flex-end">
                   <Grid item>
                     <Link href="#" variant="body2">
