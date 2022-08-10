@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderCard } from './header';
+import HeaderCard from './header';
 import { DetailsCard } from './extraDetails';
 import { RoomsCard } from './roomList';
 import { MapsCard } from './mapView';
