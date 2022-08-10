@@ -50,7 +50,28 @@ export function RoomsCard(props){
         // console.log(query);
         function formatGuests(adults, children, rooms){
             let numGuests = adults + children;
-            const guests = new Array(rooms).fill(numGuests);
+            if (rooms >= numGuests){
+              var guests = new Array(rooms).fill(0);
+              guests.splice(-1, 1, numGuests);
+            }
+            else {
+              let R = numGuests%(rooms);
+              if (R == 0){
+                var guests = new Array(rooms).fill(numGuests/rooms);
+              }
+              else{
+                let newR = numGuests%(rooms-1);
+                if (newR == 0){
+                  var guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
+                  guests.splice(0, 1, Math.ceil(numGuests/rooms));
+                }
+                else{
+                  let M = numGuests-newR
+                  var guests = new Array(rooms).fill(M/(rooms-1));
+                  guests.splice(0, 1, newR);
+                }
+              }  
+            }
             return guests.join('|');
           }
         if (query.hotel_uid !== '' && 
