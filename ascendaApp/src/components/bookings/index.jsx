@@ -78,8 +78,9 @@ export default function SignUp() {
 
   function handleChange(e){
     const newdata={...data}
-    newdata[e.target.uniqueID] = e.target.value
+    newdata[e.target.name] = e.target.value
     setData(newdata)
+    console.log(newdata);
     setToSend({ ...toSend, [e.target.name]: e.target.value });
     console.log(newdata)
   }
@@ -88,8 +89,7 @@ export default function SignUp() {
     event.preventDefault();
     let url = "http://localhost:8000/api/bookings"
 
-    //const info = 
-    Axios.post(url, {
+    const info = {
       title: data.title,
       firstName: data.firstName,
       lastName: data.lastName,
@@ -99,13 +99,15 @@ export default function SignUp() {
       specialRequest: data.specialRequest,
       cardNumber: data.cardNumber,
       nameOnCard: data.nameOnCard,
-      expiryDate: data.expiryDate,
+      expiryDate: data.expiryDate.toString(),
       cvvCvc: data.cvvCvc,
       address: data.address,
       city: data.city,
       zipCode: data.zipCode,
       country: data.country
-    },{
+    }
+    console.log(info);
+    Axios.post(url, info ,{
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       }
