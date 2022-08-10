@@ -87,6 +87,8 @@ export default function SignUp() {
   function handleSubmit(event){
     event.preventDefault();
     let url = "http://localhost:8000/api/bookings"
+
+    //const info = 
     Axios.post(url, {
       title: data.title,
       firstName: data.firstName,

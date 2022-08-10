@@ -126,7 +126,8 @@ class BookingInfo(models.Model):
         max_length=256, blank=True, default=''))
     nameOnCard = encrypt(models.CharField(
         max_length=256, blank=True, default=''))
-    expiryDate = encrypt(models.DateField(default=django.utils.timezone.now))
+    expiryDate = encrypt(models.CharField(
+        max_length=256, blank=True, default=django.utils.timezone.now))
     cvvCvc = encrypt(models.CharField(max_length=256, blank=True, default=''))
     address = encrypt(models.CharField(max_length=256, blank=True, default=''))
     city = encrypt(models.CharField(max_length=256, blank=True, default=''))
@@ -157,7 +158,8 @@ class BookingsSerializer(serializers.Serializer):
         required=False, allow_blank=True, max_length=256)
     nameOnCard = serializers.CharField(
         required=False, allow_blank=True, max_length=256)
-    expiryDate = serializers.DateField(required=False)
+    expiryDate = serializers.CharField(
+        required=False, allow_blank=True, max_length=256)
     cvvCvc = serializers.CharField(
         required=False, allow_blank=True, max_length=256)
     address = serializers.CharField(
