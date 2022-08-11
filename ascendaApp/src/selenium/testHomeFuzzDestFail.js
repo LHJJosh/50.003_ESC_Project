@@ -35,7 +35,7 @@ describe('Home Actions', function() {
       let testCount = 0;
       let value = '';
       
-      let destBox = await driver.findElement(By.xpath('//*[@  d="destination"]'));
+      let destBox = await driver.findElement(By.xpath('//*[@id="destination"]'));
       for(let i = 0; i < NUM_ATTEMPTS; i++){
         await destBox.sendKeys(getRandomValidStr(2));
         await driver.sleep(API_CALL_WAIT);
@@ -49,7 +49,7 @@ describe('Home Actions', function() {
         testCount ++;
       }
       
-      console.log(`Success rate: ${(testCount - failCount)}/${testCount}`);
+      // console.log(`Success rate: ${(testCount - failCount)}/${testCount}`);
       assert(failCount / testCount > THRESHOLD);
     });
   });

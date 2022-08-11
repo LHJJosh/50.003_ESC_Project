@@ -16,7 +16,7 @@ function formatDate(date) {
 }
 
 
-describe('Home Actions', function() {
+describe('Fuzz Rating', function() {
   this.timeout(100000);
   var driver;
 

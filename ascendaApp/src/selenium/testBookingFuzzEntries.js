@@ -1,7 +1,7 @@
 require('chromedriver');
 const { Builder, By, Key, Capabilities } = require('selenium-webdriver');
 
-NUM_ATTEMPTS = 3;
+NUM_ATTEMPTS = 2;
 
 
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -47,7 +47,7 @@ function formatDate(date) {
 
 for(let i = 0; i < NUM_ATTEMPTS; i++){
   describe('Booking Actions', function() {
-      this.timeout(10000);
+      this.timeout(100000);
       var driver;
 
       let day = new Date();

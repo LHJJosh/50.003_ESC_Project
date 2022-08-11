@@ -4,7 +4,7 @@ const assert = require('assert');
 
 NUM_ATTEMPTS = 20;
 THRESHOLD = 0.2;
-API_CALL_WAIT = 400;
+API_CALL_WAIT = 500;
 
 function getRandomValidStr(length) {
   let result           = '';
@@ -51,7 +51,7 @@ describe('Home Actions', function() {
         testCount ++;
       }
       
-      console.log(`Success rate: ${(testCount - failCount)}/${testCount}`);
+      // console.log(`Success rate: ${(testCount - failCount)}/${testCount}`);
       assert(failCount / testCount < THRESHOLD);
     });
   });

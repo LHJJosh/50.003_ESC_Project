@@ -2,7 +2,7 @@ require('chromedriver');
 const { Builder, By, Key, Capabilities} = require('selenium-webdriver');
 const assert = require('assert');
 
-NUM_ATTEMPTS = 3;
+NUM_ATTEMPTS = 2;
 
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
