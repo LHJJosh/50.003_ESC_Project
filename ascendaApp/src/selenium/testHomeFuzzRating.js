@@ -36,7 +36,8 @@ describe('Fuzz Rating', function() {
       let enddate = formatDate(end);
 
       let destBox = await driver.findElement(By.xpath('//*[@id="destination"]'));
-      destBox.sendKeys('Singapore, Singapore (SIN-Changi)');
+      destBox.sendKeys('SIN-C');
+      await driver.sleep(200);
       
       let checkInDayBox = await driver.findElement(By.xpath('//*[@id="checkInDay"]'));
       checkInDayBox.sendKeys(startdate);
