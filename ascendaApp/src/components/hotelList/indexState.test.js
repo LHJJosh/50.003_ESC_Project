@@ -16,27 +16,20 @@ const AXIOS_TEST_COUNTS = 10;
 
 function formatGuests(adults, children, rooms){
   let numGuests = adults + children;
-  if (rooms >= numGuests){
+  if (rooms > numGuests){
     var guests = new Array(rooms).fill(0);
-    guests.splice(-1, 1, numGuests);
+    guests.splice(0, 1, numGuests);
   }
   else {
     let R = numGuests%(rooms);
-    if (R === 0){
-      guests = new Array(rooms).fill(numGuests/rooms);
+    let L = Math.floor(numGuests/rooms);
+    let H = Math.ceil(numGuests/rooms);
+    console.log(L + '; ' + H)
+    var guests = new Array(rooms).fill(L);
+    for (let i=0; i<R; i++){
+      guests.splice(i, 1, H)
+      console.log(guests)
     }
-    else{
-      let newR = numGuests%(rooms-1);
-      if (newR === 0){
-        guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
-        guests.splice(0, 1, Math.ceil(numGuests/rooms));
-      }
-      else{
-        let M = numGuests-newR
-        guests = new Array(rooms).fill(M/(rooms-1));
-        guests.splice(0, 1, newR);
-      }
-    }  
   }
   return guests.join('|');
 }
@@ -97,7 +90,7 @@ for (let i = 0; i < AXIOS_TEST_COUNTS; i++) {
       expect(axios.get).toHaveBeenCalled(); // toHaveBeenCalledTimes(1);
     });
     
-    it(`hotel api is called with correct url${i}`, () => {
+    it(`hotel api is called with correct url ${i}`, () => {
       let numGuests = queryParams.adults + queryParams.children;
       let guests = new Array(queryParams.rooms).fill(numGuests);
     
@@ -109,7 +102,7 @@ for (let i = 0; i < AXIOS_TEST_COUNTS; i++) {
       );
     });
     
-    it(`price api is called with correct url${i}`, () => {
+    it(`price api is called with correct url ${i}`, () => {
       let numGuests = queryParams.adults + queryParams.children;
       let guests = new Array(queryParams.rooms).fill(numGuests);
     
