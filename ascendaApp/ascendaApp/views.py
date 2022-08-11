@@ -127,7 +127,7 @@ def detail_hotel_internal(request, pk, format=None):
 
 
 @api_view(['GET', 'POST', 'DELETE'])
-def bookings(request, pk=None, format=None):
+def bookings(request, format=None):
     """
     List all code snippets, or create a new booking.
     """
@@ -145,6 +145,9 @@ def bookings(request, pk=None, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
+        uid = request.query_params.get('uid')
+        booking = BookingInfo.objects.filter(uid=uid)
+        print(booking)
         booking.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

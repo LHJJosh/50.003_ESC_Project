@@ -109,6 +109,7 @@ class HotelSerializer(serializers.Serializer):
 
 class BookingInfo(models.Model):
     id = models.IntegerField(primary_key=True)
+    uid = models.CharField(max_length=256, blank=False, default='')
     title = encrypt(models.CharField(max_length=256, blank=True, default=''))
     firstName = encrypt(models.CharField(
         max_length=256, blank=True, default=''))
@@ -140,6 +141,8 @@ class BookingInfo(models.Model):
 
 class BookingsSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
+    uid = serializers.CharField(
+        required=True, allow_blank=False, max_length=256)
     title = serializers.CharField(
         required=False, allow_blank=True, max_length=256)
     firstName = serializers.CharField(

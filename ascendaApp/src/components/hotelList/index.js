@@ -73,7 +73,7 @@ class HotelList extends React.Component {
       this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
       this.refreshList();
 
-      if (this.state.completed == false){
+      if (this.state.completed === false){
         this.updateHotelInfo(queryUrl);
       };
     }
