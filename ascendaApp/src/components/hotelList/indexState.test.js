@@ -14,6 +14,33 @@ jest.mock('axios');
 
 const AXIOS_TEST_COUNTS = 10;
 
+function formatGuests(adults, children, rooms){
+  let numGuests = adults + children;
+  if (rooms >= numGuests){
+    var guests = new Array(rooms).fill(0);
+    guests.splice(-1, 1, numGuests);
+  }
+  else {
+    let R = numGuests%(rooms);
+    if (R === 0){
+      guests = new Array(rooms).fill(numGuests/rooms);
+    }
+    else{
+      let newR = numGuests%(rooms-1);
+      if (newR === 0){
+        guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
+        guests.splice(0, 1, Math.ceil(numGuests/rooms));
+      }
+      else{
+        let M = numGuests-newR
+        guests = new Array(rooms).fill(M/(rooms-1));
+        guests.splice(0, 1, newR);
+      }
+    }  
+  }
+  return guests.join('|');
+}
+
 for (let i = 0; i < AXIOS_TEST_COUNTS; i++) {
   describe('axios tests for hotel and price queries', () => {
     let queryParams = {
@@ -78,7 +105,7 @@ for (let i = 0; i < AXIOS_TEST_COUNTS; i++) {
         `/api/hotels?destination_id=${queryParams.destination_uid}` + 
         `&checkin=${queryParams.checkInDay}` + 
         `&checkout=${queryParams.checkOutDay}` + 
-        `&guests=${guests.join('|')}`
+        `&guests=${formatGuests(queryParams.adults, queryParams.children, queryParams.rooms)}`
       );
     });
     
@@ -90,7 +117,7 @@ for (let i = 0; i < AXIOS_TEST_COUNTS; i++) {
         `/api/hotelPrice?destination_id=${queryParams.destination_uid}` + 
         `&checkin=${queryParams.checkInDay}` + 
         `&checkout=${queryParams.checkOutDay}` + 
-        `&guests=${guests.join('|')}`
+        `&guests=${formatGuests(queryParams.adults, queryParams.children, queryParams.rooms)}`
       );
     });
     
