@@ -9,8 +9,7 @@ import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import HotelQueryDropdown from './dropdown.js';
 import { randString, randBoolean, randIntRange } from '../../testUtils.js'
 
-const CLICK_UPDATE_COUNT = 5;
-const CLICK_CALLBACK_COUNT = 5;
+const TEST_COUNT = 10;
 
 let id = randString(31);
 let label = randString(31);
@@ -36,50 +35,48 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-it("renders with correct id", () => {
-  expect(screen.queryByRole('button')).toHaveAttribute('id', id);
-});
-
-it("renders with correct label", () => {
-  let buttonElement = screen.queryByRole('button');
-  fireEvent.mouseDown(buttonElement);
-  let listBoxElement = screen.queryByRole('listbox');
-  expect(listBoxElement).toHaveAttribute('aria-labelledby', id);
-});
-
-it("renders with correct menu items", () => {
-  let buttonElement = screen.queryByRole('button');
-  fireEvent.mouseDown(buttonElement);
-  let menuItems = screen.queryAllByTestId('menuItem');
-  let i = 1;
-
-  menuItems.forEach(menuItem => {
-    expect(menuItem).toHaveAttribute('data-value', i.toString());
-    i++;
-  });
-});
-
-for (let i = 0; i < CLICK_CALLBACK_COUNT; i++) {
-  it(`triggers callback on menu item click ${i}`, () => {
-    let buttonElement = screen.queryByRole('button');
-    fireEvent.mouseDown(buttonElement);
-    let menuItems = screen.queryAllByTestId('menuItem');
-    fireEvent.click(menuItems[0]);
-
-    expect(updateQueryParams.mock.calls.length).toBe(1);
-  });
-}
-
-for (let i = 0; i < CLICK_UPDATE_COUNT; i++) {
-  it(`updates right value on item click ${i}`, () => {
-    let buttonElement = screen.queryByRole('button');
-    fireEvent.mouseDown(buttonElement);
-    let menuItems = screen.queryAllByTestId('menuItem');
+for (let i = 0; i < TEST_COUNT; i++) {
+  describe('test dropdown render and callbacks', () => {
+    it(`renders with correct id ${i}`, () => {
+      expect(screen.queryByRole('button')).toHaveAttribute('id', id);
+    });
     
-    let randomChoice = randIntRange(0, menuItems.length - 1);
-    fireEvent.click(menuItems[randomChoice]);
+    it(`renders with correct label ${i}`, () => {
+      let buttonElement = screen.queryByRole('button');
+      fireEvent.mouseDown(buttonElement);
+      let listBoxElement = screen.queryByRole('listbox');
+      expect(listBoxElement).toHaveAttribute('aria-labelledby', id);
+    });
+    
+    it(`renders with correct menu items ${i}`, () => {
+      let buttonElement = screen.queryByRole('button');
+      fireEvent.mouseDown(buttonElement);
+      let menuItems = screen.queryAllByTestId('menuItem');
+      let i = 1;
+    
+      menuItems.forEach(menuItem => {
+        expect(menuItem).toHaveAttribute('data-value', i.toString());
+        i++;
+      });
+    });
+    
+    it(`triggers callback on menu item click ${i}`, () => {
+      let buttonElement = screen.queryByRole('button');
+      act(() => {
+        fireEvent.mouseDown(buttonElement);
+      })
+
+      let menuItems = screen.queryAllByTestId('menuItem');
+      let newIdx = randIntRange(0, menuItems.length - 1);
+      while (newIdx === value - 1) {
+        newIdx = randIntRange(0, menuItems.length - 1);
+      }
+
+      act(() => {
+        fireEvent.click(menuItems[newIdx]);
+      });
   
-    let expectedValue = menuItems[0].getAttribute('data-value');
-    expect(screen.queryByText(expectedValue)).toBeInTheDocument();
-  });  
+      expect(updateQueryParams.mock.calls.length).toBe(1);
+    });
+  })
 }

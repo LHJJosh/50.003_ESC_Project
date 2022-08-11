@@ -14,7 +14,7 @@ jest.mock('axios');
 const TEST_COUNT = 10;
 
 for (let i = 0; i < TEST_COUNT; i++) {
-  describe('tests for query dropdown', () => {
+  describe('tests for query card', () => {
     let queryParams = {
       hotel_uid: randString(4),
       destination: randString(31),
