@@ -22,7 +22,8 @@ class HotelList extends React.Component {
       hasMore: true,
       perPage: 10,
       completed: false,
-      emptyForm: true
+      emptyForm: true,
+      noRooms: false
     }
   }
 
@@ -31,27 +32,44 @@ class HotelList extends React.Component {
       // console.log(queryUrl);
       this.state.emptyForm = false;
       let hotelRes = await axios.get(`/api/hotels${queryUrl}`)
-                                .catch((err) => console.log(err));
-      this.state.hotels.clear();
-      await hotelRes.data.forEach(data => {
-        this.state.hotels.set(data['id'], {
-          ...data,
-          price: Number.MAX_VALUE
-        });
-      });
-      
-      let priceRes = await axios.get(`/api/hotelPrice${queryUrl}`)
-                                .catch((err) => console.log(err));
-      priceRes.data.hotels.forEach(data => {
-        if (this.state.hotels.has(data['id'])) {
-          // console.log(data['price'])
+                                .catch((err) => {
+                                  console.log(err);
+                                  if (err.response.status == 500 || err.response.status == 400){
+                                    this.setState({completed: true})
+                                    this.setState({noRooms: true})
+                                  }
+                                });
+      if (typeof hotelRes != 'undefined'){
+        this.state.hotels.clear();
+        await hotelRes.data.forEach(data => {
           this.state.hotels.set(data['id'], {
-            ...this.state.hotels.get(data['id']),
-            ...data
+            ...data,
+            price: Number.MAX_VALUE
           });
-          this.state.completed = true;
-        } // no data left as Number.MAX_VALUE
-      });
+        });
+      }
+      let priceRes = await axios.get(`/api/hotelPrice${queryUrl}`)
+                                .catch((err) => {
+                                  console.log(err);
+                                  if (err.response.status == 500 || err.response.status == 400){
+                                    this.setState({completed: true})
+                                    this.setState({noRooms: true})
+                                  }
+                                });
+      if (typeof priceRes != 'undefined'){
+        // console.log(priceRes)
+        priceRes.data.hotels.forEach(data => {
+          if (this.state.hotels.has(data['id'])) {
+            // console.log(data['price'])
+            this.setState({noRooms: false});
+            this.state.hotels.set(data['id'], {
+              ...this.state.hotels.get(data['id']),
+              ...data
+            });
+            this.state.completed = true;
+          } // no data left as Number.MAX_VALUE
+        });
+      }
       this.state.hotelList = Array.from(this.state.hotels, ([k, v]) => v);
       this.refreshList();
 
@@ -79,6 +97,7 @@ class HotelList extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.queryParams !== this.props.queryParams) {
       this.setState({completed: false})
+      this.setState({noRooms: false})
       this.updateHotelInfo(this.buildQuery());
     }
     if (prevProps.sortParams !== this.props.sortParams) {
@@ -91,27 +110,20 @@ class HotelList extends React.Component {
     let query = this.props.queryParams;
     function formatGuests(adults, children, rooms){
       let numGuests = adults + children;
-      if (rooms >= numGuests){
+      if (rooms > numGuests){
         var guests = new Array(rooms).fill(0);
-        guests.splice(-1, 1, numGuests);
+        guests.splice(0, 1, numGuests);
       }
       else {
         let R = numGuests%(rooms);
-        if (R == 0){
-          var guests = new Array(rooms).fill(numGuests/rooms);
+        let L = Math.floor(numGuests/rooms);
+        let H = Math.ceil(numGuests/rooms);
+        console.log(L + '; ' + H)
+        var guests = new Array(rooms).fill(L);
+        for (let i=0; i<R; i++){
+          guests.splice(i, 1, H)
+          console.log(guests)
         }
-        else{
-          let newR = numGuests%(rooms-1);
-          if (newR == 0){
-            var guests = new Array(rooms).fill(Math.floor(numGuests/rooms));
-            guests.splice(0, 1, Math.ceil(numGuests/rooms));
-          }
-          else{
-            let M = numGuests-newR
-            var guests = new Array(rooms).fill(M/(rooms-1));
-            guests.splice(0, 1, newR);
-          }
-        }  
       }
       return guests.join('|');
     }
@@ -158,6 +170,7 @@ class HotelList extends React.Component {
   render() {
     return <div className='hotelList' id='hotelList'>
       {this.state.completed || this.state.emptyForm ? <div></div>: <div><Loader></Loader><br></br></div>}
+      {this.state.noRooms ? <h2 className='noHotels'> No Available Hotels</h2> : <div></div>}
       <InfiniteScroll
         className='infiniteScroll'
         dataLength={this.state.updatedHotelList.length}
