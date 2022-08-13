@@ -8,6 +8,10 @@ A hotel search and booking web application with Ascenda.
 <img src="images/ss_hotelDetail.png" width=800>
 </div>
 
+
+See demo video on: https://drive.google.com/file/d/1d5EkU6xFjz0_3e2JGs4bvSQ1g90x-ai1/view?usp=sharing
+(similar sequence shown live on presentation)
+
 ## Environment setup
 Create your conda environment or python venv and run the following in it. 
 If unsure, refer to https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/.
