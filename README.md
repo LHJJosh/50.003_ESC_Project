@@ -13,16 +13,14 @@ Create your conda environment or python venv and run the following in it.
 If unsure, refer to https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/.
 ```
 python -m pip install -U --force-reinstall -r requirements.txt  # use pip3 for Linux
-npm install
+cd ascendaApp/
+npm install # in ./ascendaApp
 ```
 
 ## Run app locally
-1. Run the following on separate terminals
+1. Run the following on separate terminals in `./ascendaApp`
 ```
-cd ascendaApp/
 python manage.py runserver # django
-```
-```
 npm start                  # react
 ```
 2. Visit localhost:3000
