@@ -118,11 +118,11 @@ class HotelList extends React.Component {
         let R = numGuests%(rooms);
         let L = Math.floor(numGuests/rooms);
         let H = Math.ceil(numGuests/rooms);
-        console.log(L + '; ' + H)
+        // console.log(L + '; ' + H)
         var guests = new Array(rooms).fill(L);
         for (let i=0; i<R; i++){
           guests.splice(i, 1, H)
-          console.log(guests)
+          // console.log(guests)
         }
       }
       return guests.join('|');
