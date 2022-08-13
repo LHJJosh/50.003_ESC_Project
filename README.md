@@ -1,20 +1,12 @@
 # 50.003_ESC_Project
 
-## Project creation
-Refer to this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
-```
-# Django setup
-pip install django
-django-admin startproject ascendaDjango
-django-admin startapp ascendaApp
-# add ascendaApp to INSTALLED_APPS in ascendaApp/ascendaApp/settings.py
-# add react directory to urlpatterns in ascendaApp/ascendaApp/url.py
+A hotel search and booking web application with Ascenda.
 
-# React setup
-npm install -g create-react-app
-create-react-app ascenda-app
-mv ascenda-app/*
-```
+<div align="center">
+<img src="images/ss_hotelSearch.png" width=800>
+<br>
+<img src="images/ss_hotelDetail.png" width=800>
+</div>
 
 ## Environment setup
 Create your conda environment or python venv and run the following in it. 
@@ -25,29 +17,22 @@ npm install
 ```
 
 ## Run app locally
+1. Run the following on separate terminals
 ```
 cd ascendaApp/
 python manage.py runserver # django
-npm start                  # react
-
-# Visit localhost:8000/admin/
-# Visit localhost:8000/api/getHotelView/
-# Visit localhost:8000/api/getHotelView/7/ # to update / delete for id 7
 ```
+```
+npm start                  # react
+```
+2. Visit localhost:3000
 
 ## Test locally
 ```
 python manage.py runserver                        # run server for selenium
 npx mocha src/selenium/test.js --no-timeouts      # run individual selenium test file
 npx mocha src/selenium --no-timeouts --recursive  # run all selenium tests
-python manage.py test ascendaApp                  # run all django tests
-```
-
-## Deploy locally
-```
-cd ascendaApp/
-npm run build               # react frontend
-python manage.py runserver  # start django server
+./node_modules/.bin/jest ./src/components/        # run all unit tests
 ```
 
 ## Change database models
@@ -105,4 +90,20 @@ SELECT * FROM ascendaApp_bookinginfo;
         └───...
     ├───manage.py       
     └───...
+```
+
+## Project creation
+Refer to this guide to setup: https://alphacoder.xyz/dead-simple-react-django-setup/
+```
+# Django setup
+pip install django
+django-admin startproject ascendaDjango
+django-admin startapp ascendaApp
+# add ascendaApp to INSTALLED_APPS in ascendaApp/ascendaApp/settings.py
+# add react directory to urlpatterns in ascendaApp/ascendaApp/url.py
+
+# React setup
+npm install -g create-react-app
+create-react-app ascenda-app
+mv ascenda-app/*
 ```
